@@ -8,8 +8,9 @@ data:
 
   - name: mutant
     startingStats:
-    maxHp: 5
-    attack: 0
+      maxHp: 7
+      attack: 0
+      defense: 0
 
   - name: pirate
     startingStats:

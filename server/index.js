@@ -1,11 +1,20 @@
 import express from 'express';
 
 import datastore from './datastore';
+import { initDatabase, loadInitialTables } from './datastore';
 var server = express();
 
 
 function start() {
-  server.listen(process.env.PORT);
+  datastore
+  .then(db => {
+    initDatabase(db);
+    loadInitialTables(db);
+    server.listen(process.env.PORT);
+  })
+  .catch(err => {
+    console.error(err);
+  });
 }
 
 start();
