@@ -1,4 +1,6 @@
 import express from 'express';
+
+import datastore from './datastore';
 var server = express();
 
 

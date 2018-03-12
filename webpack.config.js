@@ -2,7 +2,7 @@ var path = require('path');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
 const SERVER_DIR = path.resolve(__dirname, 'server');
-const DATA_DIR = path.resolve(__dirname, 'game', 'data');
+const DATA_DIR = path.resolve(__dirname, 'server', 'game', 'data');
 
 module.exports = {
   entry: path.resolve(SERVER_DIR, 'index.js'),

@@ -1,0 +1,3 @@
+tables:
+  - name: Heroes
+    file: heroes.yamls

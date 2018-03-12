@@ -1,0 +1,24 @@
+table: heroes
+data:
+  - name: marine
+    startingStats:
+      maxHp: 3
+      attack: 2
+      defense: 1
+
+  - name: mutant
+    startingStats:
+    maxHp: 5
+    attack: 0
+
+  - name: pirate
+    startingStats:
+      maxHp: 2
+      attack: 2
+      defense: 3
+
+  - name: hacker
+    startingStats:
+      maxHp: 2
+      attack: 1
+      defense: 1
