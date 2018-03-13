@@ -1,0 +1,6 @@
+table: environments
+data:
+  - name: grasslands
+    descriptions:
+      - A planet covered in vast, grassy plains
+      - A thriving planet that is home to many simple lifeforms

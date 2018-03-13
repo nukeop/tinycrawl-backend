@@ -20,14 +20,23 @@ export function initDatabase(db) {
 }
 
 export function loadInitialTables(db) {
+  console.log('Loading definitions...');
   const req = require.context("json-loader!yaml-loader!./game/data", true, /yaml$/);
   _.forEach(dataIndex.tables, table => {
+
+    console.log(`Loading defintions for table ${table.name}...`);
     let data = eval(req(table.file));
     _.forEach(data.data, obj => {
-      console.log(obj);
-      db.get(`${definitions}${data.table}`)
-      .push(obj)
-      .write();
+      //Check for uniqueness by definition name
+      let existing = db.get(`${definitions}${data.table}`)
+      .filter({name: obj.name})
+      .value().length;
+
+      if (existing === 0) {
+        db.get(`${definitions}${data.table}`)
+        .push(obj)
+        .write();
+      }
     });
   });
 }

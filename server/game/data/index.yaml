@@ -1,3 +1,6 @@
 tables:
   - name: Heroes
     file: ./heroes.yaml
+
+  - name: Environments
+    file: ./environments.yaml
