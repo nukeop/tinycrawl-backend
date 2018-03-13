@@ -24,19 +24,17 @@ export function loadInitialTables(db) {
   const req = require.context("json-loader!yaml-loader!./game/data", true, /yaml$/);
   _.forEach(dataIndex.tables, table => {
 
-    console.log(`Loading defintions for table ${table.name}...`);
+    console.log(`Loading definitions for table ${table.name}...`);
     let data = eval(req(table.file));
     _.forEach(data.data, obj => {
-      //Check for uniqueness by definition name
-      let existing = db.get(`${definitions}${data.table}`)
-      .filter({name: obj.name})
-      .value().length;
+      // Update definitions by removing existing ones first
+      db.get(`${definitions}${data.table}`)
+      .remove({name: obj.name})
+      .write();
 
-      if (existing === 0) {
-        db.get(`${definitions}${data.table}`)
-        .push(obj)
-        .write();
-      }
+      db.get(`${definitions}${data.table}`)
+      .push(obj)
+      .write();
     });
   });
 }
