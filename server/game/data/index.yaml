@@ -4,3 +4,6 @@ tables:
 
   - name: Environments
     file: ./environments.yaml
+
+  - name: Moves
+    file: ./moves.yaml

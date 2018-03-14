@@ -1,0 +1,9 @@
+table: moves
+data:
+  - name: supply_drop
+    prettyName: Supply Drop
+    description: Provides a random amount of combat supplies. Medicine, ammo, rations, etc.
+
+  - name: rapid_fire
+    prettyName: Rapid Fire
+    description: Attacks twice with selected ranged weapon.
