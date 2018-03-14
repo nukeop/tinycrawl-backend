@@ -7,11 +7,11 @@ Backend for the tinycrawl phaser game
 
 Contains definitions of resource types. Think character classes, environment types, weapon components, and so on.
 
-| Route                          | HTTP Verb | Description                     |
-|-:------------------------------|-:---------|-:-------------------------------|
-| /definitions/heroes            | **GET**   | Get a list of all hero types.   |
-| /definitions/heroes:name       | **GET**   | Get a single hero type.         |
-| /definitions/environments      | **GET**   | Get a list of all environments. |
-| /definitions/environments:name | **GET**   | Get a single environment.       |
-| /definitions/moves             | **GET**   | Get a list of all moves.        |
-| /definitions/moves:name        | **GET**   | Get a single move.              |
+Route                            | HTTP Verb   | Description
+---------------------------------|-------------|----------------------------------
+/definitions/heroes              | **GET**     | Get a list of all hero types.
+/definitions/heroes:name         | **GET**     | Get a single hero type.
+/definitions/environments        | **GET**     | Get a list of all environments.
+/definitions/environments:name   | **GET**     | Get a single environment.
+/definitions/moves               | **GET**     | Get a list of all moves.
+/definitions/moves:name          | **GET**     | Get a single move.
