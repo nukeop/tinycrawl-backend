@@ -10,10 +10,10 @@ Contains definitions of resource types. Think character classes, environment typ
 Route                                    | HTTP Verb | Description
 -----------------------------------------|-----------|------------------------------------------
 /definitions/heroes                      | **GET**   | Get a list of all hero types.
-/definitions/heroes:name                 | **GET**   | Get a single hero type.
+/definitions/heroes/:name                | **GET**   | Get a single hero type.
 /definitions/environments                | **GET**   | Get a list of all environments.
-/definitions/environments:name           | **GET**   | Get a single environment.
+/definitions/environments/:name          | **GET**   | Get a single environment.
 /definitions/moves                       | **GET**   | Get a list of all moves.
-/definitions/moves:name                  | **GET**   | Get a single move.
+/definitions/moves/:name                 | **GET**   | Get a single move.
 /definitions/environmentalFeatures       | **GET**   | Get a list of all environmental features.
 /definitions/environmentalFeatures/:name | **GET**   | Get a single environmental feature.
