@@ -11,7 +11,19 @@ export function initRoutes(db) {
 
   _.forEach(db.get('definitions').value(),(table, key) => {
     router.get(`/definitions/${key}`, (req, res) => {
-      res.status(200).json({ [`${key}`]: db.get(`definitions.${key}`).value() });
+      res
+      .status(200)
+      .json({
+        [`${key}`]: db.get(`definitions.${key}`).value()
+      });
+    });
+
+    router.get(`/definitions/${key}/:name`, (req, res) => {
+      res
+      .status(200)
+      .json({
+        [`${key}`]: db.get(`definitions.${key}`).filter({name: req.params.name}).value()
+      });
     });
   });
 
