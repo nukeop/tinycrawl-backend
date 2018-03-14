@@ -1,0 +1,37 @@
+table: environmentalFeatures
+data:
+  - name: humidity_low
+    prettyname: Low Humidity
+
+  - name: humidity_medium
+    prettyname: Medium Humidity
+
+  - name: humidity_high
+    prettyname: High Humidity
+
+  - name: humidity_underwater
+    prettyname: Underwater
+
+  - name: temperature_extreme_low
+    prettyname: Extremely Low Temperature
+
+  - name: temperature_low
+    prettyname: Low Temperature
+
+  - name: temperature_medium
+    prettyname: Medium Temperature
+
+  - name: temperature_high
+    prettyname: High Temperature
+
+  - name: no_oxygen
+    prettyname: No Oxygen
+    description: This environment has no oxygen in its atmosphere.
+
+  - name: no_atmosphere
+    prettyname: No Atmosphere
+    description: This environment has no atmosphere at all.
+
+  - name: gamma_radiation
+    prettyname: Gamma Radiation
+    description: This environment is bathed in gamma radiation.

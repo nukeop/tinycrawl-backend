@@ -7,3 +7,6 @@ tables:
 
   - name: Moves
     file: ./moves.yaml
+
+  - name: EnvironmentalFeatures
+    file: ./environmentalFeatures.yaml
