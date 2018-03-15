@@ -12,14 +12,11 @@ export function initDatabase(db) {
   const tableNames = _.map(dataIndex.tables, table => {
     return eval(req(table.file)).table;
   });
-  let initialData = {
+  let defaults = {
     definitions: {},
     users: []
   };
-  _.forEach(tableNames, name => {
-    initialData['definitions'][`${name}`] = [];
-  });
-  db.defaults(initialData).write();
+  db.defaults(defaults).write();
 }
 
 export function loadInitialTables(db) {
@@ -30,12 +27,20 @@ export function loadInitialTables(db) {
     console.log(`Loading definitions for table ${table.name}...`);
     let data = eval(req(table.file));
     _.forEach(data.data, obj => {
+
+      // Retrieve the table corresponding to this resource or create it if it doesn't exist
+      let table = db.get(`${definitions}.${data.table}`);
+      if (table.value() === undefined) {
+        db.set(`${definitions}.${data.table}`, []).write();
+        table = db.get(`${definitions}.${data.table}`);
+      }
+
       // Update definitions by removing existing ones first
-      db.get(`${definitions}.${data.table}`)
+      table
       .remove({name: obj.name})
       .write();
 
-      db.get(`${definitions}.${data.table}`)
+      table
       .push(obj)
       .write();
     });

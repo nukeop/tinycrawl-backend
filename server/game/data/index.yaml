@@ -10,3 +10,6 @@ tables:
 
   - name: EnvironmentalFeatures
     file: ./environmentalFeatures.yaml
+
+  - name: Traits
+    file: ./traits.yaml
