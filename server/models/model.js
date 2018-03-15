@@ -18,12 +18,19 @@ class Model {
   }
 
   static validateRequiredParams(params, required, className) {
+    let result = {result: true, missing: []}
     let keys = Object.keys(params);
     _.forEach(required, param => {
       if (!_.includes(keys, param)) {
-        throw `Missing required parameter: ${param} while creating an instance of class: ${className}`;
+        result.missing.push(param);
       }
     });
+
+    if(result.missing.length > 0) {
+      result.result = false;
+    }
+
+    return result;
   }
 }
 

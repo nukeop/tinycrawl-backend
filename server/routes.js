@@ -39,10 +39,14 @@ export function initRoutes(db) {
 
   router.post('/users', (req, res) => {
     let user = new User({});
-    user.save(db);
+    user.save();
     res
     .status(200)
     .json(user.serialize());
+  });
+
+  router.get('/', (req, res) => {
+    res.status(200).json({resources: Object.keys(db.value())});
   });
 
   router.get('*', (req, res) => {

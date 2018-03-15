@@ -3,11 +3,17 @@ import Model from './model';
 
 class Hero extends Model {
   create(params) {
-    Model.validateRequiredParams(params, ['name', 'heroDefinition'], 'Hero');
+    Model.validateRequiredParams(
+      params,
+      ['name', 'heroDefinition'],
+      'Hero'
+    );
 
     this.uuid = uuidv4();
     this.name = params.name;
-    this.heroDefinition = params.heroDefinition;
+    this.heroClass =  { name: params.heroDefinition.name, prettyName: params.heroDefinition.name };
+    this.stats = params.heroDefinition.startingStats;
+    this.slots = params.heroDefinition.slots;
   }
 
   serialize() {

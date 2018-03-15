@@ -5,7 +5,7 @@ import Model from '../server/models/model';
 
 describe('Model tests', () => {
   it('tests the validation method', () => {
-    Model.validateRequiredParams(
+    let result = Model.validateRequiredParams(
       {
         abc: 'def',
         ghi: 'jkl'
@@ -16,10 +16,12 @@ describe('Model tests', () => {
       ],
       'test'
     );
+    expect(result).to.be.an('Object').that.has.all.keys('result', 'missing');
+    expect(result.result).to.equal(true);
   });
 
   it('tests the exception thrown by the validation method', () => {
-    expect(() => Model.validateRequiredParams(
+    let result = Model.validateRequiredParams(
       {
         abc: 'def',
         ghi: 'jkl'
@@ -30,6 +32,10 @@ describe('Model tests', () => {
         'qwe'
       ],
       'test'
-    )).to.throw();
+    );
+
+    expect(result.result).to.equal(false);
+    expect(result.missing).to.be.an('Array');
+    expect(result.missing[0]).to.equal('qwe');
   });
 });
