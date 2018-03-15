@@ -9,6 +9,10 @@ class Model {
     console.error('Model should be inherited from and never instantiated directly');
   }
 
+  serialize() {
+    console.error('Model should be inherited from and never instantiated directly');
+  }
+  
   static validateRequiredParams(params, required, className) {
     let keys = Object.keys(params);
     _.forEach(required, param => {

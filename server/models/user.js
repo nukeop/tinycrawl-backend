@@ -9,5 +9,22 @@ class User extends Model {
         'uuid'
       ],
       'User');
+
+      this.uuid = params.uuid;
+    }
+
+    serialize() {
+      return {
+        uuid: this.uuid
+      }
+    }
+
+    save(db) {
+      let table = db.get(User.table);
+      table.push(this.serialize()).write();
     }
   }
+
+User.table = 'users';
+
+export default User;

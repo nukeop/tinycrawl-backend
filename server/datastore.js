@@ -12,7 +12,10 @@ export function initDatabase(db) {
   const tableNames = _.map(dataIndex.tables, table => {
     return eval(req(table.file)).table;
   });
-  let initialData = { definitions: {} };
+  let initialData = {
+    definitions: {},
+    users: []
+  };
   _.forEach(tableNames, name => {
     initialData['definitions'][`${name}`] = [];
   });
