@@ -1,17 +1,13 @@
 import _ from 'lodash';
+import uuidv4 from 'uuid/v4';
 import Model from './model';
 
 class User extends Model {
   create(params) {
-    Model.validateRequiredParams(
-      params,
-      [
-        'uuid'
-      ],
-      'User');
+    Model.validateRequiredParams(params, [], 'User');
 
-      this.uuid = params.uuid;
-    }
+    this.uuid = uuidv4();
+  }
 
     serialize() {
       return {

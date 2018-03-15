@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import uuidv4 from 'uuid/v4';
 import { Router } from 'express';
 
 import { User } from './models';
@@ -39,8 +38,7 @@ export function initRoutes(db) {
   });
 
   router.post('/users', (req, res) => {
-    let uuid = uuidv4();
-    let user = new User({uuid});
+    let user = new User({});
     user.save(db);
     res
     .status(200)
