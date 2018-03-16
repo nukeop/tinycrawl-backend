@@ -3,6 +3,14 @@ Backend for the tinycrawl phaser game
 
 ## API Endpoints
 
+#### Resources
+
+Lists all available resources.
+
+Route  |HTTP Verb   |  Definition
+--|---|--
+/|**GET**   |  Get a list of all available resources.
+
 #### Definitions
 
 Contains definitions of resource types. Think character classes, environment types, weapon components, and so on.
