@@ -2,10 +2,6 @@ import _ from 'lodash';
 import { Router } from 'express';
 
 import createAllEndpoints from './endpoints';
-import {
-  User,
-  Hero
-} from './models';
 import { NotFound } from './errors';
 
 var router = Router();
@@ -19,7 +15,7 @@ export function initRoutes(db) {
   });
 
   router.get('*', (req, res) => {
-    res.status(404).json({ message: 'The requested resource was not found.' });
+    NotFound(res, 'The requested resource was not found.');
   });
 }
 
