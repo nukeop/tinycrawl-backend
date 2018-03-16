@@ -6,6 +6,10 @@ function createEndpoint(router, db) {
     res.status(200).json({ heroes:db.get('heroes').value()});
   });
 
+  router.get('/heroes/:uuid', (req, res) => {
+    res.status(200).json({ heroes: db.get('heroes').filter({ uuid: req.params.uuid }).value() });
+  });
+
   router.post('/heroes/:heroDefinition/:name/:userUuid', (req, res) => {
     let definition = db.get('definitions.heroes').filter({name: req.params.heroDefinition}).head().value();
 
