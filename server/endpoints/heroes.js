@@ -10,6 +10,21 @@ function createEndpoint(router, db) {
     res.status(200).json({ heroes: db.get('heroes').filter({ uuid: req.params.uuid }).value() });
   });
 
+  router.get('/heroes/:uuid/traits', (req, res) => {
+    res.status(200).json({ traits: db.get('heroes').filter({ uuid: req.params.uuid }).head().value().traits });
+  });
+
+  router.post('/heroes/:uuid/traits/:traitName', (req, res) => {
+    let trait = db.get('definitions.traits').filter({ name: req.params.traitName }).head().value();
+    let hero = db.get('heroes').filter({ uuid: req.params.uuid }).head().value();
+
+    hero.traits.push(trait);
+    db.get('heroes').remove({uuid: hero.uuid}).write();
+    db.get('heroes').push(hero).write();
+
+    res.status(200).json(hero);
+  });
+
   router.post('/heroes/:heroDefinition/:name/:userUuid', (req, res) => {
     let definition = db.get('definitions.heroes').filter({name: req.params.heroDefinition}).head().value();
 

@@ -43,4 +43,7 @@ Contains data about characters created by users.
 Route                                   | HTTP Verb | Description
 ----------------------------------------|-----------|--------------------------
 /heroes                                 | **GET**   | Get a list of all heroes.
-/heroes/:heroDefinition/:name/:userUuid | **POST**  | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be create for the user identified by `userUuid`.
+/heroes/:uuid  | **GET**  | Get a single hero.
+/heroes/:uuid/traits  | **GET**   |  Get the traits of a single hero.
+/heroes/:uuid/traits/:traitname  | **POST**   |  Add a trait to a single hero.
+/heroes/:heroDefinition/:name/:userUuid | **POST**  | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the user identified by `userUuid`.
