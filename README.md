@@ -6,10 +6,9 @@ Backend for the tinycrawl phaser game
 #### Resources
 
 Lists all available resources.
-
-Route  |HTTP Verb   |  Definition
---|---|--
-/|**GET**   |  Get a list of all available resources.
+Route | HTTP Verb | Definition
+------|-----------|---------------------------------------
+/     | **GET**   | Get a list of all available resources.
 
 #### Definitions
 
@@ -39,11 +38,10 @@ Route        | HTTP Verb | Description
 #### Heroes
 
 Contains data about characters created by users.
-
 Route                                   | HTTP Verb | Description
-----------------------------------------|-----------|--------------------------
+----------------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /heroes                                 | **GET**   | Get a list of all heroes.
-/heroes/:uuid  | **GET**  | Get a single hero.
-/heroes/:uuid/traits  | **GET**   |  Get the traits of a single hero.
-/heroes/:uuid/traits/:traitname  | **POST**   |  Add a trait to a single hero.
+/heroes/:uuid                           | **GET**   | Get a single hero.
+/heroes/:uuid/traits                    | **GET**   | Get the traits of a single hero.
+/heroes/:uuid/traits/:traitname         | **POST**  | Add a trait to a single hero.
 /heroes/:heroDefinition/:name/:userUuid | **POST**  | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the user identified by `userUuid`.
