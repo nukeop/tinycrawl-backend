@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { Router } from 'express';
 
 import createAllEndpoints from './endpoints';
