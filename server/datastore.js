@@ -14,7 +14,8 @@ export function initDatabase(db) {
   });
   let defaults = {
     definitions: {},
-    users: []
+    users: [],
+    heroes: []
   };
   db.defaults(defaults).write();
 }

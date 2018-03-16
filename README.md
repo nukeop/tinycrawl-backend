@@ -27,3 +27,12 @@ Route        | HTTP Verb | Description
 /users       | **POST**  | Create a new user. Returns the new User object.
 /users       | **GET**   | Get a list of all users.
 /users/:uuid | **GET**   | Get a single user.
+
+#### Heroes
+
+Contains data about characters created by users.
+
+Route                                   | HTTP Verb | Description
+----------------------------------------|-----------|--------------------------
+/heroes                                 | **GET**   | Get a list of all heroes.
+/heroes/:heroDefinition/:name/:userUuid | **POST**  | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be create for the user identified by `userUuid`.

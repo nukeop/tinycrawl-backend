@@ -5,22 +5,30 @@ class Hero extends Model {
   create(params) {
     Model.validateRequiredParams(
       params,
-      ['name', 'heroDefinition'],
+      ['userUuid', 'name', 'heroDefinition'],
       'Hero'
     );
 
     this.uuid = uuidv4();
+    this.userUuid = params.userUuid;
     this.name = params.name;
     this.heroClass =  { name: params.heroDefinition.name, prettyName: params.heroDefinition.name };
     this.stats = params.heroDefinition.startingStats;
     this.slots = params.heroDefinition.slots;
+    this.traits = [];
+    this.moves = [];
   }
 
   serialize() {
     return {
       uuid: this.uuid,
+      userUuid: this.userUuid,
       name: this.name,
-      heroDefinition: this.heroDefinition
+      heroClass: this.heroClass,
+      stats: this.stats,
+      slots: this.slots,
+      traits: this.traits,
+      moves: this.moves
     };
   }
 
