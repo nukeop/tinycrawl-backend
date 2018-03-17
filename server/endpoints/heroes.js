@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { Hero } from '../models';
-import { NotFound } from '../errors';
+import { BadRequest, NotFound } from '../errors';
 import { checkRequiredParams } from '../utils';
 
 function createEndpoint(router, db) {
@@ -44,14 +44,14 @@ function createEndpoint(router, db) {
     let definition = db.get('definitions.heroes').filter({name: req.body.heroDefinition}).head().value();
 
     if (definition === undefined) {
-      NotFound(res, `Hero class ${req.body.heroDefinition} does not exist`);
+      BadRequest(res, `Hero class ${req.body.heroDefinition} does not exist`);
       return;
     }
 
     let user = db.get('users').filter({uuid: req.body.userUuid}).head().value();
 
     if (user === undefined) {
-      NotFound(res, 'User with this uuid does not exist');
+      BadRequest(res, 'User with this uuid does not exist');
       return;
     }
 
