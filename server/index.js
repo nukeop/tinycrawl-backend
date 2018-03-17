@@ -20,9 +20,9 @@ function start() {
     global.db = db;
 
     // Start the server
-    server.use('/', router);
-    server.use(bodyParser.urlEncoded({ extended: true }));
+    server.use(bodyParser.urlencoded({ extended: true }));
     server.use(bodyParser.json());
+    server.use('/', router);
     server.listen(process.env.PORT);
   })
   .catch(err => {

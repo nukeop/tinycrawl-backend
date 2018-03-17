@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { Hero } from '../models';
 import { NotFound } from '../errors';
+import { checkRequiredParams } from '../utils';
 
 function createEndpoint(router, db) {
   router.get('/heroes', (req, res) => {
@@ -35,15 +36,19 @@ function createEndpoint(router, db) {
     res.status(200).json(hero);
   });
 
-  router.post('/heroes/:heroDefinition/:name/:userUuid', (req, res) => {
-    let definition = db.get('definitions.heroes').filter({name: req.params.heroDefinition}).head().value();
-
-    if (definition === undefined) {
-      NotFound(res, `Hero class ${req.params.heroDefinition} does not exist`);
+  router.post('/heroes', (req, res) => {
+    if(!checkRequiredParams(req, res, ['name', 'heroDefinition', 'userUuid'])) {
       return;
     }
 
-    let user = db.get('users').filter({uuid: req.params.userUuid}).head().value();
+    let definition = db.get('definitions.heroes').filter({name: req.body.heroDefinition}).head().value();
+
+    if (definition === undefined) {
+      NotFound(res, `Hero class ${req.body.heroDefinition} does not exist`);
+      return;
+    }
+
+    let user = db.get('users').filter({uuid: req.body.userUuid}).head().value();
 
     if (user === undefined) {
       NotFound(res, 'User with this uuid does not exist');
@@ -51,8 +56,8 @@ function createEndpoint(router, db) {
     }
 
     let hero = new Hero({
-      userUuid: req.params.userUuid,
-      name: req.params.name,
+      userUuid: req.body.userUuid,
+      name: req.body.name,
       heroDefinition: definition
     });
     hero.save();
