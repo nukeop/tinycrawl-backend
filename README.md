@@ -38,6 +38,7 @@ Route        | HTTP Verb | Description
 #### Heroes
 
 Contains data about characters created by users.
+
 Route                                   | HTTP Verb | Description
 ----------------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /heroes                                 | **GET**   | Get a list of all heroes.
