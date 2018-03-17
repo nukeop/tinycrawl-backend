@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 
 import datastore from './datastore';
 import router, { initRoutes } from './routes';
@@ -20,6 +21,8 @@ function start() {
 
     // Start the server
     server.use('/', router);
+    server.use(bodyParser.urlEncoded({ extended: true }));
+    server.use(bodyParser.json());
     server.listen(process.env.PORT);
   })
   .catch(err => {

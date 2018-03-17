@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Hero } from '../models';
 import { NotFound } from '../errors';
 
@@ -19,6 +20,15 @@ function createEndpoint(router, db) {
     let hero = db.get('heroes').filter({ uuid: req.params.uuid }).head().value();
 
     hero.traits.push(trait);
+    db.get('heroes').remove({uuid: hero.uuid}).write();
+    db.get('heroes').push(hero).write();
+
+    res.status(200).json(hero);
+  });
+
+  router.delete('/heroes/:uuid/traits/:traitName', (req, res) => {
+    let hero = db.get('heroes').filter({ uuid: req.params.uuid }).head().value();
+    hero.traits = _.filter(hero.traits, trait => trait.name !== req.params.traitName);
     db.get('heroes').remove({uuid: hero.uuid}).write();
     db.get('heroes').push(hero).write();
 
