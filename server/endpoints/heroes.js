@@ -12,6 +12,10 @@ function createEndpoint(router, db) {
     res.status(200).json({ heroes: db.get('heroes').filter({ uuid: req.params.uuid }).value() });
   });
 
+  router.delete('/heroes/:uuid', (req, res) => {
+    db.get('heroes');
+  });
+
   router.get('/heroes/:uuid/traits', (req, res) => {
     res.status(200).json({ traits: db.get('heroes').filter({ uuid: req.params.uuid }).head().value().traits });
   });
@@ -30,6 +34,31 @@ function createEndpoint(router, db) {
   router.delete('/heroes/:uuid/traits/:traitName', (req, res) => {
     let hero = db.get('heroes').filter({ uuid: req.params.uuid }).head().value();
     hero.traits = _.filter(hero.traits, trait => trait.name !== req.params.traitName);
+    db.get('heroes').remove({uuid: hero.uuid}).write();
+    db.get('heroes').push(hero).write();
+
+    res.status(200).json(hero);
+  });
+
+  router.get('/heroes/:uuid/moves', (req, res) => {
+    res.status(200).json({ moves: db.get('heroes').filter({ uuid: req.params.uuid }).head().value().moves});
+  });
+
+  router.post('/heroes/:uuid/moves/:moveName', (req, res) => {
+    let move = db.get('definitions.moves').filter({ name: req.params.moveName }).head().value();
+    let hero = db.get('heroes').filter({ uuid: req.params.uuid }).head().value();
+
+    if (!move) {
+      BadRequest(res, `Move ${req.params.moveName} not found`);
+      return;
+    }
+
+    if (!hero) {
+      BadRequest(res, `Hero with uuid ${req.params.uuid} not found`);
+      return;
+    }
+
+    hero.moves.push(move);
     db.get('heroes').remove({uuid: hero.uuid}).write();
     db.get('heroes').push(hero).write();
 
