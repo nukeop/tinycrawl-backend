@@ -1,6 +1,12 @@
 # tinycrawl-backend
 Backend for the tinycrawl phaser game
 
+## Rules
+
+- Endpoints are idempotent where it makes sense.
+- Endpoints that modify a resource will return the new modified resource.
+- POST parameters will be passed in body as JSON.
+
 ## API Endpoints
 
 #### Resources
@@ -39,10 +45,15 @@ Route        | HTTP Verb | Description
 
 Contains data about characters created by users.
 
-Route                                   | HTTP Verb | Description
-----------------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/heroes                                 | **GET**   | Get a list of all heroes.
-/heroes/:uuid                           | **GET**   | Get a single hero.
-/heroes/:uuid/traits                    | **GET**   | Get the traits of a single hero.
-/heroes/:uuid/traits/:traitname         | **POST**  | Add a trait to a single hero.
-/heroes/:heroDefinition/:name/:userUuid | **POST**  | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the user identified by `userUuid`.
+Route                           | HTTP Verb  | Description
+--------------------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/heroes                         | **GET**    | Get a list of all heroes.
+/heroes                         | **POST**   | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the user identified by `userUuid`.
+/heroes/:uuid                   | **GET**    | Get a single hero.
+/heroes/:uuid                   | **DELETE** | Delete a single hero.
+/heroes/:uuid/traits            | **GET**    | Get the traits of a single hero.
+/heroes/:uuid/traits/:traitname | **POST**   | Add a trait to a single hero.
+/heroes/:uuid/traits/:traitname | **DELETE** | Delete a trait from a single hero.
+/heroes/:uuid/moves             | **GET**    | Get the moves of a single hero.
+/heroes/:uuid/moves/:movename   | **POST**   | Add a move to a single hero.
+/heroes/:uuid/moves/:movename   | **DELETE** | Delete a move from a single hero.
