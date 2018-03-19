@@ -73,7 +73,6 @@ function createEndpoint(router, db) {
 
     router.delete(`/heroes/:uuid/${key}/:${value}Name`, (req, res) => {
       let hero = db.get('heroes').filter({ uuid: req.params.uuid }).head().value();
-      console.log(hero);
       hero[`${key}`] = _.filter(hero[`${key}`], item => item.name !== req.params[`${value}Name`]);
       db.get('heroes').remove({uuid: hero.uuid}).write();
       db.get('heroes').push(hero).write();
