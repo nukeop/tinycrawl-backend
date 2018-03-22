@@ -1,17 +1,18 @@
-# tinycrawl-backend
+# tinycrawl-backend [![Codeship Status for nukeop/tinycrawl-backend](https://img.shields.io/codeship/7d85d430-0a8d-0136-3fd1-669fed979da3/master.svg?style=for-the-badge)](https://app.codeship.com/projects/281672)
 Backend for the tinycrawl phaser game
 
 ## Rules
 
-- Endpoints are idempotent where it makes sense.
-- Endpoints that modify a resource will return the new modified resource.
-- POST parameters will be passed in body as JSON.
+-   Endpoints are idempotent where it makes sense.
+-   Endpoints that modify a resource will return the new modified resource.
+-   POST parameters will be passed in body as JSON.
 
 ## API Endpoints
 
 #### Resources
 
 Lists all available resources.
+
 Route | HTTP Verb | Definition
 ------|-----------|---------------------------------------
 /     | **GET**   | Get a list of all available resources.
