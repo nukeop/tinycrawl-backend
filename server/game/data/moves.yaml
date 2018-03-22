@@ -1,9 +1,36 @@
 table: moves
 data:
+  - name: hollow_point
+    prettyName: Hollow-Point Round
+    description: Loads and fires a hollow point round, dealing double damage and stunning the target.
+    cooldown: 6
+
   - name: supply_drop
     prettyName: Supply Drop
     description: Provides a random amount of combat supplies. Medicine, ammo, rations, etc.
+    cooldown: 8
 
   - name: rapid_fire
     prettyName: Rapid Fire
-    description: Attacks twice with selected ranged weapon.
+    description: Attacks twice with any equipped ranged weapon.
+    cooldown: 4
+
+  - name: combat_nanobots
+    prettyName: Combat Nanobots
+    description: Boosts attack for the remainder of the encounter.
+    cooldown: 12
+
+  - name: radiation_pulse
+    prettyName: Radiation Pulse
+    description: Emits a wave of gamma radiation, applying damage over time debuff to all enemies.
+    cooldown: 2
+
+  - name: nuclear_decay
+    prettyName: Nuclear Decay
+    description: Duplicates all current damage over time debuffs on a single enemy.
+    cooldown: 8
+
+  - name: fission
+    prettyName: Fission
+    description: Sacrifice a point in any stat to increase another stat by one point.
+    cooldown: 20
