@@ -1,4 +1,5 @@
 var path = require('path');
+const WebpackBar = require('webpackbar');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
 const SERVER_DIR = path.resolve(__dirname, 'server');
@@ -27,5 +28,8 @@ module.exports = {
         include: DATA_DIR
       }
     ]
-  }
+  },
+  plugins: [
+    new WebpackBar({name: 'Server'})
+  ]
 }
