@@ -17,6 +17,7 @@ data:
       - supply_drop
       - rapid_fire
       - combat_nanobots
+
     unlock_condition: null
 
   - name: mutant
@@ -36,6 +37,7 @@ data:
       - half_life
     abilities:
       - radiation_resistant
+      - quantum_immortality
     unlock_condition: hero.mutations > 0
 
   - name: pirate
@@ -49,6 +51,11 @@ data:
       - external_suit
       - headgear
       - weapon
+    moves:
+      - napalm
+      - twin_missile
+      - delayed_stab
+      - assassination
     unlock_condition: null
 
   - name: hacker

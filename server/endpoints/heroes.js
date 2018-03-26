@@ -34,7 +34,7 @@ function createEndpoint(router, db) {
     });
     hero.save();
 
-    res.status(200).json(hero.serialize());
+    res.status(201).json(hero.serialize());
   });
 
   router.get('/heroes/:uuid', (req, res) => {

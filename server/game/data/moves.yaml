@@ -22,7 +22,7 @@ data:
 
   - name: radiation_pulse
     prettyName: Radiation Pulse
-    description: Emits a wave of gamma radiation, applying damage over time debuff to all enemies.
+    description: Emits a wave of gamma radiation, applying nuclear damage over time debuff to all enemies.
     cooldown: 2
 
   - name: nuclear_decay
@@ -39,3 +39,23 @@ data:
     prettyName: Half-Life
     description: Places a debuff on the target that deals massive damage upon expiring.
     cooldown: 12
+
+  - name: napalm
+    prettyName: Napalm
+    description: Applies fire damage over time and lowers attack.
+    cooldown: 6
+
+  - name: twin_missile
+    prettyName: Twin Missile
+    description: Hits the target twice with damage dependent on the hero's ship and its equipment.
+    cooldown: 9
+
+  - name: delayed_stab
+    prettyName: Delayed Stab
+    description: Attacks with any equipped melee weapon and applies a debuff that repeats the attack at the beginning of the target's turn.
+    cooldown: 7
+
+  - name: assassination
+    prettyName: Assassination
+    description: Attacks twice with any equipped melee weapon. Resets all cooldowns if it kills the target.
+    cooldown: 15

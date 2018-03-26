@@ -17,7 +17,7 @@ function createEndpoint(router, db) {
     let user = new User({});
     user.save();
     res
-    .status(200)
+    .status(201)
     .json(user.serialize());
   });
 

@@ -4,3 +4,8 @@ data:
     prettyName: Radiation Resistant
     description: Ignore radiation damage.
     flavor: null
+
+  - name: quantum_immortality
+    prettyName: Quantum Immortality
+    description: 1% chance of surviving otherwise fatal damage.
+    flavor: null
