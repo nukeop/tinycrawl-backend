@@ -9,6 +9,10 @@ function createEndpoint(router, db) {
     res.status(200).json({ users: db.get('users').filter({uuid: req.params.uuid}).value() });
   });
 
+  router.get('/users/:uuid/heroes', (req, res) => {
+    res.status(200).json({ heroes: db.get('heroes').filter({userUuid: req.params.uuid}).value() });
+  });
+
   router.post('/users', (req, res) => {
     let user = new User({});
     user.save();
