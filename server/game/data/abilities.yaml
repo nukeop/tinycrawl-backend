@@ -1,0 +1,6 @@
+table: abilities
+data:
+  - name: radiation_resistant
+    prettyName: Radiation Resistant
+    description: Ignore radiation damage.
+    flavor: null

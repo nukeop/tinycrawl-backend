@@ -31,6 +31,8 @@ Route                                    | HTTP Verb | Description
 /definitions/moves/:name                 | **GET**   | Get a single move.
 /definitions/environmentalFeatures       | **GET**   | Get a list of all environmental features.
 /definitions/environmentalFeatures/:name | **GET**   | Get a single environmental feature.
+/definitions/abilities                   | **GET**   | Get a list of all abilities.
+/definitions/abilities/:name             | **GET**   | Get a single ability.
 
 #### Users
 

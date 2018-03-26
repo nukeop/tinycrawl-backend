@@ -34,3 +34,8 @@ data:
     prettyName: Fission
     description: Sacrifice a point in any stat to increase another stat by one point.
     cooldown: 20
+
+  - name: half_life
+    prettyName: Half-Life
+    description: Places a debuff on the target that deals massive damage upon expiring.
+    cooldown: 12

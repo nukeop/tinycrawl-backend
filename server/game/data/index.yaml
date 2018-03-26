@@ -13,3 +13,6 @@ tables:
 
   - name: Traits
     file: ./traits.yaml
+
+  - name: Abilities
+    file: ./abilities.yaml

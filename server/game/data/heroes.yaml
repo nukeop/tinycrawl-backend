@@ -12,6 +12,11 @@ data:
       - headgear
       - weapon
       - accessory
+    moves:
+      - hollow_point
+      - supply_drop
+      - rapid_fire
+      - combat_nanobots
     unlock_condition: null
 
   - name: mutant
@@ -24,6 +29,13 @@ data:
       - weapon
       - weapon
       - weapon
+    moves:
+      - radiation_pulse
+      - nuclear_decay
+      - fission
+      - half_life
+    abilities:
+      - radiation_resistant
     unlock_condition: hero.mutations > 0
 
   - name: pirate
