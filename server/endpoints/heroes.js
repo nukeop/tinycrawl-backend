@@ -3,7 +3,7 @@ import { Hero } from '../models';
 import { BadRequest, NotFound } from '../errors';
 import { checkRequiredParams } from '../utils';
 
-function createEndpoint(router, db) {
+function createEndpoint(router) {
   router.get('/heroes', (req, res) => {
     res.status(200).json({ heroes:db.get('heroes').value()});
   });

@@ -1,4 +1,4 @@
-function createEndpoint(router, db) {
+function createEndpoint(router) {
   router.get('/definitions', (req, res) => {
     res.status(200).json({ definitions: db.get('definitions').value() });
   });

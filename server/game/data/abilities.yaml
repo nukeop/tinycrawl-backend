@@ -1,5 +1,15 @@
 table: abilities
 data:
+  - name: targeting_computer
+    prettyName: Targeting Computer
+    description: Chance to deal critical damage.
+    flavor: null
+
+  - name: alloy_armor
+    prettyName: Alloy Armor
+    description: Chance to halve incoming damage (before applying defense).
+    flavor: null
+
   - name: radiation_resistant
     prettyName: Radiation Resistant
     description: Ignore radiation damage.
@@ -7,5 +17,5 @@ data:
 
   - name: quantum_immortality
     prettyName: Quantum Immortality
-    description: 1% chance of surviving otherwise fatal damage.
+    description: 3% chance of surviving otherwise fatal damage.
     flavor: null

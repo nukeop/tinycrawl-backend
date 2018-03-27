@@ -11,13 +11,13 @@ function start() {
   datastore
   .then(db => {
 
-    // Initialize database and update definitions
-    initDatabase(db);
-    loadInitialTables(db);
-    initRoutes(db);
-
     // Put database in global scope so we don't have to pass it everywhere
     global.db = db;
+
+    // Initialize database and update definitions
+    initDatabase();
+    loadInitialTables();
+    initRoutes();
 
     // Start the server
     server.use(bodyParser.urlencoded({ extended: true }));

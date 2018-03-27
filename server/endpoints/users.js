@@ -1,6 +1,6 @@
 import { User } from '../models';
 
-function createEndpoint(router, db) {
+function createEndpoint(router) {
   router.get('/users', (req, res) => {
     res.status(200).json({ users: db.get('users').value() });
   });
@@ -11,6 +11,10 @@ function createEndpoint(router, db) {
 
   router.get('/users/:uuid/heroes', (req, res) => {
     res.status(200).json({ heroes: db.get('heroes').filter({userUuid: req.params.uuid}).value() });
+  });
+
+  router.get('/users/:uuid/universes', (req, res) => {
+    res.status(200).json({ universes: db.get('universes').filter({userUuid: req.params.uuid}).value() });
   });
 
   router.post('/users', (req, res) => {

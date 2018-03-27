@@ -1,11 +1,13 @@
 import createDefinitionsEndpoint from './definitions';
 import createUsersEndpoint from './users';
 import createHeroesEndpoint from './heroes';
+import createUniversesEndpoint from './universes';
 
-function createAllEndpoints(router, db) {
-  createDefinitionsEndpoint(router, db);
-  createUsersEndpoint(router, db);
-  createHeroesEndpoint(router, db);
+function createAllEndpoints(router) {
+  createDefinitionsEndpoint(router);
+  createUsersEndpoint(router);
+  createHeroesEndpoint(router);
+  createUniversesEndpoint(router);
 }
 
 export default createAllEndpoints;

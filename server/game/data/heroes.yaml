@@ -17,7 +17,9 @@ data:
       - supply_drop
       - rapid_fire
       - combat_nanobots
-
+    abilities:
+      - targeting_computer
+      - alloy_armor
     unlock_condition: null
 
   - name: mutant

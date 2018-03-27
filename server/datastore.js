@@ -7,7 +7,7 @@ import dataIndex from './game/data/index.yaml';
 const store = low(new FileAsync(".data/db.json"));
 const definitions = 'definitions';
 
-export function initDatabase(db) {
+export function initDatabase() {
   const req = require.context("json-loader!yaml-loader!./game/data", true, /yaml$/);
   const tableNames = _.map(dataIndex.tables, table => {
     return eval(req(table.file)).table;
@@ -15,12 +15,13 @@ export function initDatabase(db) {
   let defaults = {
     definitions: {},
     users: [],
-    heroes: []
+    heroes: [],
+    universes: []
   };
   db.defaults(defaults).write();
 }
 
-export function loadInitialTables(db) {
+export function loadInitialTables() {
   console.log('Loading definitions...');
   const req = require.context("json-loader!yaml-loader!./game/data", true, /yaml$/);
   _.forEach(dataIndex.tables, table => {
