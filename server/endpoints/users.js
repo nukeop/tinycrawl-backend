@@ -9,6 +9,11 @@ function createEndpoint(router) {
     res.status(200).json({ users: db.get('users').filter({uuid: req.params.uuid}).value() });
   });
 
+  router.delete('/users/:uuid', (req, res) => {
+    db.get('users').remove({ uuid: req.params.uuid }).write();
+    res.status(204).json();
+  });
+
   router.get('/users/:uuid/heroes', (req, res) => {
     res.status(200).json({ heroes: db.get('heroes').filter({userUuid: req.params.uuid}).value() });
   });

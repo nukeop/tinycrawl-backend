@@ -58,6 +58,7 @@ data:
       - twin_missile
       - delayed_stab
       - assassination
+    abilities: []
     unlock_condition: null
 
   - name: hacker
@@ -72,4 +73,6 @@ data:
       - headgear
       - accessory
       - accessory
+    moves: []
+    abilities: []
     unlock_condition: null

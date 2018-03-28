@@ -16,7 +16,8 @@ class Hero extends Model {
     this.stats = params.heroDefinition.startingStats;
     this.slots = params.heroDefinition.slots;
     this.traits = [];
-    this.moves = [];
+    this.moves = params.heroDefinition.moves;
+    this.abilities = params.heroDefinition.abilities;
   }
 
   serialize() {

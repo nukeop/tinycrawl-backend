@@ -12,6 +12,11 @@ function createEndpoint(router) {
     res.status(200).json({ universes: db.get('universes').filter({uuid: req.params.uuid}).value() });
   });
 
+  router.delete('/universes/:uuid', (req, res) => {
+    db.get('universes').remove({ uuid: req.params.uuid }).write();
+    res.status(204).json();
+  });
+
   router.post('/universes', (req, res) => {
     if(!checkRequiredParams(req, res, ['userUuid'])) {
       return;

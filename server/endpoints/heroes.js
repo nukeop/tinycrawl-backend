@@ -42,7 +42,8 @@ function createEndpoint(router) {
   });
 
   router.delete('/heroes/:uuid', (req, res) => {
-    db.get('heroes');
+    db.get('heroes').remove({ uuid: req.params.uuid }).write();
+    res.status(204).json();
   });
 
   _.forEach({traits: 'trait', moves: 'move'}, (value, key) => {
@@ -74,8 +75,7 @@ function createEndpoint(router) {
     router.delete(`/heroes/:uuid/${key}/:${value}Name`, (req, res) => {
       let hero = db.get('heroes').filter({ uuid: req.params.uuid }).head().value();
       hero[`${key}`] = _.filter(hero[`${key}`], item => item.name !== req.params[`${value}Name`]);
-      db.get('heroes').remove({uuid: hero.uuid}).write();
-      db.get('heroes').push(hero).write();
+      db.get('heroes').find({uuid: hero.uuid}).assign(hero).write();
 
       res.status(200).json(hero);
     });
