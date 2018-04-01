@@ -32,6 +32,10 @@ class Model {
 
     return result;
   }
+
+  static validateEnum(value, allowedValues) {
+    return _.includes(allowedValues, value);
+  }
 }
 
 export default Model;

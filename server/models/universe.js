@@ -9,14 +9,12 @@ class Universe extends Model {
 
     this.uuid = uuidv4();
     this.userUuid = params.userUuid;
-    this.planets = [];
   }
 
   serialize() {
     return {
       uuid: this.uuid,
-      userUuid: this.userUuid,
-      planets: this.planets
+      userUuid: this.userUuid
     };
   }
 
