@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { Marker, Universe } from '../models';
+import { BadRequest, NotFound } from '../errors';
 import { enumAllowedMarkerTypes } from '../models/marker';
 import { checkRequiredParams, checkEnum } from '../utils';
 
@@ -10,6 +11,11 @@ function createEndpoint(router) {
 
   router.get('/markers/:uuid', (req, res) => {
     res.status(200).json({ markers: db.get('markers').filter({ uuid: req.params.uuid }).values() });
+  });
+
+  router.delete('/markers/:uuid', (req, res) => {
+    db.get('markers').remove({ uuid: req.params.uuid }).write();
+    res.status(204).json();
   });
 
   router.post('/markers', (req, res) => {
@@ -28,12 +34,27 @@ function createEndpoint(router) {
       return;
     }
 
+    let parent = null;
+    if(req.body.parentMarker) {
+      parent = db.get('markers').find({uuid: req.body.parentMarker}).value();
+      if(!parent) {
+        NotFound(res, `Marker with uuid ${req.body.parentMarker} doesn't exist`);
+        return;
+      }
+    }
+
     let marker = new Marker({
       universeUuid: req.body.universeUuid,
       name: req.body.name,
-      type: req.body.type
+      type: req.body.type,
+      parentMarker: req.body.parentMarker
     });
     marker.save();
+
+    if(parent) {
+      parent.satellites.push(marker.uuid);
+      db.get('markers').find({uuid: marker.parentMarker}).assign(parent).write();
+    }
 
     res.status(201).json(marker.serialize());
   });

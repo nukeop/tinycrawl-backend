@@ -84,4 +84,4 @@ Route          | HTTP Verb | Description
 ---------------|-----------|---------------------------------------------------------------------------------------------------------------------
 /markers       | **GET**   | Get a list of all markers.
 /markers/:uuid | **POST**  | Get a single marker.
-/markers       | **POST**  | Create a new marker. Required parameters: `universeUuid`, `name`, `type`. Type can be either a `star` or a `planet`.
+/markers       | **POST**  | Create a new marker. Required parameters: `universeUuid`, `name`, `type`. Type can be either a `star` or a `planet`. Optional parameter: `parentMarker`. This should be a uuid pointing to a marker that this marker orbits.

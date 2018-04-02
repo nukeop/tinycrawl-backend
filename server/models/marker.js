@@ -20,6 +20,8 @@ class Marker extends Model {
     this.universeUuid = params.universeUuid;
     this.name = params.name;
     this.type = params.type;
+    this.parentMarker = params.parentMarker || null;
+    this.satellites = [];
   }
 
   serialize() {
@@ -27,8 +29,21 @@ class Marker extends Model {
       uuid: this.uuid,
       universeUuid: this.universeUuid,
       name: this.name,
-      type: this.type
+      type: this.type,
+      parentMarker: this.parentMarker,
+      satellites: this.satellites
     }
+  }
+
+  deserialize(obj) {
+    let result = new Marker();
+
+    result.uuid = obj.uuid;
+    result.universeUuid = obj.uuid;
+    result.name = obj.name;
+    result.type = obj.type;
+    result.parentMarker = obj.parentMarker || null;
+    result.satellites = obj.satellites || [];
   }
 
   save() {

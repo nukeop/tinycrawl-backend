@@ -13,6 +13,10 @@ class Model {
     console.error('Model should be inherited from and never instantiated directly');
   }
 
+  deserialize(obj) {
+    console.error('Model should be inherited from and never instantiated directly');
+  }
+
   save() {
     console.error('Model should be inherited from and never instantiated directly');
   }
