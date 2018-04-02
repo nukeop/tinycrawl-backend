@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import _ from 'lodash';
 
 import createAllEndpoints from './endpoints';
 import { NotFound } from './errors';
@@ -10,10 +11,15 @@ export function initRoutes() {
   createAllEndpoints(router);
 
   router.get('/', (req, res) => {
-    res.status(200).json({resources: Object.keys(db.value())});
+    res.status(200).json({resources: _.map(router.stack, el => {
+      return {
+        path: el.route.path,
+        method: el.route.stack[0].method
+      };
+    })});
   });
 
-  router.get('*', (req, res) => {
+  router.all('*', (req, res) => {
     NotFound(res, 'The requested resource was not found.');
   });
 }
