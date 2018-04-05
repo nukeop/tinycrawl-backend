@@ -3,7 +3,8 @@ import Model from './model';
 
 const enumAllowedMarkerTypes = [
   'planet',
-  'star'
+  'star',
+  'artificial'
 ];
 
 class Marker extends Model {
@@ -35,7 +36,7 @@ class Marker extends Model {
     }
   }
 
-  deserialize(obj) {
+  static deserialize(obj) {
     let result = new Marker();
 
     result.uuid = obj.uuid;
@@ -44,6 +45,8 @@ class Marker extends Model {
     result.type = obj.type;
     result.parentMarker = obj.parentMarker || null;
     result.satellites = obj.satellites || [];
+
+    return result;
   }
 
   save() {

@@ -1,8 +1,15 @@
 import { User } from '../models';
+import { checkRequiredParams } from '../utils';
+import _ from 'lodash';
 
 function createEndpoint(router) {
   router.get('/users', (req, res) => {
-    res.status(200).json({ users: db.get('users').value() });
+    let users = db.get('users').value();
+    users = _.map(users, user => {
+      return User.deserialize(user).serialize();
+    });
+
+    res.status(200).json({ users: users });
   });
 
   router.get('/users/:uuid', (req, res) => {
@@ -23,11 +30,19 @@ function createEndpoint(router) {
   });
 
   router.post('/users', (req, res) => {
-    let user = new User({});
-    user.save();
-    res
-    .status(201)
-    .json(user.serialize());
+    if(!checkRequiredParams(req, res, ['username', 'email', 'password'])) {
+      return;
+    }
+
+    let user = new User();
+    user.create(req.body)
+    .then(hash => {
+      user.password = hash;
+      user.save();
+      res
+      .status(201)
+      .json(user.serialize());
+    });
   });
 
   console.log('Endpoints for users created');

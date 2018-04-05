@@ -1,5 +1,6 @@
 var path = require('path');
 const WebpackBar = require('webpackbar');
+var nodeExternals = require('webpack-node-externals');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
 const SERVER_DIR = path.resolve(__dirname, 'server');
@@ -29,6 +30,12 @@ module.exports = {
       }
     ]
   },
+  target: 'node',
+  externals: [nodeExternals({
+    whitelist: [
+      'lodash'
+    ]
+  })],
   plugins: [
     new WebpackBar({name: 'Server'})
   ]
