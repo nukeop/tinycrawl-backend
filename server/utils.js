@@ -23,3 +23,10 @@ export function checkEnum(res, paramName, value, allowedValues) {
 
   return true;
 }
+
+export function checkParamUniqueness(res, paramName, value, table) {
+  if (db.get(table).find({[`${paramName}`]: value}).value()) {
+    BadRequest(res, `Parameter ${paramName} should be unique but there is another resource that has this value`);
+    return false;
+  }
+}

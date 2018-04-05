@@ -2,7 +2,11 @@ import _ from 'lodash';
 import { Marker, Universe } from '../models';
 import { BadRequest, NotFound } from '../errors';
 import { enumAllowedMarkerTypes } from '../models/marker';
-import { checkRequiredParams, checkEnum } from '../utils';
+import {
+  checkRequiredParams,
+  checkEnum,
+  checkParamUniqueness
+} from '../utils';
 
 function createEndpoint(router) {
   router.get('/markers', (req, res) => {

@@ -1,5 +1,8 @@
 import { User } from '../models';
-import { checkRequiredParams } from '../utils';
+import {
+  checkRequiredParams,
+  checkParamUniqueness
+} from '../utils';
 import _ from 'lodash';
 
 function createEndpoint(router) {
@@ -31,6 +34,14 @@ function createEndpoint(router) {
 
   router.post('/users', (req, res) => {
     if(!checkRequiredParams(req, res, ['username', 'email', 'password'])) {
+      return;
+    }
+
+    if (!checkParamUniqueness(res, 'username', req.body.username, User.table)) {
+      return;
+    }
+
+    if (!checkParamUniqueness(res, 'email', req.body.email, User.table)) {
       return;
     }
 
