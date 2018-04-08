@@ -7,6 +7,18 @@ Backend for the tinycrawl phaser game
 -   Endpoints that modify a resource will return the new modified resource.
 -   POST parameters will be passed in body as JSON.
 
+## Authentication
+
+Authentication is done by [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication).
+Use the `Authorization` header to provide your username and password. If you provide that data and it corresponds to an existing user, you're authenticated. If you don't, you're not.
+
+The header should contain:
+* the method (currently the only valid value is `Basic`)
+* a single space
+* base64-encoded string containing the username and the password combined with a colon (`username:password`)
+
+Example: `Basic dGVzdDI6dGVzdA==`
+
 ## API Endpoints
 
 #### Resources
@@ -85,11 +97,3 @@ Route          | HTTP Verb | Description
 /markers       | **GET**   | Get a list of all markers.
 /markers/:uuid | **POST**  | Get a single marker.
 /markers       | **POST**  | Create a new marker. Required parameters: `universeUuid`, `name`, `type`. Type can be either a `star` or a `planet`. Optional parameter: `parentMarker`. This should be a uuid pointing to a marker that this marker orbits.
-
-#### Authentication
-
-Authentication system. Uses tokens that can be invalidated by users at any time and do not have a set expiration date.
-
-Route   | HTTP Verb | Description
---------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/log_in | **POST**  | Log in and create a new authentication token. The parameters `username` and `password` have to be valid credentials for an existing user. This endpoint will return a token that can be used to authenticate further requests for the logged in user.
