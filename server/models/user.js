@@ -42,7 +42,9 @@ class User extends Model {
 
   save() {
     let table = db.get(User.table);
-    table.push(this.serialize()).write();
+    let serialized = this.serialize();
+    serialized.password = this.password;
+    table.push(serialized).write();
   }
 }
 

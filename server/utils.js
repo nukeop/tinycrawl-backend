@@ -29,4 +29,6 @@ export function checkParamUniqueness(res, paramName, value, table) {
     BadRequest(res, `Parameter ${paramName} should be unique but there is another resource that has this value`);
     return false;
   }
+
+  return true;
 }
