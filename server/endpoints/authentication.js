@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { User } from '../models';
+import { AuthToken, User } from '../models';
 import { BadRequest } from '../errors';
 import { checkRequiredParams } from '../utils';
 
@@ -9,22 +9,21 @@ function createEndpoint(router) {
       return;
     }
 
-
-    let user = db.get('users').find({username: req.body.username}).value();
+    let user = db.get(User.table).find({username: req.body.username}).value();
     if (!user) {
       BadRequest(res, `Either the user ${username} does not exist, or the password is incorrect`);
       return;
     }
 
     bcrypt.compare(req.body.password, user.password, (err, result) => {
-      console.error(err);
-      console.log(result);
-
       if (err || !result) {
         BadRequest(res, `Either the user ${username} does not exist, or the password is incorrect`);
         return;
       } else {
         // Generate an auth token and send it
+        let token = new AuthToken({userUuid: user.uuid});
+        token.save();
+        res.status(200).json({token: token.id});
         return;
       }
     });
