@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import datastore from './datastore';
 import router, { initRoutes } from './routes';
 import { initDatabase, loadInitialTables } from './datastore';
+import middleware from './middleware';
 var server = express();
 
 
@@ -22,6 +23,7 @@ function start() {
     // Start the server
     server.use(bodyParser.urlencoded({ extended: true }));
     server.use(bodyParser.json());
+    server.use(middleware.authentication);
     server.use('/', router);
     server.listen(process.env.PORT);
   })

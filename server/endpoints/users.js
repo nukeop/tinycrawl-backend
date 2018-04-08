@@ -36,7 +36,7 @@ function createEndpoint(router) {
     if(!checkRequiredParams(req, res, ['username', 'email', 'password'])) {
       return;
     }
-    
+
     if (!checkParamUniqueness(res, 'username', req.body.username, User.table)) {
       return;
     }
