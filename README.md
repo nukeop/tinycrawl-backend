@@ -85,3 +85,11 @@ Route          | HTTP Verb | Description
 /markers       | **GET**   | Get a list of all markers.
 /markers/:uuid | **POST**  | Get a single marker.
 /markers       | **POST**  | Create a new marker. Required parameters: `universeUuid`, `name`, `type`. Type can be either a `star` or a `planet`. Optional parameter: `parentMarker`. This should be a uuid pointing to a marker that this marker orbits.
+
+#### Authentication
+
+Authentication system. Uses tokens that can be invalidated by users at any time and do not have a set expiration date.
+
+Route   | HTTP Verb | Description
+--------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/log_in | **POST**  | Log in and create a new authentication token. The parameters `username` and `password` have to be valid credentials for an existing user. This endpoint will return a token that can be used to authenticate further requests for the logged in user.
