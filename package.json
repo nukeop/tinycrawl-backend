@@ -30,6 +30,7 @@
   "homepage": "https://github.com/nukeop/tinycrawl-backend#readme",
   "dependencies": {
     "aws-sdk": "^2.220.1",
+    "basic-auth": "^2.0.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
