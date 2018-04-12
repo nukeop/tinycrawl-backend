@@ -6,6 +6,7 @@ import {
   checkEnum
 } from '../utils';
 import requiredParams from '../middleware/routeDecorators/requiredParams';
+import enumParam from '../middleware/routeDecorators/enumParam';
 
 function createEndpoint(router) {
   router.get('/markers', (req, res) => {
@@ -22,12 +23,9 @@ function createEndpoint(router) {
   });
 
   router.post('/markers',
+  enumParam('type', enumAllowedMarkerTypes),
   requiredParams(['universeUuid', 'name', 'type']),
   (req, res) => {
-    if(!checkEnum(res, 'type', req.body.type, enumAllowedMarkerTypes)) {
-      return;
-    }
-
     let universe = db.get(Universe.table).filter({uuid: req.body.universeUuid}).head().value();
 
     if (universe === undefined) {
