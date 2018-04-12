@@ -4,8 +4,7 @@ import { BadRequest, NotFound } from '../errors';
 import { enumAllowedMarkerTypes } from '../models/marker';
 import {
   checkRequiredParams,
-  checkEnum,
-  checkParamUniqueness
+  checkEnum
 } from '../utils';
 
 function createEndpoint(router) {

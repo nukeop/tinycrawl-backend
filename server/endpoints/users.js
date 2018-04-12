@@ -1,8 +1,8 @@
 import { User } from '../models';
 import {
-  checkRequiredParams,
-  checkParamUniqueness
+  checkRequiredParams
 } from '../utils';
+import uniqueParam from '../middleware/routeDecorators/uniqueParam';
 import _ from 'lodash';
 
 function createEndpoint(router) {
@@ -32,16 +32,11 @@ function createEndpoint(router) {
     res.status(200).json({ universes: db.get('universes').filter({userUuid: req.params.uuid}).value() });
   });
 
-  router.post('/users', (req, res) => {
+  router.post('/users', [
+    uniqueParam('username', User.table),
+    uniqueParam('email', User.table)
+  ], (req, res) => {
     if(!checkRequiredParams(req, res, ['username', 'email', 'password'])) {
-      return;
-    }
-
-    if (!checkParamUniqueness(res, 'username', req.body.username, User.table)) {
-      return;
-    }
-
-    if (!checkParamUniqueness(res, 'email', req.body.email, User.table)) {
       return;
     }
 
