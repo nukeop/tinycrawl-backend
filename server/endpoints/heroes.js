@@ -1,18 +1,16 @@
 import _ from 'lodash';
 import { Hero } from '../models';
 import { BadRequest, NotFound } from '../errors';
-import { checkRequiredParams } from '../utils';
+import requiredParams from '../middleware/routeDecorators/requiredParams';
 
 function createEndpoint(router) {
   router.get('/heroes', (req, res) => {
     res.status(200).json({ heroes:db.get('heroes').value()});
   });
 
-  router.post('/heroes', (req, res) => {
-    if(!checkRequiredParams(req, res, ['name', 'heroDefinition', 'userUuid'])) {
-      return;
-    }
-
+  router.post('/heroes',
+  requiredParams(['name', 'heroDefinition', 'userUuid']),
+  (req, res) => {
     let definition = db.get('definitions.heroes').filter({name: req.body.heroDefinition}).head().value();
 
     if (definition === undefined) {

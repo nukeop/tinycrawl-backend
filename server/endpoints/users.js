@@ -1,8 +1,6 @@
 import { User } from '../models';
-import {
-  checkRequiredParams
-} from '../utils';
 import uniqueParam from '../middleware/routeDecorators/uniqueParam';
+import requiredParams from '../middleware/routeDecorators/requiredParams';
 import _ from 'lodash';
 
 function createEndpoint(router) {
@@ -33,13 +31,10 @@ function createEndpoint(router) {
   });
 
   router.post('/users', [
+    requiredParams(['username', 'email', 'password']),
     uniqueParam('username', User.table),
     uniqueParam('email', User.table)
   ], (req, res) => {
-    if(!checkRequiredParams(req, res, ['username', 'email', 'password'])) {
-      return;
-    }
-
     let user = new User();
     user.create(req.body)
     .then(hash => {

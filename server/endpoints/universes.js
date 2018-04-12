@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Universe, Marker } from '../models';
 import { BadRequest, NotFound } from '../errors';
-import { checkRequiredParams } from '../utils';
+import requiredParams from '../middleware/routeDecorators/requiredParams';
 
 function createEndpoint(router) {
   router.get('/universes', (req, res) => {
@@ -17,11 +17,9 @@ function createEndpoint(router) {
     res.status(204).json();
   });
 
-  router.post('/universes', (req, res) => {
-    if(!checkRequiredParams(req, res, ['userUuid'])) {
-      return;
-    }
-
+  router.post('/universes',
+  requiredParams(['userUuid']),
+  (req, res) => {
     let user = db.get('users').filter({uuid: req.body.userUuid}).head().value();
 
     if (user === undefined) {

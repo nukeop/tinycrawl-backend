@@ -3,9 +3,9 @@ import { Marker, Universe } from '../models';
 import { BadRequest, NotFound } from '../errors';
 import { enumAllowedMarkerTypes } from '../models/marker';
 import {
-  checkRequiredParams,
   checkEnum
 } from '../utils';
+import requiredParams from '../middleware/routeDecorators/requiredParams';
 
 function createEndpoint(router) {
   router.get('/markers', (req, res) => {
@@ -21,11 +21,9 @@ function createEndpoint(router) {
     res.status(204).json();
   });
 
-  router.post('/markers', (req, res) => {
-    if(!checkRequiredParams(req, res, ['universeUuid', 'name', 'type'])) {
-      return;
-    }
-
+  router.post('/markers',
+  requiredParams(['universeUuid', 'name', 'type']),
+  (req, res) => {
     if(!checkEnum(res, 'type', req.body.type, enumAllowedMarkerTypes)) {
       return;
     }
