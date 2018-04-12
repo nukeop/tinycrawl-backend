@@ -20,7 +20,7 @@ function createEndpoint(router) {
   });
 
   router.post('/markers',
-  enumParam('type', enumAllowedMarkerTypes),
+  enumParam('type', _.values(enumAllowedMarkerTypes)),
   requiredParams(['universeUuid', 'name', 'type']),
   (req, res) => {
     let universe = db.get(Universe.table).filter({uuid: req.body.universeUuid}).head().value();

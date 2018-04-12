@@ -3,6 +3,11 @@ import uuidv4 from 'uuid/v4';
 import bcrypt from 'bcrypt';
 import Model from './model';
 
+const enumUserRoles = {
+  ADMIN_ROLE: 'ADMIN_ROLE',
+  USER_ROLE: 'USER_ROLE'
+};
+
 class User extends Model {
   create(params) {
     if(!params) {
@@ -15,6 +20,7 @@ class User extends Model {
     this.username = params.username;
     this.displayName = params.username;
     this.email = params.email;
+    this.role = enumUserRoles.USER_ROLE;
 
     return bcrypt.hash(params.password, 10);
   }
@@ -27,6 +33,7 @@ class User extends Model {
     result.displayName = obj.displayName;
     result.email = obj.email;
     result.password = obj.password;
+    result.role = enumUserRoles[obj.role];
 
     return result;
   }
@@ -36,7 +43,8 @@ class User extends Model {
       uuid: this.uuid,
       username: this.username,
       displayName: this.displayName,
-      email: this.email
+      email: this.email,
+      role: this.role
     }
   }
 

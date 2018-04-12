@@ -1,11 +1,11 @@
 import uuidv4 from 'uuid/v4';
 import Model from './model';
 
-const enumAllowedMarkerTypes = [
-  'planet',
-  'star',
-  'artificial'
-];
+const enumAllowedMarkerTypes = {
+  PLANET: 'PLANET',
+  STAR: 'STAR',
+  ARTIFICIAL: 'ARTIFICIAL'
+};
 
 class Marker extends Model {
   create(params) {
