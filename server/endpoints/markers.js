@@ -2,9 +2,6 @@ import _ from 'lodash';
 import { Marker, Universe } from '../models';
 import { BadRequest, NotFound } from '../errors';
 import { enumAllowedMarkerTypes } from '../models/marker';
-import {
-  checkEnum
-} from '../utils';
 import requiredParams from '../middleware/routeDecorators/requiredParams';
 import enumParam from '../middleware/routeDecorators/enumParam';
 
