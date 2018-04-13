@@ -23,7 +23,10 @@ function createEndpoint(router) {
     res.status(200).json({ users: db.get('users').filter({uuid: req.params.uuid}).value() });
   });
 
-  router.delete('/users/:uuid', (req, res) => {
+  router.delete('/users/:uuid',[
+    requireAuthentication,
+    requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
+  ], (req, res) => {
     db.get('users').remove({ uuid: req.params.uuid }).write();
     res.status(204).json();
   });
