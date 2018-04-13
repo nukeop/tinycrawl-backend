@@ -16,7 +16,7 @@ export default function requiredParams(required) {
     if (go) {
       next();
     } else {
-      return
+      return;
     }
   };
 }

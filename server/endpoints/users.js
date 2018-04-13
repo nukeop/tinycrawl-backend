@@ -1,6 +1,10 @@
 import { User } from '../models';
-import uniqueParam from '../middleware/routeDecorators/uniqueParam';
-import requiredParams from '../middleware/routeDecorators/requiredParams';
+import { enumUserRoles } from '../models/user';
+import {
+  enumParam,
+  uniqueParam,
+  requiredParams
+} from '../middleware/routeDecorators';
 import _ from 'lodash';
 
 function createEndpoint(router) {
@@ -44,6 +48,17 @@ function createEndpoint(router) {
       .status(201)
       .json(user.serialize());
     });
+  });
+
+  router.put('/users/:uuid/role', [
+    requiredParams(['role']),
+    enumParam('role', _.values(enumUserRoles))
+  ], (req, res) => {
+    db.get('users')
+    .find({uuid: req.params.uuid})
+    .assign({role: req.body.role})
+    .write();
+    res.status(204).send();
   });
 
   console.log('Endpoints for users created');

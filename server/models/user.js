@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import Model from './model';
 
 const enumUserRoles = {
+  ROOT_ROLE: 'ROOT_ROLE',
   ADMIN_ROLE: 'ADMIN_ROLE',
   USER_ROLE: 'USER_ROLE'
 };
@@ -58,3 +59,4 @@ class User extends Model {
 
 User.table = 'users';
 export default User;
+export { enumUserRoles };
