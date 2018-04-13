@@ -3,7 +3,9 @@ import { enumUserRoles } from '../models/user';
 import {
   enumParam,
   uniqueParam,
-  requiredParams
+  requireAuthentication,
+  requiredParams,
+  requiredRole
 } from '../middleware/routeDecorators';
 import _ from 'lodash';
 
@@ -51,6 +53,8 @@ function createEndpoint(router) {
   });
 
   router.put('/users/:uuid/role', [
+    requireAuthentication,
+    requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE]),
     requiredParams(['role']),
     enumParam('role', _.values(enumUserRoles))
   ], (req, res) => {
