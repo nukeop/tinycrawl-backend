@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Hero } from '../models';
 import { BadRequest, NotFound } from '../errors';
-import requiredParams from '../middleware/routeDecorators/requiredParams';
+import { requiredParams } from '../middleware/routeDecorators';
 
 function createEndpoint(router) {
   router.get('/heroes', (req, res) => {
