@@ -2,9 +2,13 @@ import uuidv4 from 'uuid/v4';
 import Model from './model';
 
 const enumAllowedMarkerTypes = {
+  COMET: 'COMET',
+  DERELICT: 'DERELICT',
+  GAS_GIANT: 'GAS_GIANT',
+  MOON: 'MOON',
   PLANET: 'PLANET',
   STAR: 'STAR',
-  ARTIFICIAL: 'ARTIFICIAL'
+  STATION: 'STATION'
 };
 
 class Marker extends Model {
