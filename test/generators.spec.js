@@ -9,7 +9,7 @@ describe('Name generator tests', () => {
     let starGenerator = new NameGenerator(starNames.segments, starNames.rules);
     let name = starGenerator.generate();
     expect(name).to.be.a('string');
-    expect(name.length).to.satisfy(n => n > 0);
+    expect(name).to.have.lengthOf.above(0);
   });
 });
 
@@ -17,6 +17,6 @@ describe('Universe generator tests', () => {
   it('Generates stars', () => {
     let stars = UG.generateStars('abc', 5);
     expect(stars).to.be.an('array');
-    expect(stars.length).to.satisfy(n => n === 5);
+    expect(stars).to.have.lengthOf(5);
   });
 });
