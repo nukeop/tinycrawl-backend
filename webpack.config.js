@@ -13,6 +13,7 @@ module.exports = {
     path: BUILD_DIR,
     filename: 'server.js'
   },
+  mode: "development",
   module: {
     rules: [
       {

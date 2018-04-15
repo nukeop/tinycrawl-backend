@@ -55,8 +55,8 @@ segments:
 
 rules:
   - - "1.0 names"
-    - "0.3 modifiers"
+    - "0.8 modifiers"
     - "0.2 postfixes"
   - - "1.0 names"
-    - "0.1 modifiers"
-    - "0.3 postfixes"
+    - "0.3 modifiers"
+    - "0.7 postfixes"

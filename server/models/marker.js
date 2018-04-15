@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid/v4';
 import Model from './model';
 
-const enumAllowedMarkerTypes = {
+const enumMarkerTypes = {
   COMET: 'COMET',
   DERELICT: 'DERELICT',
   GAS_GIANT: 'GAS_GIANT',
@@ -19,7 +19,7 @@ class Marker extends Model {
       'type'
     ], 'Marker');
 
-    Model.validateEnum(params.type,enumAllowedMarkerTypes);
+    Model.validateEnum(params.type,enumMarkerTypes);
 
     this.uuid = uuidv4();
     this.universeUuid = params.universeUuid;
@@ -61,4 +61,4 @@ class Marker extends Model {
 
 Marker.table = 'markers';
 export default Marker;
-export { enumAllowedMarkerTypes };
+export { enumMarkerTypes };

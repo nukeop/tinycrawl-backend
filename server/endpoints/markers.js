@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Marker, Universe } from '../models';
 import { BadRequest, NotFound } from '../errors';
-import { enumAllowedMarkerTypes } from '../models/marker';
+import { enumMarkerTypes } from '../models/marker';
 import { requiredParams, enumParam } from '../middleware/routeDecorators';
 function createEndpoint(router) {
   router.get('/markers', (req, res) => {
@@ -18,7 +18,7 @@ function createEndpoint(router) {
   });
 
   router.post('/markers',
-  enumParam('type', _.values(enumAllowedMarkerTypes)),
+  enumParam('type', _.values(enumMarkerTypes)),
   requiredParams(['universeUuid', 'name', 'type']),
   (req, res) => {
     let universe = db.get(Universe.table).filter({uuid: req.body.universeUuid}).head().value();
