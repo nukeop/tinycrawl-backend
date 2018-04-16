@@ -1,4 +1,4 @@
-# tinycrawl-backend [![Codeship Status for nukeop/tinycrawl-backend](https://img.shields.io/codeship/7d85d430-0a8d-0136-3fd1-669fed979da3/master.svg?style=for-the-badge)](https://app.codeship.com/projects/281672)
+# tinycrawl-backend [![Codeship Status for nukeop/tinycrawl-backend](https://img.shields.io/codeship/7d85d430-0a8d-0136-3fd1-669fed979da3/master.svg?style=for-the-badge)](https://app.codeship.com/projects/281672) [![ReadTheDocs Status for tinycrawl](https://img.shields.io/readthedocs/tinycrawl.svg?style=for-the-badge)](http://tinycrawl.readthedocs.io/en/latest/)
 Backend for the tinycrawl phaser game
 
 ## Rules
