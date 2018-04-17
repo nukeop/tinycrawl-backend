@@ -19,4 +19,9 @@ describe('Universe generator tests', () => {
     expect(stars).to.be.an('array');
     expect(stars).to.have.lengthOf(5);
   });
+
+  it('Generates solar system', () => {
+    let star = UG.generateStars('abc', 1);
+    UG.generateSolarSystem(star[0]);
+  });
 });

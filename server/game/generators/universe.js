@@ -1,13 +1,17 @@
 import _ from 'lodash';
+import casual from 'casual';
 
 import { Marker } from '../../models';
 import { enumMarkerTypes } from '../../models/marker';
 import NameGenerator from './names';
 
 import starNames from '../data/dictionaries/starNames.yaml';
+import planetNames from '../data/dictionaries/planetNames.yaml';
 
 const starNameGenerator = new NameGenerator(starNames.segments, starNames.rules);
-const orbits = {
+const planetNameGenerator = new NameGenerator(planetNames.segments, planetNames.rules);
+
+const orbitsRules = {
   COMET: [],
   DERELICT: [],
   GAS_GIANT: ['MOON', 'DERELICT', 'STATION'],
@@ -19,7 +23,8 @@ const orbits = {
 };
 
 function populateUniverse() {
-
+  // Generates an initial universe that can be expanded as needed later on
+  // Generate stars - up to 5 at first
 }
 
 function generateStars(universeUuid, n) {
@@ -36,7 +41,30 @@ function generateStars(universeUuid, n) {
   return stars;
 }
 
+function generateSolarSystem(star) {
+  let solarSystem = [star];
+
+  // Add planets - up to 9
+  for (var i=0; i<casual.integer(0, 9); i++) {
+    let planet = new Marker({
+      universeUuid: star.universeUuid,
+      name: planetNameGenerator.generate(),
+      type: enumMarkerTypes.PLANET
+    });
+
+    planet.parentMarker = star.uuid;
+    star.satellites.push(planet.uuid);
+
+    solarSystem.push(planet);
+
+
+  }
+  
+  console.log(solarSystem);
+}
+
 export {
   populateUniverse,
-  generateStars
+  generateStars,
+  generateSolarSystem
 };
