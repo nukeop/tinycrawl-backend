@@ -1,5 +1,6 @@
 import uuidv4 from 'uuid/v4';
 import Model from './model';
+import { getOrCreateTable } from '../utils';
 
 class Hero extends Model {
   create(params) {
@@ -34,7 +35,7 @@ class Hero extends Model {
   }
 
   save() {
-    let table = db.get(Hero.table);
+    let table = getOrCreateTable(Hero.table);
     table.push(this.serialize()).write();
   }
 }

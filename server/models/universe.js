@@ -1,5 +1,6 @@
 import uuidv4 from 'uuid/v4';
 import Model from './model';
+import { getOrCreateTable } from '../utils';
 
 class Universe extends Model {
   create(params) {
@@ -19,7 +20,7 @@ class Universe extends Model {
   }
 
   save() {
-    let table = db.get(Universe.table);
+    let table = getOrCreateTable(Universe.table);
     table.push(this.serialize()).write();
   }
 }

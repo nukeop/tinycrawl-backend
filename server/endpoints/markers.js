@@ -3,6 +3,7 @@ import { Marker, Universe } from '../models';
 import { BadRequest, NotFound } from '../errors';
 import { enumMarkerTypes } from '../models/marker';
 import { requiredParams, enumParam } from '../middleware/routeDecorators';
+
 function createEndpoint(router) {
   router.get('/markers', (req, res) => {
     res.status(200).json({ markers: db.get('markers').values() });

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import uuidv4 from 'uuid/v4';
 import bcrypt from 'bcrypt';
 import Model from './model';
+import { getOrCreateTable } from '../utils';
 
 const enumUserRoles = {
   ROOT_ROLE: 'ROOT_ROLE',
@@ -50,7 +51,7 @@ class User extends Model {
   }
 
   save() {
-    let table = db.get(User.table);
+    let table = getOrCreateTable(User.table);
     let serialized = this.serialize();
     serialized.password = this.password;
     table.push(serialized).write();

@@ -56,10 +56,24 @@ function generateSolarSystem(star) {
     star.satellites.push(planet.uuid);
 
     solarSystem.push(planet);
-
-
   }
-  
+
+  // Generate gas giants, up to 4, if there aren't enough planets
+  if (_.filter(solarSystem, obj => obj.type === enumMarkerTypes.PLANET).length < 9) {
+    for (var i=0; i<casual.integer(0, 4); i++) {
+      let giant = new Marker({
+        universeUuid: star.universeUuid,
+        name: planetNameGenerator.generate(),
+        type: enumMarkerTypes.GAS_GIANT
+      });
+
+      giant.parentMarker = star.uuid;
+      star.satellites.push(giant.uuid);
+
+      solarSystem.push(giant);
+    }
+  }
+
   console.log(solarSystem);
 }
 
