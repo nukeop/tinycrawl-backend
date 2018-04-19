@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Universe, Marker } from '../models';
+import { Universe } from '../models';
 import { BadRequest, NotFound } from '../errors';
 import { requiredParams } from '../middleware/routeDecorators';
 
@@ -31,10 +31,6 @@ function createEndpoint(router) {
     universe.save();
     res.status(201).json(universe.serialize());
   });
-
-  router.get('/universes/:uuid/markers', (req, res) => {
-    return res.status(200).json({ markers: db.get(Marker.table).filter({universeUuid: req.params.uuid}).value() });
-  })
 
   console.log('Endpoints for universes created');
 }

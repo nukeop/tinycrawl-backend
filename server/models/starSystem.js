@@ -9,7 +9,7 @@ class StarSystem extends Model {
       'name',
       'positionX',
       'positionY'
-    ], 'Marker');
+    ], 'StarSystem');
 
     this.uuid = uuidv4();
     this.universeUuid = params.universeUuid;

@@ -87,14 +87,3 @@ Route                    | HTTP Verb  | Description
 /universes               | **POST**   | Create a new universe. `userUuid` is a required parameter and must correspond to an existing user, the universe will be created for that user.
 /universes/:uuid         | **GET**    | Get a single universe.
 /universes/:uuid         | **DELETE** | Delete a single universe.
-/universes/:uuid/markers | **GET**    | Return all markers within the universe.
-
-#### Markers
-
-Markers are points of interest in a universe, such as stars, planets, stations, etc.
-
-Route          | HTTP Verb | Description
----------------|-----------|---------------------------------------------------------------------------------------------------------------------
-/markers       | **GET**   | Get a list of all markers.
-/markers/:uuid | **POST**  | Get a single marker.
-/markers       | **POST**  | Create a new marker. Required parameters: `universeUuid`, `name`, `type`. Type can be either a `star` or a `planet`. Optional parameter: `parentMarker`. This should be a uuid pointing to a marker that this marker orbits.
