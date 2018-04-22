@@ -15,6 +15,10 @@ class Hero extends Model {
     this.name = params.name;
     this.heroClass =  { name: params.heroDefinition.name, prettyName: params.heroDefinition.name };
     this.stats = params.heroDefinition.startingStats;
+    this.stats.maxHp = this.stats.baseHp;
+    this.level = 1;
+    this.experience = 0;
+
     this.slots = params.heroDefinition.slots;
     this.traits = [];
     this.moves = params.heroDefinition.moves;
@@ -28,6 +32,8 @@ class Hero extends Model {
       name: this.name,
       heroClass: this.heroClass,
       stats: this.stats,
+      level: this.level,
+      experience: this.experience,
       slots: this.slots,
       traits: this.traits,
       moves: this.moves

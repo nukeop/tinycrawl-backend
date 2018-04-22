@@ -4,8 +4,8 @@ data:
     prettyName: Marine
     startingStats:
       baseHp: 3
-      attack: 2
-      defense: 1
+      baseAttack: 2
+      baseDefense: 1
     slots:
       - suit
       - external_suit
@@ -26,8 +26,8 @@ data:
     prettyName: Mutant
     startingStats:
       baseHp: 7
-      attack: 0
-      defense: 0
+      baseAttack: 0
+      baseDefense: 0
     slots:
       - weapon
       - weapon
@@ -46,8 +46,8 @@ data:
     prettyName: Space Pirate
     startingStats:
       baseHp: 2
-      attack: 2
-      defense: 3
+      baseAttack: 2
+      baseDefense: 3
     slots:
       - suit
       - external_suit
@@ -65,14 +65,15 @@ data:
     prettyName: Hacker
     startingStats:
       baseHp: 2
-      attack: 1
-      defense: 1
+      baseAttack: 1
+      baseDefense: 1
     slots:
       - suit
       - external_suit
       - headgear
       - accessory
       - accessory
-    moves: []
+    moves:
+      - portable_shield
     abilities: []
     unlock_condition: null

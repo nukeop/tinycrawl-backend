@@ -59,3 +59,8 @@ data:
     prettyName: Assassination
     description: Attacks twice with any equipped melee weapon. Resets all cooldowns if it kills the target.
     cooldown: 15
+
+  - name: portable_shield
+    prettyName: Portable Shield
+    description: Deploy a portable shield around yourself that can absorb up to 10 points of damage.
+    cooldown: 12
