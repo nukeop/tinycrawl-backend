@@ -24,4 +24,8 @@ describe('Universe generator tests', () => {
     // let star = UG.generateStars('abc', 1);
     // UG.generateSolarSystem(star[0]);
   });
+
+  it('Generates a list of star systems', () => {
+
+  });
 });

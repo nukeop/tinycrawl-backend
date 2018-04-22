@@ -1,3 +1,17 @@
+import _ from 'lodash';
+
+import { StarSystem, Universe } from '../../models';
+
+import starNames from '../data/dictionaries/starNames.yaml';
+
+const starNameGenerator = new NameGenerator(starNames.segments, starNames.rules);
+
+function createInitialUniverse(numSystems) {
+  for (var i=0; i<numSystems; i++) {
+    
+  }
+}
+
 // import _ from 'lodash';
 // import casual from 'casual';
 //

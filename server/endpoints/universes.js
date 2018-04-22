@@ -32,6 +32,10 @@ function createEndpoint(router) {
     res.status(201).json(universe.serialize());
   });
 
+  router.get('/universes/:uuid/starSystems', (req, res) => {
+    res.status(200).json({ starSystems: db.get('starSystems').filter({universeUuid: req.params.uuid}).value() });
+  });
+
   console.log('Endpoints for universes created');
 }
 

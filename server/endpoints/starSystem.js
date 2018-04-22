@@ -8,6 +8,15 @@ function createEndpoint(router) {
     res.status(200).json({ starSystems: db.get('starSystems').values() });
   });
 
+  router.get('/starSystems/:uuid', (req, res) => {
+    res.status(200).json({ starSystems: db.get('starSystems').filter({uuid: req.params.uuid}).value() });
+  });
+
+  router.delete('/starSystems/:uuid', (req, res) => {
+    db.get('starSystems').remove({ uuid: req.params.uuid }).write();
+    res.status(204).json();
+  });
+
   router.post('/starSystems',
   requiredParams(['universeUuid', 'name', 'positionX', 'positionY']),
   (req, res) => {
