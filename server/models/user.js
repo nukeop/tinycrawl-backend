@@ -4,11 +4,11 @@ import bcrypt from 'bcrypt';
 import Model from './model';
 import { getOrCreateTable } from '../utils';
 
-const enumUserRoles = {
+const enumUserRoles = Object.freeze({
   ROOT_ROLE: 'ROOT_ROLE',
   ADMIN_ROLE: 'ADMIN_ROLE',
   USER_ROLE: 'USER_ROLE'
-};
+});
 
 class User extends Model {
   create(params) {
