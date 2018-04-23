@@ -29,5 +29,23 @@ class Star extends Model {
     this.uuid = uuidv4();
     this.starSystemUuid = params.starSystemUuid;
     this.name = params.name;
+    this.classification = starClassificationEnum[params.classification];
+  }
+
+  serialize() {
+    return {
+      uuid: this.uuid,
+      starSystemUuid: this.starSystemUuid,
+      name: this.name,
+      classification: this.classification
+    };
+  }
+
+  save() {
+    let table = getOrCreateTable(Star.table);
+    table.push(this.serialize()).write();
   }
 }
+
+Star.table = 'stars';
+export default Star;
