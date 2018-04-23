@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import NameGenerator from '../server/game/generators/names';
-//import * as UG from '../server/game/generators/universe';
+import * as UG from '../server/game/generators/universe';
 
 import starNames from '../server/game/data/dictionaries/starNames.yaml';
 
@@ -25,7 +25,7 @@ describe('Universe generator tests', () => {
     // UG.generateSolarSystem(star[0]);
   });
 
-  it('Generates a list of star systems', () => {
-
+  it('Initializes a new universe', () => {
+    let universe = UG.createInitialUniverse(10, 'abc');
   });
 });
