@@ -11,16 +11,11 @@ import _ from 'lodash';
 
 function createEndpoint(router) {
   router.get('/users', (req, res) => {
-    let users = db.get('users').value();
-    users = _.map(users, user => {
-      return User.deserialize(user).serialize();
-    });
-
-    res.status(200).json({ users: users });
+    res.status(200).json({ users: db.get('users').map(user => User.deserialize(user).serialize()).value() });
   });
 
   router.get('/users/:uuid', (req, res) => {
-    res.status(200).json({ users: db.get('users').filter({uuid: req.params.uuid}).value() });
+    res.status(200).json({ users: db.get('users').filter({uuid: req.params.uuid}).map(user => User.deserialize(user).serialize()).value() });
   });
 
   router.delete('/users/:uuid',[
