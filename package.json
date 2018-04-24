@@ -38,6 +38,8 @@
     "express-jwt": "^5.3.1",
     "lodash": "^4.17.5",
     "lowdb": "^1.0.0",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.16",
     "node-pre-gyp": "^0.9.0",
     "shortid": "^2.2.8",
     "uuid": "^3.2.1"
