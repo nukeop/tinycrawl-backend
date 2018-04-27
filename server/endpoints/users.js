@@ -10,19 +10,28 @@ import {
   requiredParams,
   requiredRole
 } from '../middleware/routeDecorators';
-import * as mu from '../models/mongoose/user';
+import * as dummy from '../models/mongoose/user';
 import { handleMongooseErrors } from '../utils';
 
 var mongoose_User = mongoose.model('User');
 
-
 function createEndpoint(router) {
   router.get('/users', (req, res) => {
-    res.status(200).json({ users: db.get('users').map(user => User.deserialize(user).serialize()).value() });
+    mongoose_User.find({}).then(users => {
+      res.status(200).json({users: _.map(users, user => user.serialize())});
+    });
   });
 
   router.get('/users/:uuid', (req, res) => {
-    res.status(200).json({ users: db.get('users').filter({uuid: req.params.uuid}).map(user => User.deserialize(user).serialize()).value() });
+    mongoose_User.findById(req.params.uuid)
+    .then(user => {
+      if (!user) {
+        res.status(404).send();
+      } else {
+        res.status(200).json({ users: user.serialize() });
+      }
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   router.delete('/users/:uuid',[
@@ -59,14 +68,17 @@ function createEndpoint(router) {
   router.put('/users/:uuid/role', [
     requireAuthentication,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE]),
-    requiredParams(['role']),
-    enumParam('role', _.values(enumUserRoles))
+    requiredParams(['role'])
   ], (req, res) => {
-    db.get('users')
-    .find({uuid: req.params.uuid})
-    .assign({role: req.body.role})
-    .write();
-    res.status(204).send();
+    mongoose_User.findById(req.params.uuid)
+    .then(user => {
+      user.role = req.body.role;
+      return user.save();
+    })
+    .then(user => {
+      res.status(200).json(user.serialize());
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   console.log('Endpoints for users created');

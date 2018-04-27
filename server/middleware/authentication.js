@@ -1,6 +1,8 @@
 import basicAuth from 'basic-auth';
 import bcrypt from 'bcrypt';
-import { User } from '../models';
+import mongoose from 'mongoose';
+
+var User = mongoose.model('User');
 
 export default function authenticationMiddleware(req, res, next) {
   let auth = req.header('Authorization');
@@ -10,13 +12,14 @@ export default function authenticationMiddleware(req, res, next) {
   }
 
   let credentials = basicAuth(req);
-  let user = db.get(User.table).find({username: credentials.name}).value();
-
-  if(credentials && user && bcrypt.compareSync(credentials.pass, user.password)) {
-    req.authorizedUser = user.uuid;
-    next();
-    return;
-  }
-
-  next();
+  User.findOne({ username: credentials.name })
+  .then(user => {
+    if(credentials && user && bcrypt.compareSync(credentials.pass, user.password)) {
+      req.authorizedUser = user;
+      next();
+      return;
+    } else {
+      next();
+    }
+  });
 }

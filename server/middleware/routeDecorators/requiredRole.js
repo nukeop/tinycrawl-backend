@@ -4,8 +4,7 @@ import { enumUserRoles } from '../../models/user';
 
 export default function requiredRole(roles) {
   return (req, res, next) => {
-    let user = db.get(User.table).find({ uuid: req.authorizedUser }).value();
-    if (!_.includes(roles, user.role)) {
+    if (!_.includes(roles, req.authorizedUser.role)) {
       res.status(403).send();
     } else {
       next();

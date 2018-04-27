@@ -10,6 +10,11 @@ export function getOrCreateTable(tableName){
 
 export function handleMongooseErrors(res) {
   return err => {
+    if (typeof err.errors === 'undefined') {
+      res.status(400).json({error: err.message});
+      return
+    }
+
     res.status(400).json(_(err.errors).map((element, index) => {
       return {[`${index}`]: element.message};
     }).value());
