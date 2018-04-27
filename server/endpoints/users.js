@@ -1,3 +1,6 @@
+import _ from 'lodash';
+import mongoose from 'mongoose';
+
 import { User } from '../models';
 import { enumUserRoles } from '../models/user';
 import {
@@ -7,7 +10,11 @@ import {
   requiredParams,
   requiredRole
 } from '../middleware/routeDecorators';
-import _ from 'lodash';
+import * as mu from '../models/mongoose/user';
+import { handleMongooseErrors } from '../utils';
+
+var mongoose_User = mongoose.model('User');
+
 
 function createEndpoint(router) {
   router.get('/users', (req, res) => {
@@ -34,20 +41,19 @@ function createEndpoint(router) {
     res.status(200).json({ universes: db.get('universes').filter({userUuid: req.params.uuid}).value() });
   });
 
-  router.post('/users', [
-    requiredParams(['username', 'email', 'password']),
-    uniqueParam('username', User.table),
-    uniqueParam('email', User.table)
-  ], (req, res) => {
-    let user = new User();
-    user.create(req.body)
-    .then(hash => {
-      user.password = hash;
-      user.save();
-      res
-      .status(201)
-      .json(user.serialize());
-    });
+  router.post('/users', (req, res) => {
+    let user = new mongoose_User();
+    user.username = req.body.username;
+    user.displayName = req.body.username;
+    user.email = req.body.email;
+    user.role = enumUserRoles.USER_ROLE;
+    user.setPassword(req.body.password);
+
+    user.save()
+    .then(() => {
+      res.status(201).json(user.serialize());
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   router.put('/users/:uuid/role', [

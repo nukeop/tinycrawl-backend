@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import datastore from './datastore';
+import { initMongo } from './datastore-mongodb';
 import router, { initRoutes } from './routes';
 import { initDatabase, loadInitialTables } from './datastore';
 import middleware from './middleware';
@@ -19,6 +20,9 @@ function start() {
     initDatabase();
     loadInitialTables();
     initRoutes();
+
+    // MongoDB
+    initMongo();
 
     // Start the server
     server.use(bodyParser.urlencoded({ extended: true }));
