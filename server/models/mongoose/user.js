@@ -31,7 +31,15 @@ var UserSchema = mongoose.Schema({
     type: String,
     enum: _.values(enumUserRoles),
     required: [true, 'role is required']
-  }
+  },
+  heroes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Hero'
+  }],
+  universes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Universe'
+  }]
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator);

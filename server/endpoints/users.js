@@ -38,8 +38,14 @@ function createEndpoint(router) {
     requireAuthentication,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
   ], (req, res) => {
-    db.get('users').remove({ uuid: req.params.uuid }).write();
-    res.status(204).json();
+    mongoose_User.findById(req.params.uuid)
+    .then(user => {
+      return user.remove();
+    })
+    .then(user => {
+      res.status(204).send();
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   router.get('/users/:uuid/heroes', (req, res) => {
