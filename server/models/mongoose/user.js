@@ -3,7 +3,11 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
-import { enumUserRoles } from '../user';
+const enumUserRoles = Object.freeze({
+  ROOT_ROLE: 'ROOT_ROLE',
+  ADMIN_ROLE: 'ADMIN_ROLE',
+  USER_ROLE: 'USER_ROLE'
+});
 
 var UserSchema = mongoose.Schema({
   username: {
@@ -67,3 +71,4 @@ UserSchema.methods.serialize = function() {
 
 var User = mongoose.model('User', UserSchema);
 export default User;
+export { enumUserRoles };

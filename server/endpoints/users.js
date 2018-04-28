@@ -1,11 +1,8 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
 
-import { User } from '../models';
-import { enumUserRoles } from '../models/user';
+import { enumUserRoles } from '../models/mongoose/user';
 import {
-  enumParam,
-  uniqueParam,
   requireAuthentication,
   requiredParams,
   requiredRole
@@ -13,17 +10,17 @@ import {
 import * as dummy from '../models/mongoose/user';
 import { handleMongooseErrors } from '../utils';
 
-var mongoose_User = mongoose.model('User');
+var User = mongoose.model('User');
 
 function createEndpoint(router) {
   router.get('/users', (req, res) => {
-    mongoose_User.find({}).then(users => {
+    User.find({}).then(users => {
       res.status(200).json({users: _.map(users, user => user.serialize())});
     });
   });
 
   router.get('/users/:uuid', (req, res) => {
-    mongoose_User.findById(req.params.uuid)
+    User.findById(req.params.uuid)
     .then(user => {
       if (!user) {
         res.status(404).send();
@@ -38,7 +35,7 @@ function createEndpoint(router) {
     requireAuthentication,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
   ], (req, res) => {
-    mongoose_User.findById(req.params.uuid)
+    User.findById(req.params.uuid)
     .then(user => {
       return user.remove();
     })
@@ -49,15 +46,27 @@ function createEndpoint(router) {
   });
 
   router.get('/users/:uuid/heroes', (req, res) => {
-    res.status(200).json({ heroes: db.get('heroes').filter({userUuid: req.params.uuid}).value() });
+    User.findById(req.params.uuid)
+    .populate('heroes')
+    .then(user => {
+      console.log(user);
+      res.status(200).send();
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   router.get('/users/:uuid/universes', (req, res) => {
-    res.status(200).json({ universes: db.get('universes').filter({userUuid: req.params.uuid}).value() });
+    User.findById(req.params.uuid)
+    .populate('universes')
+    .then(user => {
+      console.log(user);
+      res.status(200).send();
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   router.post('/users', (req, res) => {
-    let user = new mongoose_User();
+    let user = new User();
     user.username = req.body.username;
     user.displayName = req.body.username;
     user.email = req.body.email;
@@ -76,7 +85,7 @@ function createEndpoint(router) {
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE]),
     requiredParams(['role'])
   ], (req, res) => {
-    mongoose_User.findById(req.params.uuid)
+    User.findById(req.params.uuid)
     .then(user => {
       user.role = req.body.role;
       return user.save();
