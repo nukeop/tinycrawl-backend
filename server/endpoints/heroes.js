@@ -1,7 +1,13 @@
 import _ from 'lodash';
+import mongoose from 'mongoose';
+
 import { Hero } from '../models';
 import { BadRequest, NotFound } from '../errors';
 import { requiredParams } from '../middleware/routeDecorators';
+import * as dummy from '../models/mongoose/hero';
+
+
+var mongoose_Hero = mongoose.model('Hero');
 
 function createEndpoint(router) {
   router.get('/heroes', (req, res) => {
