@@ -11,7 +11,17 @@ var mongoose_Hero = mongoose.model('Hero');
 
 function createEndpoint(router) {
   router.get('/heroes', (req, res) => {
-    res.status(200).json({ heroes:db.get('heroes').value()});
+    mongoose_Hero
+    .find({})
+    .populate('heroClass')
+    .populate('stats')
+    .populate('slots')
+    .populate('traits')
+    .populate('moves')
+    .populate('abilities')
+    .then(heroes => {
+      res.status(200).json({ heroes: _.map(heroes, hero => hero.serialize())});
+    });
   });
 
   router.post('/heroes',

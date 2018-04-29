@@ -1,6 +1,7 @@
 tables:
   - name: Heroes
     file: ./heroes.yaml
+    schema: HeroClass
 
   - name: Environments
     file: ./environments.yaml
@@ -10,6 +11,7 @@ tables:
 
   - name: EnvironmentalFeatures
     file: ./environmentalFeatures.yaml
+    schema: EnvironmentalFeature
 
   - name: Traits
     file: ./traits.yaml
