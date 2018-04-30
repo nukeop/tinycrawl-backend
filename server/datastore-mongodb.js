@@ -28,22 +28,16 @@ function loadDefaultDefinitions(model, data) {
   });
 }
 
-function loadHeroClassDefinitions(model, data) {
-  let foreign = {
-    slots: 'EquipmentSlot',
-    moves: 'Move',
-    abilities: 'Ability'
-  };
+function loadDefinitionsWithForeignKeys(model, data, foreign) {
+  _.forEach(data.data, entry => {
 
-  _.forEach(data.data, heroClass => {
-
-    model.findOne({name: heroClass.name})
+    model.findOne({name: entry.name})
     .then(existing => {
       if (!existing) {
         existing = new model();
       }
 
-      _.forEach(heroClass, (attr, attrName) => {
+      _.forEach(entry, (attr, attrName) => {
         if (!_.includes(Object.keys(foreign), attrName)) {
           existing[attrName] = attr;
         }
@@ -52,7 +46,7 @@ function loadHeroClassDefinitions(model, data) {
       Promise.all(_.map(foreign, (modelName, attr) => {
         let foreignKeyModel = mongoose.model(modelName);
 
-        return Promise.all(_.map(heroClass[attr], foreignKeyEntry => {
+        return Promise.all(_.map(entry[attr], foreignKeyEntry => {
           return foreignKeyModel.findOne({name: foreignKeyEntry});
         }))
         .then(results => {
@@ -70,9 +64,16 @@ function loadHeroClassDefinitions(model, data) {
 function loadDefinition(table, model, data) {
   switch (table.name) {
     case 'Environments':
+    loadDefinitionsWithForeignKeys(model, data, {
+      features: 'EnvironmentalFeature'
+    });
     return;
     case 'HeroClasses':
-    loadHeroClassDefinitions(model, data);
+    loadDefinitionsWithForeignKeys(model, data, {
+      slots: 'EquipmentSlot',
+      moves: 'Move',
+      abilities: 'Ability'
+    });
     return;
     default:
     loadDefaultDefinitions(model, data);

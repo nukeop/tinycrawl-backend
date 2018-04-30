@@ -25,3 +25,4 @@ tables:
 
   - name: Environments
     file: ./environments.yaml
+    schema: Environment
