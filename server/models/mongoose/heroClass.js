@@ -8,7 +8,9 @@ var HeroClassSchema = mongoose.Schema({
     index: true
   },
   prettyName: { type: String },
-  startingStats: { type: mongoose.Schema.Types.ObjectId, ref: 'CharacterStats' },
+  baseHp: { type: Number, default: 0 },
+  baseAttack: { type: Number, default: 0 },
+  baseDefense: { type: Number, default: 0 },
   slots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'EquipmentSlot' }],
   moves: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Move' }],
   abilities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}],

@@ -2,10 +2,9 @@ table: heroes
 data:
   - name: marine
     prettyName: Marine
-    startingStats:
-      baseHp: 3
-      baseAttack: 2
-      baseDefense: 1
+    baseHp: 3
+    baseAttack: 2
+    baseDefense: 1
     slots:
       - suit
       - external_suit
@@ -24,10 +23,9 @@ data:
 
   - name: mutant
     prettyName: Mutant
-    startingStats:
-      baseHp: 7
-      baseAttack: 0
-      baseDefense: 0
+    baseHp: 7
+    baseAttack: 0
+    baseDefense: 0
     slots:
       - weapon
       - weapon
@@ -44,10 +42,9 @@ data:
 
   - name: pirate
     prettyName: Space Pirate
-    startingStats:
-      baseHp: 2
-      baseAttack: 2
-      baseDefense: 3
+    baseHp: 2
+    baseAttack: 2
+    baseDefense: 3
     slots:
       - suit
       - external_suit
@@ -63,10 +60,9 @@ data:
 
   - name: hacker
     prettyName: Hacker
-    startingStats:
-      baseHp: 2
-      baseAttack: 1
-      baseDefense: 1
+    baseHp: 2
+    baseAttack: 1
+    baseDefense: 1
     slots:
       - suit
       - external_suit

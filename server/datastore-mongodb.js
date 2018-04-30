@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import mongoose from 'mongoose';
 
 import * as Models from './models/mongoose';
 import config from './config';
+import dataIndex from './game/data/index.yaml';
 
 export function initMongo() {
   let mongodbUrl = config.mongodbUrl;
@@ -10,6 +12,84 @@ export function initMongo() {
   mongoose.connect(mongodbUrl);
 }
 
-export function loadInitialTables() {
+function loadDefaultDefinitions(model, data) {
+  _.forEach(data.data, obj => {
+    model.findOne({name: obj.name})
+    .then(existing => {
+      if (!existing) {
+        existing = new model();
+      }
 
+      _.forEach(obj, (attr, attrName) => {
+        existing[attrName] = attr;
+      });
+      existing.save();
+    });
+  });
+}
+
+function loadHeroClassDefinitions(model, data) {
+  let foreign = {
+    slots: 'EquipmentSlot',
+    moves: 'Move',
+    abilities: 'Ability'
+  };
+
+  _.forEach(data.data, heroClass => {
+
+    model.findOne({name: heroClass.name})
+    .then(existing => {
+      if (!existing) {
+        existing = new model();
+      }
+
+      _.forEach(heroClass, (attr, attrName) => {
+        if (!_.includes(Object.keys(foreign), attrName)) {
+          existing[attrName] = attr;
+        }
+      });
+
+      Promise.all(_.map(foreign, (modelName, attr) => {
+        let foreignKeyModel = mongoose.model(modelName);
+
+        return Promise.all(_.map(heroClass[attr], foreignKeyEntry => {
+          return foreignKeyModel.findOne({name: foreignKeyEntry});
+        }))
+        .then(results => {
+          existing[attr] = results;
+        });
+      }))
+      .then(results => {
+        existing.save();
+      });
+    });
+
+  });
+}
+
+function loadDefinition(table, model, data) {
+  switch (table.name) {
+    case 'Environments':
+    return;
+    case 'HeroClasses':
+    loadHeroClassDefinitions(model, data);
+    return;
+    default:
+    loadDefaultDefinitions(model, data);
+  }
+}
+
+export function loadInitialTables() {
+  console.log('Loading definitions (mongoDB)...');
+
+  const req = require.context("json-loader!yaml-loader!./game/data", true, /yaml$/);
+
+  _.forEach(dataIndex.tables, table => {
+    if (table.schema) {
+       console.log(`Loading definitions for table ${table.name}...`);
+       let model = mongoose.model(table.schema);
+       let data = eval(req(table.file));
+       loadDefinition(table, model, data);
+    }
+  });
 }

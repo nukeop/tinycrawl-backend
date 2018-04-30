@@ -1,0 +1,6 @@
+data:
+  - name: suit
+  - name: external_suit
+  - name: headgear
+  - name: weapon
+  - name: accessory

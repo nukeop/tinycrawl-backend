@@ -1,20 +1,27 @@
 tables:
-  - name: Heroes
-    file: ./heroes.yaml
-    schema: HeroClass
-
-  - name: Environments
-    file: ./environments.yaml
+  - name: EquipmentSlots
+    file: ./equipmentSlots.yaml
+    schema: EquipmentSlot
 
   - name: Moves
     file: ./moves.yaml
+    schema: Move
+
+  - name: Traits
+    file: ./traits.yaml
+    schema: Trait
+
+  - name: Abilities
+    file: ./abilities.yaml
+    schema: Ability
+
+  - name: HeroClasses
+    file: ./heroes.yaml
+    schema: HeroClass
 
   - name: EnvironmentalFeatures
     file: ./environmentalFeatures.yaml
     schema: EnvironmentalFeature
 
-  - name: Traits
-    file: ./traits.yaml
-
-  - name: Abilities
-    file: ./abilities.yaml
+  - name: Environments
+    file: ./environments.yaml
