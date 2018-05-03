@@ -12,5 +12,15 @@ var MoveSchema = mongoose.Schema({
   cooldown: { type: Number, default: 0 }
 });
 
+MoveSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    name: this.name,
+    prettyName: this.prettyName,
+    description: this.description,
+    cooldown: this.cooldown
+  };
+};
+
 var Move = mongoose.model('Move', MoveSchema);
 export default Move;

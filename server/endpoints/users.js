@@ -7,7 +7,6 @@ import {
   requiredParams,
   requiredRole
 } from '../middleware/routeDecorators';
-import * as dummy from '../models/mongoose/user';
 import { handleMongooseErrors } from '../utils';
 
 var User = mongoose.model('User');

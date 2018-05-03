@@ -11,5 +11,14 @@ var EnvironmentalFeatureSchema = mongoose.Schema({
   description: { type: String }
 });
 
+EnvironmentalFeatureSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    name: this.name,
+    prettyName: this.prettyName,
+    description: this.description
+  };
+};
+
 var EnvironmentalFeature = mongoose.model('EnvironmentalFeature', EnvironmentalFeatureSchema);
 export default EnvironmentalFeature;

@@ -12,5 +12,15 @@ var AbilitySchema = mongoose.Schema({
   flavor: { type: String }
 });
 
+AbilitySchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    name: this.name,
+    prettyName: this.prettyName,
+    description: this.description,
+    flavor: this.flavor
+  };
+};
+
 var Ability = mongoose.model('Ability', AbilitySchema);
 export default Ability;
