@@ -1,7 +1,7 @@
 table: environments
 data:
   - name: grasslands
-    prettyname: Grasslands
+    prettyName: Grasslands
     descriptions:
       - An area covered in vast, grassy plains
       - A thriving area that is home to many simple lifeforms
@@ -10,7 +10,7 @@ data:
       - temperature_medium
 
   - name: swamp
-    prettyname: Swamp
+    prettyName: Swamp
     descriptions:
       - Wetlands area that's permanently flooded, with abundant natural life
     features:
@@ -18,7 +18,7 @@ data:
       - temperature_medium
 
   - name: desert
-    prettyname: Desert
+    prettyName: Desert
     descriptions:
       - A dry, arid area where only the fittest will survive
       - A hot, barren wasteland, hostile to natural and artificial life
@@ -27,7 +27,7 @@ data:
       - temperature_high
 
   - name: void
-    prettyname: Void
+    prettyName: Void
     descriptions:
       - The airless conditions in this area render it completely lifeless except for posible artificial organisms
       - A cold, lifeless husk without any atmosphere. Hazardous if visited without a space suit or respiratory equipment
@@ -37,7 +37,7 @@ data:
       - no_atmosphere
 
   - name: irradiated
-    prettyname: Irradiated
+    prettyName: Irradiated
     descriptions:
       - Not only does this area have little or no breathable atmosphere, it also lacks a magnetic field protecting it from dangerous radiation
       - This area is bathed in gamma radiation, which causes mutations and heavy radiation damage. Artificial lifeforms are at risk of having their memory banks corrupted

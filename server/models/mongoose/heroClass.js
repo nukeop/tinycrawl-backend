@@ -17,5 +17,20 @@ var HeroClassSchema = mongoose.Schema({
   unlock_condition: { type: String }
 });
 
+HeroClassSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    name: this.name,
+    prettyName: this.prettyName,
+    baseHp: this.baseHp,
+    baseAttack: this.baseAttack,
+    baseDefense: this.baseDefense,
+    slots: this.slots,
+    moves: this.moves,
+    abilities: this.moves,
+    unlock_condition: this.unlock_condition
+  };
+};
+
 var HeroClass = mongoose.model('HeroClass', HeroClassSchema);
 export default HeroClass;

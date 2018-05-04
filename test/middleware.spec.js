@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 
+import User from '../server/models/mongoose/user';
 import { authentication } from '../server/middleware';
 
 chai.use(spies);

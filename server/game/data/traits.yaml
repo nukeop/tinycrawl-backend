@@ -1,31 +1,31 @@
 table: traits
 data:
   - name: light_step
-    prettyname: Light Step
+    prettyName: Light Step
     description: Greatly decreased chance to trigger undetected traps.
     flavor: null
 
   - name: genetic_resistance
-    prettyname: Resistant Genetics
+    prettyName: Resistant Genetics
     description: Greatly decreased chance of mutation.
     flavor: null
 
   - name: genetic_dead_end
-    prettyname: Genetic Dead End
+    prettyName: Genetic Dead End
     description: Greatly increased chance of mutation.
     flavor: null
 
   - name: hypersocial
-    prettyname: Hypersocial
+    prettyName: Hypersocial
     description: Increased chance of gaining allies. Decreased experience gain and technical skills.
     flavor: null
 
   - name: hyperpsychopath
-    prettyname: Hyperpsycho
+    prettyName: Hyperpsycho
     description: Negates psychological damage.
     flavor: null
 
   - name: horns
-    prettyname: Horns
+    prettyName: Horns
     description: Can't wear headgear. Melee attackers are attacked back.
     flavor: null

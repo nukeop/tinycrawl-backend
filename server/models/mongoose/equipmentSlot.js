@@ -9,5 +9,12 @@ var EquipmentSlotSchema = mongoose.Schema({
   }
 });
 
+EquipmentSlotSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    name: this.name
+  };
+};
+
 var EquipmentSlot = mongoose.model('EquipmentSlot', EquipmentSlotSchema);
 export default EquipmentSlot;

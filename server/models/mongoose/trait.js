@@ -12,5 +12,15 @@ var TraitSchema = mongoose.Schema({
   flavor: { type: String }
 });
 
+TraitSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    name: this.name,
+    prettyName: this.prettyName,
+    description: this.description,
+    flavor: this.flavor
+  };
+};
+
 var Trait = mongoose.model('Trait', TraitSchema);
 export default Trait;
