@@ -12,9 +12,20 @@ let definitionTypes = {
 
 function createEndpoint(router) {
   router.get('/definitions', (req, res) => {
-
-
-    res.status(200).json({ definitions: db.get('definitions').value() });
+    Promise.all(_.map(definitionTypes, (modelName, resourceName) => {
+      return mongoose.model(modelName).find({})
+      .then(items => {
+        return {
+          name: resourceName,
+          items
+        };
+      });
+    }))
+    .then(lists => {
+      res.status(200).json({
+        definitions: _(lists).groupBy('name').mapValues(list => _.head(list)).mapValues(list => list.items).mapValues(list => _.map(list, item => item.serialize())).value()
+      });
+    });
   });
 
   _.forEach(definitionTypes, (modelName, resourceName) => {
@@ -25,27 +36,9 @@ function createEndpoint(router) {
         });
       });
     });
-  });
 
-  // _.forEach(db.get('definitions').value(),(table, key) => {
-  //   router.get(`/definitions/${key}`, (req, res) => {
-  //     res
-  //     .status(200)
-  //     .json({
-  //       [`${key}`]: db.get(`definitions.${key}`).value()
-  //     });
-  //   });
-  //
-  //   router.get(`/definitions/${key}/:name`, (req, res) => {
-  //     res
-  //     .status(200)
-  //     .json({
-  //       [`${key}`]: db.get(`definitions.${key}`).filter({name: req.params.name}).value()
-  //     });
-  //   });
-  //
-  //   console.log(`Endpoint for definition ${key} registered`);
-  // });
+    console.log(`Endpoint for definition ${resourceName} registered`);
+  });
 
   console.log('All endpoints for definitions registered');
 }
