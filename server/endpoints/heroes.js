@@ -3,11 +3,12 @@ import mongoose from 'mongoose';
 
 import { Hero } from '../models';
 import { BadRequest, NotFound } from '../errors';
-import { requiredParams } from '../middleware/routeDecorators';
-import * as dummy from '../models/mongoose/hero';
-
+import { requiredParams, requireAuthentication } from '../middleware/routeDecorators';
+import { handleMongooseErrors } from '../utils';
 
 var mongoose_Hero = mongoose.model('Hero');
+var HeroClass = mongoose.model('HeroClass');
+var User = mongoose.model('User');
 
 function createEndpoint(router) {
   router.get('/heroes', (req, res) => {
@@ -25,30 +26,43 @@ function createEndpoint(router) {
   });
 
   router.post('/heroes',
-  requiredParams(['name', 'heroDefinition', 'userUuid']),
+  requiredParams(['name', 'heroClass']),
+  requireAuthentication,
   (req, res) => {
-    let definition = db.get('definitions.heroes').filter({name: req.body.heroDefinition}).head().value();
+    HeroClass
+      .findOne({name: req.body.heroClass})
+      .populate('slots')
+      .populate('moves')
+      .populate('abilities')
+      .then(heroClass => {
+	if (!heroClass) {
+	  BadRequest(res, `Hero class ${req.body.heroClass} does not exist`);
+	  return;
+	}	
+	
+	let hero = new mongoose_Hero({
+	  user: req.authorizedUser._id,
+	  name: req.body.name,
+	  heroClass: heroClass._id,
+	  baseHp: heroClass.baseHp,
+	  currentHp: heroClass.baseHp,
+	  baseAttack: heroClass.baseAttack,
+	  baseDefense: heroClass.baseDefense,
+	  level: 1,
+	  experience: 0,
+	  slots: heroClass.slots,
+	  traits: [],
+	  moves: heroClass.moves,
+	  abilities: heroClass.abilities
+	});
 
-    if (definition === undefined) {
-      BadRequest(res, `Hero class ${req.body.heroDefinition} does not exist`);
-      return;
-    }
-
-    let user = db.get('users').filter({uuid: req.body.userUuid}).head().value();
-
-    if (user === undefined) {
-      BadRequest(res, 'User with this uuid does not exist');
-      return;
-    }
-
-    let hero = new Hero({
-      userUuid: req.body.userUuid,
-      name: req.body.name,
-      heroDefinition: definition
-    });
-    hero.save();
-
-    res.status(201).json(hero.serialize());
+	hero.save()
+	  .then(() => {
+	    res.status(201).json(hero.serialize());
+	  })
+	  .catch(handleMongooseErrors(res));
+      })
+    .catch(handleMongooseErrors(res));
   });
 
   router.get('/heroes/:uuid', (req, res) => {

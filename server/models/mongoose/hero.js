@@ -8,7 +8,10 @@ var HeroSchema = mongoose.Schema({
     match: [/^[a-zA-Z- ']+$/]
   },
   heroClass: { type: mongoose.Schema.Types.ObjectId, ref: 'HeroClass' },
-  stats: { type: mongoose.Schema.Types.ObjectId, ref: 'CharacterStats' },
+  baseHp: { type: Number, default: 0 },
+  currentHp: { type: Number, default: 0 },
+  baseAttack: { type: Number, default: 0 },
+  baseDefense: { type: Number, default: 0 },
   level: { type: Number, default: 1 },
   experience: { type: Number, default: 0},
   slots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'EquipmentSlot' }],
@@ -17,13 +20,16 @@ var HeroSchema = mongoose.Schema({
   abilities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}]
 });
 
-HeroSchema.serialize = function() {
+HeroSchema.methods.serialize = function() {
   return {
     id: this._id,
     user: this.user,
     name: this.name,
     heroClass: this.heroClass,
-    stats: this.stats,
+    baseHp: this.baseHp,
+    currentHp: this.currentHp,
+    baseAttack: this.baseAttack,
+    baseDefense: this.baseDefense,
     level: this.level,
     experience: this.experience,
     slots: this.slots,

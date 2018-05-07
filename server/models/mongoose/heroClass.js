@@ -27,7 +27,7 @@ HeroClassSchema.methods.serialize = function() {
     baseDefense: this.baseDefense,
     slots: this.slots,
     moves: this.moves,
-    abilities: this.moves,
+    abilities: this.abilities,
     unlock_condition: this.unlock_condition
   };
 };
