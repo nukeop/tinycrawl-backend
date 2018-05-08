@@ -66,7 +66,23 @@ function createEndpoint(router) {
   });
 
   router.get('/heroes/:uuid', (req, res) => {
-    res.status(200).json({ heroes: db.get('heroes').filter({ uuid: req.params.uuid }).value() });
+    mongoose_Hero
+      .findOne({_id: req.params.uuid})
+      .populate('heroClass')
+      .populate('stats')
+      .populate('slots')
+      .populate('traits')
+      .populate('moves')
+      .populate('abilities')
+      .then(hero => {
+	if (!hero) {
+	  NotFound(res);
+	} else {
+	  res.status(200).json({ heroes: [
+	    hero.serialize()
+	  ]});
+	}
+      });
   });
 
   router.delete('/heroes/:uuid', (req, res) => {
