@@ -11,7 +11,7 @@ var EnvironmentSchema = mongoose.Schema({
   prettyName: { type: String },
   descriptions: [{ type: String }],
   features: [{ type:mongoose.Schema.Types.ObjectId, ref: 'EnvironmentalFeature' }]
-});
+}, {timestamps: true});
 
 EnvironmentSchema.methods.serialize = function() {
   return {

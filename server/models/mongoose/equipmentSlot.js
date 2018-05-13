@@ -7,7 +7,7 @@ var EquipmentSlotSchema = mongoose.Schema({
     unique: true,
     index: true
   }
-});
+}, {timestamps: true});
 
 EquipmentSlotSchema.methods.serialize = function() {
   return {

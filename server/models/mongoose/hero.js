@@ -18,7 +18,7 @@ var HeroSchema = mongoose.Schema({
   traits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trait' }],
   moves: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Move' }],
   abilities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}]
-});
+}, {timestamps: true});
 
 HeroSchema.methods.serialize = function() {
   return {

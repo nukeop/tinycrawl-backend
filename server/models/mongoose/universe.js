@@ -5,7 +5,7 @@ var UniverseSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-});
+}, {timestamps: true});
 
 UniverseSchema.methods.serialize = function() {
   return {

@@ -10,7 +10,7 @@ var AbilitySchema = mongoose.Schema({
   prettyName: { type: String },
   description: { type: String },
   flavor: { type: String }
-});
+}, {timestamps: true});
 
 AbilitySchema.methods.serialize = function() {
   return {

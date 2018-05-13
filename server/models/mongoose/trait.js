@@ -10,7 +10,7 @@ var TraitSchema = mongoose.Schema({
   prettyName: { type: String },
   description: { type: String },
   flavor: { type: String }
-});
+}, {timestamps: true});
 
 TraitSchema.methods.serialize = function() {
   return {

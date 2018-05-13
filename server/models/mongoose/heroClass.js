@@ -15,7 +15,7 @@ var HeroClassSchema = mongoose.Schema({
   moves: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Move' }],
   abilities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}],
   unlock_condition: { type: String }
-});
+}, {timestamps: true});
 
 HeroClassSchema.methods.serialize = function() {
   return {

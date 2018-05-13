@@ -10,7 +10,7 @@ var MoveSchema = mongoose.Schema({
   prettyName: { type: String },
   description: { type: String },
   cooldown: { type: Number, default: 0 }
-});
+}, {timestamps: true});
 
 MoveSchema.methods.serialize = function() {
   return {

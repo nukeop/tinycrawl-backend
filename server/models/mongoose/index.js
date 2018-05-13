@@ -5,6 +5,7 @@ import EquipmentSlot from './equipmentSlot';
 import Hero from './hero';
 import HeroClass from './heroClass';
 import Move from './move';
+import StarSystem from './starSystem';
 import Trait from './trait';
 import Universe from './universe';
 import User from './user';
@@ -17,6 +18,7 @@ export {
   Hero,
   HeroClass,
   Move,
+  StarSystem,
   Trait,
   Universe,
   User

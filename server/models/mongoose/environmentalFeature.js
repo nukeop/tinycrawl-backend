@@ -9,7 +9,7 @@ var EnvironmentalFeatureSchema = mongoose.Schema({
   },
   prettyName: { type: String },
   description: { type: String }
-});
+}, {timestamps: true});
 
 EnvironmentalFeatureSchema.methods.serialize = function() {
   return {
