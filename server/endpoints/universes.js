@@ -1,39 +1,55 @@
 import _ from 'lodash';
-import { Universe } from '../models';
+import mongoose from 'mongoose';
+
+import { enumUserRoles } from '../models/mongoose/user';
 import { BadRequest, NotFound } from '../errors';
-import { requiredParams } from '../middleware/routeDecorators';
+import { requireAuthentication, requiredRole } from '../middleware/routeDecorators';
+import { handleMongooseErrors } from '../utils';
+
+var Universe = mongoose.model('Universe');
 
 function createEndpoint(router) {
   router.get('/universes', (req, res) => {
-    res.status(200).json({ universes: db.get('universes').value() });
+    Universe
+    .find({})
+    .populate('user')
+    .then(universes => {
+      res.status(200).json({ universes: _.map(universes, universe => universe.serialize())});
+    });
   });
 
   router.get('/universes/:uuid', (req, res) => {
-    res.status(200).json({ universes: db.get('universes').filter({uuid: req.params.uuid}).value() });
+    Universe.findById(req.params.uuid)
+    .populate('user')
+    .then(universe => {
+      res.status(200).send();
+    })
+    .catch(handleMongooseErrors(res));
   });
 
-  router.delete('/universes/:uuid', (req, res) => {
-    db.get('universes').remove({ uuid: req.params.uuid }).write();
-    res.status(204).json();
+  router.delete('/universes/:uuid', [
+    requireAuthentication,
+    requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
+  ], (req, res) => {
+    Universe.findById(req.params.uuid)
+    .then(universe => {
+      return universe.remove();
+    })
+    .then(universe => {
+      res.status(204).send();
+    })
+    .catch(handleMongooseErrors(res));
   });
 
-  router.post('/universes',
-  requiredParams(['userUuid']),
-  (req, res) => {
-    let user = db.get('users').filter({uuid: req.body.userUuid}).head().value();
-
-    if (user === undefined) {
-      BadRequest(res, 'User with this uuid does not exist');
-      return;
-    }
-
-    let universe = new Universe({userUuid: req.body.userUuid});
-    universe.save();
-    res.status(201).json(universe.serialize());
-  });
-
-  router.get('/universes/:uuid/starSystems', (req, res) => {
-    res.status(200).json({ starSystems: db.get('starSystems').filter({universeUuid: req.params.uuid}).value() });
+  router.post('/universes', (req, res) => {
+    let universe = new Universe({
+      user: req.authorizedUser._id
+    });
+    universe.save()
+    .then(() => {
+      res.status(201).json(universe.serialize());
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   console.log('Endpoints for universes created');

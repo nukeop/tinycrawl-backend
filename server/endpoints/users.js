@@ -30,7 +30,7 @@ function createEndpoint(router) {
     .catch(handleMongooseErrors(res));
   });
 
-  router.delete('/users/:uuid',[
+  router.delete('/users/:uuid', [
     requireAuthentication,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
   ], (req, res) => {
@@ -48,7 +48,6 @@ function createEndpoint(router) {
     User.findById(req.params.uuid)
     .populate('heroes')
     .then(user => {
-      console.log(user);
       res.status(200).send();
     })
     .catch(handleMongooseErrors(res));

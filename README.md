@@ -67,15 +67,9 @@ Contains data about characters created by users.
 Route                           | HTTP Verb  | Description
 --------------------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /heroes                         | **GET**    | Get a list of all heroes.
-/heroes                         | **POST**   | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the user identified by `userUuid`.
+/heroes                         | **POST**   | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the authenticated user.
 /heroes/:uuid                   | **GET**    | Get a single hero.
 /heroes/:uuid                   | **DELETE** | Delete a single hero.
-/heroes/:uuid/traits            | **GET**    | Get the traits of a single hero.
-/heroes/:uuid/traits/:traitname | **POST**   | Add a trait to a single hero.
-/heroes/:uuid/traits/:traitname | **DELETE** | Delete a trait from a single hero.
-/heroes/:uuid/moves             | **GET**    | Get the moves of a single hero.
-/heroes/:uuid/moves/:movename   | **POST**   | Add a move to a single hero.
-/heroes/:uuid/moves/:movename   | **DELETE** | Delete a move from a single hero.
 
 #### Universes
 
@@ -84,6 +78,6 @@ Contains data about game universes (separate worlds).
 Route                    | HTTP Verb  | Description
 -------------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------
 /universes               | **GET**    | Get a list of all universes.
-/universes               | **POST**   | Create a new universe. `userUuid` is a required parameter and must correspond to an existing user, the universe will be created for that user.
+/universes               | **POST**   | Create a new universe. The universe will be created for the authenticated user.
 /universes/:uuid         | **GET**    | Get a single universe.
 /universes/:uuid         | **DELETE** | Delete a single universe.
