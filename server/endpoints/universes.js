@@ -15,7 +15,8 @@ function createEndpoint(router) {
     .populate('user')
     .then(universes => {
       res.status(200).json({ universes: _.map(universes, universe => universe.serialize())});
-    });
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   router.get('/universes/:uuid', (req, res) => {

@@ -18,7 +18,6 @@ function start() {
 
     // Initialize database and update definitions
     initDatabase();
-    loadInitialTables();
     initRoutes();
 
     // MongoDB
