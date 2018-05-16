@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
 
-import { enumUserRoles } from '../models/mongoose/user';
+import { enumUserRoles } from '../models/user';
 import { BadRequest, NotFound } from '../errors';
 import { requireAuthentication, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
@@ -12,7 +12,6 @@ function createEndpoint(router) {
   router.get('/universes', (req, res) => {
     Universe
     .find({})
-    .populate('user')
     .then(universes => {
       res.status(200).json({ universes: _.map(universes, universe => universe.serialize())});
     })
@@ -21,7 +20,6 @@ function createEndpoint(router) {
 
   router.get('/universes/:uuid', (req, res) => {
     Universe.findById(req.params.uuid)
-    .populate('user')
     .then(universe => {
       res.status(200).send();
     })

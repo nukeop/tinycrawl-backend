@@ -1,50 +1,43 @@
-import uuidv4 from 'uuid/v4';
-import Model from './model';
-import { getOrCreateTable } from '../utils';
+import _ from 'lodash';
+import mongoose from 'mongoose';
 
-class Hero extends Model {
-  create(params) {
-    Model.validateRequiredParams(
-      params,
-      ['userUuid', 'name', 'heroDefinition'],
-      'Hero'
-    );
+var HeroSchema = mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  name: {
+    type: String,
+    match: [/^[a-zA-Z- ']+$/]
+  },
+  heroClass: { type: mongoose.Schema.Types.ObjectId, ref: 'HeroClass' },
+  baseHp: { type: Number, default: 0 },
+  currentHp: { type: Number, default: 0 },
+  baseAttack: { type: Number, default: 0 },
+  baseDefense: { type: Number, default: 0 },
+  level: { type: Number, default: 1 },
+  experience: { type: Number, default: 0},
+  slots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'EquipmentSlot' }],
+  traits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trait' }],
+  moves: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Move' }],
+  abilities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}]
+}, {timestamps: true});
 
-    this.uuid = uuidv4();
-    this.userUuid = params.userUuid;
-    this.name = params.name;
-    this.heroClass =  { name: params.heroDefinition.name, prettyName: params.heroDefinition.name };
-    this.stats = params.heroDefinition.startingStats;
-    this.stats.maxHp = this.stats.baseHp;
-    this.level = 1;
-    this.experience = 0;
+HeroSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    user: this.user,
+    name: this.name,
+    heroClass: this.heroClass,
+    baseHp: this.baseHp,
+    currentHp: this.currentHp,
+    baseAttack: this.baseAttack,
+    baseDefense: this.baseDefense,
+    level: this.level,
+    experience: this.experience,
+    slots: this.slots,
+    traits: this.traits,
+    moves: this.moves,
+    abilities: this.abilities
+  };
+};
 
-    this.slots = params.heroDefinition.slots;
-    this.traits = [];
-    this.moves = params.heroDefinition.moves;
-    this.abilities = params.heroDefinition.abilities;
-  }
-
-  serialize() {
-    return {
-      uuid: this.uuid,
-      userUuid: this.userUuid,
-      name: this.name,
-      heroClass: this.heroClass,
-      stats: this.stats,
-      level: this.level,
-      experience: this.experience,
-      slots: this.slots,
-      traits: this.traits,
-      moves: this.moves
-    };
-  }
-
-  save() {
-    let table = getOrCreateTable(Hero.table);
-    table.push(this.serialize()).write();
-  }
-}
-
-Hero.table = 'heroes';
+var Hero = mongoose.model('Hero', HeroSchema);
 export default Hero;

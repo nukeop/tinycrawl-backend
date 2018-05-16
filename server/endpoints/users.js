@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
 
-import { enumUserRoles } from '../models/mongoose/user';
+import { enumUserRoles } from '../models/user';
 import {
   requireAuthentication,
   requiredParams,

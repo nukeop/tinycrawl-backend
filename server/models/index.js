@@ -1,13 +1,25 @@
+import Ability from './ability';
+import EnvironmentalFeature from './environmentalFeature';
+import Environment from './environment';
+import EquipmentSlot from './equipmentSlot';
 import Hero from './hero';
-import Star from './star';
+import HeroClass from './heroClass';
+import Move from './move';
 import StarSystem from './starSystem';
-import User from './user';
+import Trait from './trait';
 import Universe from './universe';
+import User from './user';
 
-module.exports = {
+export {
+  Ability,
+  EnvironmentalFeature,
+  Environment,
+  EquipmentSlot,
   Hero,
-  Star,
+  HeroClass,
+  Move,
   StarSystem,
-  User,
-  Universe
+  Trait,
+  Universe,
+  User
 };

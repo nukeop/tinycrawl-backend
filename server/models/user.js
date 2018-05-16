@@ -1,8 +1,7 @@
 import _ from 'lodash';
-import uuidv4 from 'uuid/v4';
 import bcrypt from 'bcrypt';
-import Model from './model';
-import { getOrCreateTable } from '../utils';
+import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const enumUserRoles = Object.freeze({
   ROOT_ROLE: 'ROOT_ROLE',
@@ -10,54 +9,66 @@ const enumUserRoles = Object.freeze({
   USER_ROLE: 'USER_ROLE'
 });
 
-class User extends Model {
-  create(params) {
-    if(!params) {
-      return;
-    }
+var UserSchema = mongoose.Schema({
+  username: {
+    type: String,
+    lowercase: true,
+    unique: [true, 'username must be unique'],
+    required: [true, 'username is required'],
+    match: [/^[a-zA-Z0-9_-]+$/, 'username contains invalid characters'],
+    index: true
+  },
+  email: {
+    type: String,
+    lowercase: true,
+    unique: [true, 'email must be unique'],
+    required: [true, 'username is required'],
+    match: [/\S+@\S+\.\S+/, 'email format is invalid'],
+    index: true
+  },
+  displayName: {
+    type: String,
+    required: [true, 'display name is required'],
+  },
+  password: String,
+  role: {
+    type: String,
+    enum: _.values(enumUserRoles),
+    required: [true, 'role is required']
+  },
+  heroes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Hero'
+  }],
+  universes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Universe'
+  }]
+}, {timestamps: true});
 
-    Model.validateRequiredParams(params, ['username', 'email', 'password'], 'User');
+UserSchema.plugin(uniqueValidator);
 
-    this.uuid = uuidv4();
-    this.username = params.username;
-    this.displayName = params.username;
-    this.email = params.email;
-    this.role = enumUserRoles.USER_ROLE;
+UserSchema.methods.setPassword = function(password) {
+  bcrypt.hash(password, 10)
+  .then(hash => {
+    this.password = hash;
+  });
+};
 
-    return bcrypt.hash(params.password, 10);
-  }
+UserSchema.methods.validatePassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
-  static deserialize(obj) {
-    let result = new User();
+UserSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    username: this.username,
+    displayName: this.displayName,
+    email: this.email,
+    role: this.role
+  };
+};
 
-    result.uuid = obj.uuid;
-    result.username = obj.username;
-    result.displayName = obj.displayName;
-    result.email = obj.email;
-    result.password = obj.password;
-    result.role = enumUserRoles[obj.role];
-
-    return result;
-  }
-
-  serialize() {
-    return {
-      uuid: this.uuid,
-      username: this.username,
-      displayName: this.displayName,
-      email: this.email,
-      role: this.role
-    }
-  }
-
-  save() {
-    let table = getOrCreateTable(User.table);
-    let serialized = this.serialize();
-    serialized.password = this.password;
-    table.push(serialized).write();
-  }
-}
-
-User.table = 'users';
+var User = mongoose.model('User', UserSchema);
 export default User;
 export { enumUserRoles };

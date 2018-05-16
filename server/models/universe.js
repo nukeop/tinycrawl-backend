@@ -1,29 +1,23 @@
-import uuidv4 from 'uuid/v4';
-import Model from './model';
-import { getOrCreateTable } from '../utils';
+import mongoose from 'mongoose';
 
-class Universe extends Model {
-  create(params) {
-    Model.validateRequiredParams(params, [
-      'userUuid'
-    ], 'Universe');
+var UniverseSchema = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  starSystems: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'StarSystem'
+  }]
+}, {timestamps: true});
 
-    this.uuid = uuidv4();
-    this.userUuid = params.userUuid;
-  }
+UniverseSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    user: this.user,
+    starSystems: this.starSystems
+  };
+};
 
-  serialize() {
-    return {
-      uuid: this.uuid,
-      userUuid: this.userUuid
-    };
-  }
-
-  save() {
-    let table = getOrCreateTable(Universe.table);
-    table.push(this.serialize()).write();
-  }
-}
-
-Universe.table = 'universes';
+var Universe = mongoose.model('Universe', UniverseSchema);
 export default Universe;

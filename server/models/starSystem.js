@@ -1,46 +1,42 @@
-import uuidv4 from 'uuid/v4';
-import Model from './model';
-import { getOrCreateTable } from '../utils';
+import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
-class StarSystem extends Model {
-  create(params) {
-    Model.validateRequiredParams(params, [
-      'universeUuid',
-      'name',
-      'positionX',
-      'positionY'
-    ], 'StarSystem');
+var StarSystemSchema = mongoose.Schema({
+  universe: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Universe'
+  },
+  name: {
+    type: String,
+    unique: [true, 'star system name must be unique'],
+    required: [true, 'star system name is required'],
+    index: true
+  },
+  positionX: { type: Number, default: 0 },
+  positionY: { type: Number, default: 0 },
+  celestialObjects: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CelestialBody'
+  }],
+  centers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CelestialBody'
+  }]
+}, {timestamps: true});
 
-    this.uuid = uuidv4();
-    this.universeUuid = params.universeUuid;
-    this.name = params.name;
-    this.positionX = params.positionX;
-    this.positionY = params.positionY;
+StarSystemSchema.plugin(uniqueValidator);
 
-    // List of all astronomical and artificially created bodies in the system
-    this.bodies = [];
+StarSystemSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    universe: this.universe,
+    name: this.name,
+    positionX: this.positionX,
+    positionY: this.positionY,
+    celestialObjects: this.celestialObjects,
+    centers: this.centers
+  };
+};
 
-    // List of all objects in the center of the system, typically a star or multiple stars
-    this.centers = [];
-  }
-
-  serialize() {
-    return {
-      uuid: this.uuid,
-      universeUuid: this.universeUuid,
-      name: this.name,
-      positionX: this.positionX,
-      positionY: this.positionY,
-      bodies: this.bodies,
-      centers: this.centers
-    }
-  }
-
-  save() {
-    let table = getOrCreateTable(StarSystem.table);
-    table.push(this.serialize()).write();
-  }
-}
-
-StarSystem.table = 'starSystems';
+var StarSystem = mongoose.model('StarSystem', StarSystemSchema);
 export default StarSystem;
