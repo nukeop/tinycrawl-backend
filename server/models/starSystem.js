@@ -4,7 +4,8 @@ import uniqueValidator from 'mongoose-unique-validator';
 var StarSystemSchema = mongoose.Schema({
   universe: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Universe'
+    ref: 'Universe',
+    required: [true, 'universe reference is required']
   },
   name: {
     type: String,

@@ -1,4 +1,5 @@
 import Ability from './ability';
+import CelestialBody from './CelestialBody';
 import EnvironmentalFeature from './environmentalFeature';
 import Environment from './environment';
 import EquipmentSlot from './equipmentSlot';
@@ -12,6 +13,7 @@ import User from './user';
 
 export {
   Ability,
+  CelestialBody,
   EnvironmentalFeature,
   Environment,
   EquipmentSlot,
