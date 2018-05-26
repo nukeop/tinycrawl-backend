@@ -20,7 +20,7 @@ function createEndpoint(router) {
       .populate('satellites')
       .populate('areas')
       .then(celestialBodies => {
-	res.status(200).json({ celestialBodies: _.map(celestialBodies, body => body.serialize())});
+	res.status(200).json({ celestialBodies: _.map(celestialBodies, celestialBody => celestialBody.serialize())});
       })
       .catch(handleMongooseErrors(res));
   });
@@ -31,8 +31,8 @@ function createEndpoint(router) {
       .populate('starSystem')
       .populate('satellites')
       .populate('areas')
-      .then(celestialBodies => {
-	res.status(200).json({ celestialBodies: _.map(celestialBodies, body => body.serialize())});
+      .then(celestialBody => {
+	res.status(200).json({ celestialBodies: [celestialBody.serialize()]});
       })
       .catch(handleMongooseErrors(res));
   });
