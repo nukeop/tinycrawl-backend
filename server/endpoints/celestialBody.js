@@ -73,6 +73,24 @@ function createEndpoint(router) {
       })
       .catch(handleMongooseErrors(res));
   });
+
+  router.put('/celestialBodies/:uuid/satellites', [
+    requireAuthentication,
+    requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE]),
+    requiredParams(['satellites'])
+  ], (req, res) => {
+    CelestialBody.findById(req.params.uuid)
+      .then(celestialBody => {
+	celestialBody.satellites = req.body.satellites;
+	return celestialBody.save();
+      })
+      .then(celestialBody => {
+	res.status(200).json(celestialBody.serialize());
+      })
+      .catch(handleMongooseErrors(res));
+  });
+
+  console.log('Endpoints for celestial bodies created');
 }
 
 export default createEndpoint;

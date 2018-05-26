@@ -60,6 +60,17 @@ var CelestialBodySchema = mongoose.Schema({
   }]
 }, {timestamps: true});
 
+CelestialBodySchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    starSystem: this.starSystem,
+    name: this.name,
+    classification: this.classification,
+    satellites: this.satellites,
+    areas: this.areas
+  };
+};
+
 var CelestialBody = mongoose.model('CelestialBody', CelestialBodySchema);
 export default CelestialBody;
 export { enumCelestialBodyClassifications };
