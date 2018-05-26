@@ -54,7 +54,7 @@ function createEndpoint(router) {
   (req, res) => {
 
     let starSystem = new StarSystem({
-      universe: req.body.universeId,
+      universe: req.body.universeUuid,
       name: req.body.name,
       positionX: req.body.positionX,
       positionY: req.body.positionY
