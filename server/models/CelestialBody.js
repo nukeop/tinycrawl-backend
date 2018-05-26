@@ -62,3 +62,4 @@ var CelestialBodySchema = mongoose.Schema({
 
 var CelestialBody = mongoose.model('CelestialBody', CelestialBodySchema);
 export default CelestialBody;
+export { enumCelestialBodyClassifications };

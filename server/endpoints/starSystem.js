@@ -30,7 +30,8 @@ function createEndpoint(router) {
     .populate('centers')
     .then(starSystems => {
       res.status(200).json({ starSystems: _.map(starSystems, system => system.serialize())});
-    });
+    })
+    .catch(handleMongooseErrors(res));
   });
 
   router.delete('/starSystems/:uuid', [
