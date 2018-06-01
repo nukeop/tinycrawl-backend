@@ -4,25 +4,14 @@ import mongoose from 'mongoose';
 import { BadRequest, NotFound } from '../errors';
 import { requiredParams, requireAuthentication } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
+import { createCRUDforResource } from './meta';
 
 var Hero = mongoose.model('Hero');
 var HeroClass = mongoose.model('HeroClass');
 var User = mongoose.model('User');
 
 function createEndpoint(router) {
-  router.get('/heroes', (req, res) => {
-    Hero
-    .find({})
-    .populate('heroClass')
-    .populate('stats')
-    .populate('slots')
-    .populate('traits')
-    .populate('moves')
-    .populate('abilities')
-    .then(heroes => {
-      res.status(200).json({ heroes: _.map(heroes, hero => hero.serialize())});
-    });
-  });
+  createCRUDforResource(router, 'heroes', Hero);
 
   router.post('/heroes',
   requiredParams(['name', 'heroClass']),

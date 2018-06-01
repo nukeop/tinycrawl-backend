@@ -5,18 +5,12 @@ import { enumUserRoles } from '../models/user';
 import { BadRequest, NotFound } from '../errors';
 import { requireAuthentication, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
+import { createCRUDforResource } from './meta';
 
 var Universe = mongoose.model('Universe');
 
 function createEndpoint(router) {
-  router.get('/universes', (req, res) => {
-    Universe
-    .find({})
-    .then(universes => {
-      res.status(200).json({ universes: _.map(universes, universe => universe.serialize())});
-    })
-    .catch(handleMongooseErrors(res));
-  });
+  createCRUDforResource(router, 'universes', Universe);
 
   router.get('/universes/:uuid', (req, res) => {
     Universe.findById(req.params.uuid)

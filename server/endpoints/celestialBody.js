@@ -7,24 +7,13 @@ import { enumCelestialBodyClassifications } from
 import { BadRequest } from '../errors';
 import { requireAuthentication, requiredParams, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
+import { createCRUDforResource } from './meta';
 
 var CelestialBody = mongoose.model('CelestialBody');
 var StarSystem = mongoose.model('StarSystem');
 
 function createEndpoint(router) {
-
-  // Returns all celestial bodies
-  router.get('/celestialBodies', (req, res) => {
-    CelestialBody
-      .find({})
-      .populate('starSystem')
-      .populate('satellites')
-      .populate('areas')
-      .then(celestialBodies => {
-	res.status(200).json({ celestialBodies: _.map(celestialBodies, celestialBody => celestialBody.serialize())});
-      })
-      .catch(handleMongooseErrors(res));
-  });
+  createCRUDforResource(router, 'celestialBodies', CelestialBody);
 
   // Returns one selected body
   router.get('/celestialBodies/:uuid', (req, res) => {

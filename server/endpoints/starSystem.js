@@ -5,23 +5,14 @@ import { enumUserRoles } from '../models/user';
 import { BadRequest } from '../errors';
 import { requireAuthentication, requiredParams, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
+import { createCRUDforResource } from './meta';
 
 var StarSystem = mongoose.model('StarSystem');
 var Universe = mongoose.model('Universe');
 
 function createEndpoint(router) {
-  router.get('/starSystems', (req, res) => {
-    StarSystem
-    .find({})
-    .populate('universe')
-    .populate('celestialObjects')
-    .populate('centers')
-    .then(starSystems => {
-      res.status(200).json({ starSystems: _.map(starSystems, system => system.serialize())});
-    })
-    .catch(handleMongooseErrors(res));
-  });
-
+  createCRUDforResource(router, 'starSystems', StarSystem);
+  
   router.get('/starSystems/:uuid', (req, res) => {
     StarSystem
     .findById(req.params.uuid)

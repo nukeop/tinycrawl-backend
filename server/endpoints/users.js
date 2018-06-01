@@ -8,15 +8,12 @@ import {
   requiredRole
 } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
+import { createCRUDforResource } from './meta';
 
 var User = mongoose.model('User');
 
 function createEndpoint(router) {
-  router.get('/users', (req, res) => {
-    User.find({}).then(users => {
-      res.status(200).json({users: _.map(users, user => user.serialize())});
-    });
-  });
+  createCRUDforResource(router, 'users', User);
 
   router.get('/users/:uuid', (req, res) => {
     User.findById(req.params.uuid)
