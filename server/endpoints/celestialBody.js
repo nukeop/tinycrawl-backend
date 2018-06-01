@@ -13,6 +13,7 @@ var StarSystem = mongoose.model('StarSystem');
 
 function createEndpoint(router) {
 
+  // Returns all celestial bodies
   router.get('/celestialBodies', (req, res) => {
     CelestialBody
       .find({})
@@ -25,6 +26,7 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
+  // Returns one selected body
   router.get('/celestialBodies/:uuid', (req, res) => {
     CelestialBody
       .findById(req.params.uuid)
@@ -37,6 +39,7 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
+  // Deletes one body
   router.delete('/celestialBodies/:uuid', [
     requireAuthentication,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
@@ -52,6 +55,7 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
+  // Creates a new celestial body
   router.post('/celestialBodies', requiredParams(['starSystemId', 'name', 'classification']),
   (req, res) => {
     let celestialBody = new CelestialBody({
@@ -74,6 +78,7 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
+  // Updates satellites of this body
   router.put('/celestialBodies/:uuid/satellites', [
     requireAuthentication,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE]),
@@ -82,6 +87,22 @@ function createEndpoint(router) {
     CelestialBody.findById(req.params.uuid)
       .then(celestialBody => {
 	celestialBody.satellites = req.body.satellites;
+	return celestialBody.save();
+      })
+      .then(celestialBody => {
+	res.status(200).json(celestialBody.serialize());
+      })
+      .catch(handleMongooseErrors(res));
+  });
+
+  router.put('/celestialBodies/:uuid/areas', [
+    requireAuthentication,
+    requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE]),
+    requiredParams(['areas'])
+  ], (req, res) => {
+    CelestialBody.findById(req.params.uuid)
+      .then(celestialBody => {
+	celestialBody.areas = req.body.areas;
 	return celestialBody.save();
       })
       .then(celestialBody => {
