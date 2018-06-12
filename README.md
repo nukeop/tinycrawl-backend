@@ -1,13 +1,29 @@
 # tinycrawl-backend [ ![Codeship Status for nukeop/tinycrawl-backend](https://app.codeship.com/projects/7d85d430-0a8d-0136-3fd1-669fed979da3/status?branch=master)](https://app.codeship.com/projects/281672) [![ReadTheDocs Status for tinycrawl](https://img.shields.io/readthedocs/tinycrawl.svg?style=for-the-badge)](http://tinycrawl.readthedocs.io/en/latest/) [![Greenkeeper badge](https://badges.greenkeeper.io/nukeop/tinycrawl-backend.svg)](https://greenkeeper.io/)
 Backend for the tinycrawl phaser game
 
-## Rules
+## Getting started
+
+#### Running the server
+To run, clone the repository, edit `server/config.js` with your mongodb credentials, and run the following command:
+```shell
+$ npm install && npm start
+```
+
+#### Building Docker image
+There is an included Dockerfile that builds the image reliably. To use it, clone the repository, and then run this:
+```shell
+$ docker -t tinycrawl-backend .
+```
+
+## API
+
+### Rules
 
 -   Endpoints are idempotent where it makes sense.
 -   Endpoints that modify a resource will return the new modified resource.
 -   POST parameters will be passed in body as JSON.
 
-## Authentication
+### Authentication
 
 Authentication is done by [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication).
 Use the `Authorization` header to provide your username and password. If you provide that data and it corresponds to an existing user, you're authenticated. If you don't, you're not.
@@ -81,3 +97,27 @@ Route                    | HTTP Verb  | Description
 /universes               | **POST**   | Create a new universe. The universe will be created for the authenticated user.
 /universes/:uuid         | **GET**    | Get a single universe.
 /universes/:uuid         | **DELETE** | Delete a single universe.
+
+#### Star Systems
+
+Contains data about star systems, which exists within universes. A star system can exist only in one universe at a time, and contains a list of all objects within it, as well as a list of its centers (to support binary andother kinds of systems).
+
+Route              | HTTP Verb  | Description
+-------------------|------------|----------------------------------------------------------------------------------------
+/starSystems  | **GET**   |  Get all star systems.
+/starSystems/:uuid | **GET**    | Get a single star system.
+/starSystems/:uuid | **DELETE** | Delete a single star system.
+/starSystems       | **POST**   | Create a new star system. Needs a `universeUuid`, `name`, `positionX`, and `positionY`.
+
+#### Celestial Bodies
+
+Contains data about celestial bodies, which are any large objects within a star system, including artificial ones. There's an enum that contains all available categories for celestial bodies.
+
+Route                             | HTTP Verb  | Description
+----------------------------------|------------|-----------------------------------------------------------------------------------
+/celestialBodies                  | **GET**    | Get all celestial bodies.
+/celestialBodies/:uuid            | **GET**    | Get a single celestial body.
+/celestialBodies/:uuid            | **DELETE** | Delete a single celestial body.
+/celestialBodies                  | **POST**   | Create a new celestial body. Needs a `starSystemId`, `name`, and `classification`.
+/celestialBodies/:uuid/satellites | **PUT**    | Updates the satellites of a celestial body.
+/celestialBodies/:uuid/areas      | **PUT**    | Updates the areas of a celestial body.
