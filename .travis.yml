@@ -25,3 +25,5 @@ deploy:
     - tinycrawl-backend-docker.tar.gz
     - tinycrawl-backend-rpi-docker.tar.gz
   skip_cleanup: true
+  on:
+    tags: true
