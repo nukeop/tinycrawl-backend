@@ -15,6 +15,12 @@ There is an included Dockerfile that builds the image reliably. To use it, clone
 $ docker -t tinycrawl-backend .
 ```
 
+You can also build an ARM image using the other Dockerfile. To build it on a x86 PC:
+```shell
+$ docker run --rm --privileged multiarch/qemu-user-static:register --reset
+$ docker build -t nukeop/tinycrawl-backend-rpi -f Dockerfile_arm .
+```
+
 ## API
 
 ### Rules
