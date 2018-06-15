@@ -15,15 +15,10 @@ script:
   - docker build -t nukeop/tinycrawl-backend .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t nukeop/tinycrawl-backend-rpi -f Dockerfile_arm .
-  - docker save -o tinycrawl-backend-docker.tar.gz nukeop/tinycrawl-backend
-  - docker save -o tinycrawl-backend-rpi-docker.tar.gz nukeop/tinycrawl-backend-rpi
 
 deploy:
-  provider: releases
-  api_key: $GITHUB_TOKEN
-  file:
-    - tinycrawl-backend-docker.tar.gz
-    - tinycrawl-backend-rpi-docker.tar.gz
+  provider: script
+  script: bash docker_push
   skip_cleanup: true
   on:
-    tags: true
+    branch: master
