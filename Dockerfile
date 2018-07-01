@@ -1,13 +1,17 @@
-FROM node:8.11.2-onbuild
+FROM node:8-alpine
+
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
+
+COPY ./dist/. /usr/app/dist
+COPY ./package.json /usr/app
+
+RUN apk add --update python make g++
+RUN npm install --only=production && npm cache clean --force
 
 ARG PORT=80
 ENV PORT ${PORT}
 
-WORKDIR /usr/src/app
-COPY ./server/. /usr/src/app/server
-COPY ./.babelrc /usr/src/app
-COPY ./webpack.* /usr/src/app
-
-CMD npm start
+CMD npm run server
 
 EXPOSE $PORT

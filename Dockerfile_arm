@@ -1,13 +1,16 @@
 FROM arm32v7/node:8
 
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
+
+COPY ./dist/. /usr/app/dist
+COPY ./package.json /usr/app
+
+RUN npm install --only=production && npm cache clean --force
+
 ARG PORT=80
 ENV PORT ${PORT}
 
-WORKDIR /usr/src/app
-COPY ./server/. /usr/src/app/server
-COPY ./.babelrc /usr/src/app
-COPY ./webpack.* /usr/src/app
-
-CMD npm start
+CMD npm run server
 
 EXPOSE $PORT

@@ -12,6 +12,7 @@ branches:
 
 script:
   - npm test
+  - npm run build
   - docker build -t nukeop/tinycrawl-backend .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t nukeop/tinycrawl-backend-rpi -f Dockerfile_arm .
