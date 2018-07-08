@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import mongoose from 'mongoose';
 
 import { enumUserRoles } from '../models/user';
@@ -7,24 +6,37 @@ import {
   requiredParams,
   requiredRole
 } from '../middleware/routeDecorators';
+import { BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
 var User = mongoose.model('User');
 
 function createEndpoint(router) {
+  router.get('/users/authenticate', [
+    requireAuthentication
+  ], (req, res) => {
+    if(req.authorizedUser) {
+      res.status(200).json({
+        message: 'Success'
+      });
+    } else {
+      BadRequest(res, 'Invalid credentials');
+    }
+  });
+
   createCRUDforResource(router, 'users', User);
 
   router.get('/users/:uuid', (req, res) => {
     User.findById(req.params.uuid)
-    .then(user => {
-      if (!user) {
-        res.status(404).send();
-      } else {
-        res.status(200).json({ users: user.serialize() });
-      }
-    })
-    .catch(handleMongooseErrors(res));
+      .then(user => {
+        if (!user) {
+          res.status(404).send();
+        } else {
+          res.status(200).json({ users: user.serialize() });
+        }
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   router.delete('/users/:uuid', [
@@ -32,32 +44,31 @@ function createEndpoint(router) {
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
   ], (req, res) => {
     User.findById(req.params.uuid)
-    .then(user => {
-      return user.remove();
-    })
-    .then(user => {
-      res.status(204).send();
-    })
-    .catch(handleMongooseErrors(res));
+      .then(user => {
+        return user.remove();
+      })
+      .then(() => {
+        res.status(204).send();
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   router.get('/users/:uuid/heroes', (req, res) => {
     User.findById(req.params.uuid)
-    .populate('heroes')
-    .then(user => {
-      res.status(200).send();
-    })
-    .catch(handleMongooseErrors(res));
+      .populate('heroes')
+      .then(() => {
+        res.status(200).send();
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   router.get('/users/:uuid/universes', (req, res) => {
     User.findById(req.params.uuid)
-    .populate('universes')
-    .then(user => {
-      console.log(user);
-      res.status(200).send();
-    })
-    .catch(handleMongooseErrors(res));
+      .populate('universes')
+      .then(() => {
+        res.status(200).send();
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   router.post('/users', (req, res) => {
@@ -69,10 +80,10 @@ function createEndpoint(router) {
     user.setPassword(req.body.password);
 
     user.save()
-    .then(() => {
-      res.status(201).json(user.serialize());
-    })
-    .catch(handleMongooseErrors(res));
+      .then(() => {
+        res.status(201).json(user.serialize());
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   router.put('/users/:uuid/role', [
@@ -81,16 +92,18 @@ function createEndpoint(router) {
     requiredParams(['role'])
   ], (req, res) => {
     User.findById(req.params.uuid)
-    .then(user => {
-      user.role = req.body.role;
-      return user.save();
-    })
-    .then(user => {
-      res.status(200).json(user.serialize());
-    })
-    .catch(handleMongooseErrors(res));
+      .then(user => {
+        user.role = req.body.role;
+        return user.save();
+      })
+      .then(user => {
+        res.status(200).json(user.serialize());
+      })
+      .catch(handleMongooseErrors(res));
   });
 
+
+  
   console.log('Endpoints for users created');
 }
 

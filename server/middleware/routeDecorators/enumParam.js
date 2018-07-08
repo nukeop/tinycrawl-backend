@@ -8,5 +8,5 @@ export default function enumParam(paramName, allowedValues) {
       return;
     }
     next();
-  }
+  };
 }

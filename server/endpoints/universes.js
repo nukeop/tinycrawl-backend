@@ -14,10 +14,10 @@ function createEndpoint(router) {
 
   router.get('/universes/:uuid', (req, res) => {
     Universe.findById(req.params.uuid)
-    .then(universe => {
-      res.status(200).send();
-    })
-    .catch(handleMongooseErrors(res));
+      .then(universe => {
+        res.status(200).send();
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   router.delete('/universes/:uuid', [
@@ -25,13 +25,13 @@ function createEndpoint(router) {
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
   ], (req, res) => {
     Universe.findById(req.params.uuid)
-    .then(universe => {
-      return universe.remove();
-    })
-    .then(universe => {
-      res.status(204).send();
-    })
-    .catch(handleMongooseErrors(res));
+      .then(universe => {
+        return universe.remove();
+      })
+      .then(universe => {
+        res.status(204).send();
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   router.post('/universes', (req, res) => {
@@ -39,10 +39,10 @@ function createEndpoint(router) {
       user: req.authorizedUser._id
     });
     universe.save()
-    .then(() => {
-      res.status(201).json(universe.serialize());
-    })
-    .catch(handleMongooseErrors(res));
+      .then(() => {
+        res.status(201).json(universe.serialize());
+      })
+      .catch(handleMongooseErrors(res));
   });
 
   console.log('Endpoints for universes created');

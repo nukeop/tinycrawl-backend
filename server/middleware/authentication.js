@@ -13,13 +13,13 @@ export default function authenticationMiddleware(req, res, next) {
 
   let credentials = basicAuth(req);
   User.findOne({ username: credentials.name })
-  .then(user => {
-    if(credentials && user && bcrypt.compareSync(credentials.pass, user.password)) {
-      req.authorizedUser = user;
-      next();
-      return;
-    } else {
-      next();
-    }
-  });
+    .then(user => {
+      if(credentials && user && bcrypt.compareSync(credentials.pass, user.password)) {
+        req.authorizedUser = user;
+        next();
+        return;
+      } else {
+        next();
+      }
+    });
 }

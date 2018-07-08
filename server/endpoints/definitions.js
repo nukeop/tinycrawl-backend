@@ -14,18 +14,18 @@ function createEndpoint(router) {
   router.get('/definitions', (req, res) => {
     Promise.all(_.map(definitionTypes, (modelName, resourceName) => {
       return mongoose.model(modelName).find({})
-      .then(items => {
-        return {
-          name: resourceName,
-          items
-        };
-      });
+        .then(items => {
+          return {
+            name: resourceName,
+            items
+          };
+        });
     }))
-    .then(lists => {
-      res.status(200).json({
-        definitions: _(lists).groupBy('name').mapValues(list => _.head(list)).mapValues(list => list.items).mapValues(list => _.map(list, item => item.serialize())).value()
+      .then(lists => {
+        res.status(200).json({
+          definitions: _(lists).groupBy('name').mapValues(list => _.head(list)).mapValues(list => list.items).mapValues(list => _.map(list, item => item.serialize())).value()
+        });
       });
-    });
   });
 
   _.forEach(definitionTypes, (modelName, resourceName) => {

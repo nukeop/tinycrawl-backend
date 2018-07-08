@@ -12,7 +12,7 @@ export function handleMongooseErrors(res) {
   return err => {
     if (typeof err.errors === 'undefined') {
       res.status(400).json({error: err.message});
-      return
+      return;
     }
 
     res.status(400).json(_(err.errors).map((element, index) => {

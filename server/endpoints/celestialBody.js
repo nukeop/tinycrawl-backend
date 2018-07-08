@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import { enumUserRoles } from '../models/user';
 import { enumCelestialBodyClassifications } from
-'../models/CelestialBody';
+  '../models/CelestialBody';
 import { BadRequest } from '../errors';
 import { requireAuthentication, requiredParams, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
@@ -23,7 +23,7 @@ function createEndpoint(router) {
       .populate('satellites')
       .populate('areas')
       .then(celestialBody => {
-	res.status(200).json({ celestialBodies: [celestialBody.serialize()]});
+        res.status(200).json({ celestialBodies: [celestialBody.serialize()]});
       })
       .catch(handleMongooseErrors(res));
   });
@@ -36,36 +36,36 @@ function createEndpoint(router) {
     CelestialBody
       .findById(req.params.uuid)
       .then(celestialBody => {
-	return celestialBody.remove();
+        return celestialBody.remove();
       })
       .then(celestialBody => {
-	res.status(204).send();
+        res.status(204).send();
       })
       .catch(handleMongooseErrors(res));
   });
 
   // Creates a new celestial body
   router.post('/celestialBodies', requiredParams(['starSystemId', 'name', 'classification']),
-  (req, res) => {
-    let celestialBody = new CelestialBody({
-      starSystem: req.body.starSystemId,
-      name: req.body.name,
-      classification: req.body.classification
-    });
-    celestialBody.save()
-      .then(() => {
-	return StarSystem.findById(req.body.starSystemId);
-      })
-      .then(starSystem => {
-	starSystem.celestialObjects =
+    (req, res) => {
+      let celestialBody = new CelestialBody({
+        starSystem: req.body.starSystemId,
+        name: req.body.name,
+        classification: req.body.classification
+      });
+      celestialBody.save()
+        .then(() => {
+          return StarSystem.findById(req.body.starSystemId);
+        })
+        .then(starSystem => {
+          starSystem.celestialObjects =
 	  _.union(starSystem.celestialObjects, [celestialBody._id]);
-	return starSystem.save();
-      })
-      .then(() => {
-	res.status(201).json(celestialBody.serialize());
-      })
-      .catch(handleMongooseErrors(res));
-  });
+          return starSystem.save();
+        })
+        .then(() => {
+          res.status(201).json(celestialBody.serialize());
+        })
+        .catch(handleMongooseErrors(res));
+    });
 
   // Updates satellites of this body
   router.put('/celestialBodies/:uuid/satellites', [
@@ -75,11 +75,11 @@ function createEndpoint(router) {
   ], (req, res) => {
     CelestialBody.findById(req.params.uuid)
       .then(celestialBody => {
-	celestialBody.satellites = req.body.satellites;
-	return celestialBody.save();
+        celestialBody.satellites = req.body.satellites;
+        return celestialBody.save();
       })
       .then(celestialBody => {
-	res.status(200).json(celestialBody.serialize());
+        res.status(200).json(celestialBody.serialize());
       })
       .catch(handleMongooseErrors(res));
   });
@@ -91,11 +91,11 @@ function createEndpoint(router) {
   ], (req, res) => {
     CelestialBody.findById(req.params.uuid)
       .then(celestialBody => {
-	celestialBody.areas = req.body.areas;
-	return celestialBody.save();
+        celestialBody.areas = req.body.areas;
+        return celestialBody.save();
       })
       .then(celestialBody => {
-	res.status(200).json(celestialBody.serialize());
+        res.status(200).json(celestialBody.serialize());
       })
       .catch(handleMongooseErrors(res));
   });

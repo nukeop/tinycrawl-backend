@@ -50,9 +50,9 @@ UserSchema.plugin(uniqueValidator);
 
 UserSchema.methods.setPassword = function(password) {
   bcrypt.hash(password, 10)
-  .then(hash => {
-    this.password = hash;
-  });
+    .then(hash => {
+      this.password = hash;
+    });
 };
 
 UserSchema.methods.validatePassword = function(password) {
