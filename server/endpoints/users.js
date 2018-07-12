@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 import { enumUserRoles } from '../models/user';
 import {
+  corsWildcard,
   requireAuthentication,
   requiredParams,
   requiredRole
@@ -14,6 +15,7 @@ var User = mongoose.model('User');
 
 function createEndpoint(router) {
   router.get('/users/authenticate', [
+    corsWildcard,
     requireAuthentication
   ], (req, res) => {
     if(req.authorizedUser) {
@@ -25,9 +27,9 @@ function createEndpoint(router) {
     }
   });
 
-  createCRUDforResource(router, 'users', User);
+  createCRUDforResource(router, [corsWildcard], 'users', User);
 
-  router.get('/users/:uuid', (req, res) => {
+  router.get('/users/:uuid', [corsWildcard], (req, res) => {
     User.findById(req.params.uuid)
       .then(user => {
         if (!user) {

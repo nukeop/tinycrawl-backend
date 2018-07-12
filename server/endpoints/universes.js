@@ -10,7 +10,7 @@ import { createCRUDforResource } from './meta';
 var Universe = mongoose.model('Universe');
 
 function createEndpoint(router) {
-  createCRUDforResource(router, 'universes', Universe);
+  createCRUDforResource(router, [], 'universes', Universe);
 
   router.get('/universes/:uuid', (req, res) => {
     Universe.findById(req.params.uuid)

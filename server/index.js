@@ -21,6 +21,7 @@ function start() {
   server.use(middleware.authentication);
   server.use('/', router);
   server.listen(process.env.PORT);
+  console.log(`Server started listening on port ${process.env.PORT}`);
 }
 
 start();

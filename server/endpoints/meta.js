@@ -1,7 +1,7 @@
 import { handleMongooseErrors } from '../utils';
 
-export function createCRUDforResource(router, resourceName, model) {
-  router.get(`/${resourceName}`, (req, res) => {
+export function createCRUDforResource(router, middleware, resourceName, model) {
+  router.get(`/${resourceName}`, middleware, (req, res) => {
     model
       .find({})
       .then(instances => {

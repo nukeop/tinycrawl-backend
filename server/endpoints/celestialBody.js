@@ -13,7 +13,7 @@ var CelestialBody = mongoose.model('CelestialBody');
 var StarSystem = mongoose.model('StarSystem');
 
 function createEndpoint(router) {
-  createCRUDforResource(router, 'celestialBodies', CelestialBody);
+  createCRUDforResource(router, [], 'celestialBodies', CelestialBody);
 
   // Returns one selected body
   router.get('/celestialBodies/:uuid', (req, res) => {

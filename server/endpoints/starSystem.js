@@ -11,7 +11,7 @@ var StarSystem = mongoose.model('StarSystem');
 var Universe = mongoose.model('Universe');
 
 function createEndpoint(router) {
-  createCRUDforResource(router, 'starSystems', StarSystem);
+  createCRUDforResource(router, [], 'starSystems', StarSystem);
   
   router.get('/starSystems/:uuid', (req, res) => {
     StarSystem

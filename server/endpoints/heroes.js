@@ -1,17 +1,15 @@
-import _ from 'lodash';
 import mongoose from 'mongoose';
 
 import { BadRequest, NotFound } from '../errors';
-import { requiredParams, requireAuthentication } from '../middleware/routeDecorators';
+import { corsWildcard, requiredParams, requireAuthentication } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
 var Hero = mongoose.model('Hero');
 var HeroClass = mongoose.model('HeroClass');
-var User = mongoose.model('User');
 
 function createEndpoint(router) {
-  createCRUDforResource(router, 'heroes', Hero);
+  createCRUDforResource(router, [corsWildcard], 'heroes', Hero);
 
   router.post('/heroes',
     requiredParams(['name', 'heroClass']),
