@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import mongoose from 'mongoose';
 
 var HeroSchema = mongoose.Schema({

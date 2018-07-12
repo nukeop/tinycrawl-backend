@@ -1,8 +1,6 @@
-import _ from 'lodash';
 import mongoose from 'mongoose';
 
 import { enumUserRoles } from '../models/user';
-import { BadRequest, NotFound } from '../errors';
 import { requireAuthentication, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
@@ -14,7 +12,7 @@ function createEndpoint(router) {
 
   router.get('/universes/:uuid', (req, res) => {
     Universe.findById(req.params.uuid)
-      .then(universe => {
+      .then(() => {
         res.status(200).send();
       })
       .catch(handleMongooseErrors(res));
@@ -28,7 +26,7 @@ function createEndpoint(router) {
       .then(universe => {
         return universe.remove();
       })
-      .then(universe => {
+      .then(() => {
         res.status(204).send();
       })
       .catch(handleMongooseErrors(res));

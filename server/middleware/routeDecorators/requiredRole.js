@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import { User } from '../../models';
-import { enumUserRoles } from '../../models/user';
 
 export default function requiredRole(roles) {
   return (req, res, next) => {

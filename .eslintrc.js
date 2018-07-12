@@ -28,6 +28,7 @@ module.exports = {
     "no-console": 0
   },
   "globals": {
-    "db": true
+    "db": true,
+    "_": true
   }
 };

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import { BadRequest, NotFound } from '../errors';
-import { corsWildcard, requiredParams, requireAuthentication } from '../middleware/routeDecorators';
+import { requiredParams, requireAuthentication } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
@@ -9,7 +9,7 @@ var Hero = mongoose.model('Hero');
 var HeroClass = mongoose.model('HeroClass');
 
 function createEndpoint(router) {
-  createCRUDforResource(router, [corsWildcard], 'heroes', Hero);
+  createCRUDforResource(router, [], 'heroes', Hero);
 
   router.post('/heroes',
     requiredParams(['name', 'heroClass']),
@@ -78,7 +78,7 @@ function createEndpoint(router) {
         .then(hero => {
           return hero.remove();
         })
-        .then(hero => {
+        .then(() => {
           res.status(204).send();
         })
         .catch(handleMongooseErrors(res));

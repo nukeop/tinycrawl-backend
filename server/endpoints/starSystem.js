@@ -2,7 +2,6 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 
 import { enumUserRoles } from '../models/user';
-import { BadRequest } from '../errors';
 import { requireAuthentication, requiredParams, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
@@ -34,7 +33,7 @@ function createEndpoint(router) {
       .then(starSystem => {
         return starSystem.remove();
       })
-      .then(starSystem => {
+      .then(() => {
         res.status(204).send();
       })
       .catch(handleMongooseErrors(res));

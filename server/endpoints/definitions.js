@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
 
-import { corsWildcard } from '../middleware/routeDecorators';
-
 let definitionTypes = {
   abilities: 'Ability',
   environmentalfeatures: 'EnvironmentalFeature',
@@ -14,7 +12,7 @@ let definitionTypes = {
 };
 
 function createEndpoint(router) {
-  router.get('/definitions', [corsWildcard], (req, res) => {
+  router.get('/definitions', [], (req, res) => {
     Promise.all(_.map(definitionTypes, (modelName, resourceName) => {
       return mongoose.model(modelName).find({})
         .then(items => {
@@ -32,7 +30,7 @@ function createEndpoint(router) {
   });
 
   _.forEach(definitionTypes, (modelName, resourceName) => {
-    router.get(`/definitions/${resourceName}`, [corsWildcard], (req, res) => {
+    router.get(`/definitions/${resourceName}`, (req, res) => {
       mongoose.model(modelName).find({}).then(items => {
         res.status(200).json({
           [`${resourceName}`]: _.map(items, item => item.serialize())

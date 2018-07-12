@@ -1,10 +1,6 @@
-import _ from 'lodash';
 import mongoose from 'mongoose';
 
 import { enumUserRoles } from '../models/user';
-import { enumCelestialBodyClassifications } from
-  '../models/CelestialBody';
-import { BadRequest } from '../errors';
 import { requireAuthentication, requiredParams, requiredRole } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
@@ -38,7 +34,7 @@ function createEndpoint(router) {
       .then(celestialBody => {
         return celestialBody.remove();
       })
-      .then(celestialBody => {
+      .then(() => {
         res.status(204).send();
       })
       .catch(handleMongooseErrors(res));
@@ -58,7 +54,7 @@ function createEndpoint(router) {
         })
         .then(starSystem => {
           starSystem.celestialObjects =
-	  _.union(starSystem.celestialObjects, [celestialBody._id]);
+            _.union(starSystem.celestialObjects, [celestialBody._id]);
           return starSystem.save();
         })
         .then(() => {

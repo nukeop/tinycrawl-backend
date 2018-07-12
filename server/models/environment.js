@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import mongoose from 'mongoose';
 
 var EnvironmentSchema = mongoose.Schema({

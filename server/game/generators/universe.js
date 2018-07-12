@@ -1,7 +1,6 @@
-import _ from 'lodash';
 import casual from 'casual';
 
-import { StarSystem, Universe } from '../../models';
+import { StarSystem } from '../../models';
 import NameGenerator from './names';
 
 import starNames from '../data/dictionaries/starNames.yaml';
