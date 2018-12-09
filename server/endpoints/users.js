@@ -16,13 +16,9 @@ function createEndpoint(router) {
   router.get('/users/authenticate', [
     requireAuthentication
   ], (req, res) => {
-    if(req.authorizedUser) {
-      res.status(200).json({
-        message: 'Success'
-      });
-    } else {
-      BadRequest(res, 'Invalid credentials');
-    }
+    res.status(200).json({
+      message: 'Success'
+    });
   });
 
   createCRUDforResource(router, [], 'users', User);
