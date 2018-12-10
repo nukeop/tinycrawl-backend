@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { cors } from './middleware';
 import createAllEndpoints from './endpoints';
 import { NotFound } from './errors';
 
@@ -19,6 +20,8 @@ export function initRoutes() {
     })});
   });
 
+  router.options('*', cors);
+  
   router.all('*', (req, res) => {
     NotFound(res, 'The requested resource was not found.');
   });

@@ -19,7 +19,6 @@ function start() {
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
   server.use(middleware.authentication);
-  server.use(middleware.cors);
   server.use('/', router);
   server.listen(process.env.PORT);
   console.log(`Server started listening on port ${process.env.PORT}`);
