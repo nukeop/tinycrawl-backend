@@ -8,7 +8,10 @@ import { NotFound } from './errors';
 var router = Router();
 
 export function initRoutes() {
-
+  router.get('/health', (req, res) => {
+    res.status(200).send();
+  });
+  
   createAllEndpoints(router);
 
   router.get('/', (req, res) => {
@@ -20,7 +23,9 @@ export function initRoutes() {
     })});
   });
 
-  router.options('*', cors);
+  router.options('*', (req, res) => {
+    res.status(200).send();
+  });
   
   router.all('*', (req, res) => {
     NotFound(res, 'The requested resource was not found.');
