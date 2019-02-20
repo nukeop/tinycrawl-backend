@@ -25,7 +25,6 @@ function createEndpoint(router) {
   createCRUDforResource(router, [], 'users', User);
 
   router.get('/users/username/:username', (req, res) => {
-    console.log(req.params.username);
     User.find({username: req.params.username})
       .then(users => {
         const user = _.head(users);
