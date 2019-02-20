@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import _ from 'lodash';
 
 import { enumUserRoles } from '../models/user';
 import {
@@ -22,6 +23,21 @@ function createEndpoint(router) {
   });
 
   createCRUDforResource(router, [], 'users', User);
+
+  router.get('/users/username/:username', (req, res) => {
+    console.log(req.params.username);
+    User.find({username: req.params.username})
+      .then(users => {
+        const user = _.head(users);
+
+        if (!user) {
+          res.status(404).send();
+        } else {
+          res.status(200).json({ users: user.serialize() });
+        }
+      })
+      .catch(handleMongooseErrors(res));
+  });
 
   router.get('/users/:uuid', [], (req, res) => {
     User.findById(req.params.uuid)
@@ -99,7 +115,7 @@ function createEndpoint(router) {
   });
 
 
-  
+
   console.log('Endpoints for users created');
 }
 
