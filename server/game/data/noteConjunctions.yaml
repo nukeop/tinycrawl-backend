@@ -1,8 +1,8 @@
 table: noteConjuctions
 data:
-  - and
-  - but
-  - or
-  - therefore
-  - eventually
-  - ', '  
+  - conjunction: and
+  - conjunction: but
+  - conjunction: or
+  - conjunction: therefore
+  - conjunction: eventually
+  - conjunction: ', '

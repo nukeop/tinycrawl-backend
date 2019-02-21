@@ -1,9 +1,9 @@
 table: noteStructures
 data:
-  - '{} detected'
-  - '{} waits ahead'
-  - '{} lurks around here'
-  - 'try {}'
-  - 'prepare {}'
-  - 'you will require {}'
-  - '{} for the {} god'
+  - structure: '{} detected'
+  - structure: '{} waits ahead'
+  - structure: '{} lurks around here'
+  - structure: 'try {}'
+  - structure: 'prepare {}'
+  - structure: 'you will require {}'
+  - structure: '{} for the {} god'
