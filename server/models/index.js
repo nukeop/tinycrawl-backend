@@ -7,10 +7,10 @@ import Hero from './hero';
 import HeroClass from './heroClass';
 import Move from './move';
 
-import Note from './note';
 import NoteStructure from './noteStructure';
 import NoteConjunction from './noteConjuction';
 import NotePhrase from './notePhrase';
+import Note from './note';
 
 import StarSystem from './starSystem';
 import Trait from './trait';
