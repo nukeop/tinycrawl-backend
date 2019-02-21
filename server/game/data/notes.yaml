@@ -1,0 +1,78 @@
+table: notes
+data:
+  structures:
+    - '{} detected'
+    - '{} waits ahead'
+    - '{} lurks around here'
+    - 'try {}'
+    - 'prepare {}'
+    - 'you will require {}'
+    - '{} for the {} god'
+    
+  conjuctions:
+    - and
+    - but
+    - or
+    - therefore
+    - eventually
+    - ', '
+
+  categories:
+    - name: creatures
+      phrases:
+        - singular: human
+          plural: humans
+        - singular: alien
+          plural: aliens
+        - singular: mutant
+          plural: mutants
+        - singular: cyborg
+          plural: cyborgs
+        - singular: robot
+          plural: robots
+        - singular: nanobot
+          plural: nanobots
+        - singular: strong hostile
+          plural: strong hostiles
+    
+    - name: places
+      phrases:
+        - singular: north
+          plural: north
+        - singular: south
+          plural: south
+        - singular: west
+          plural: west
+        - singular: east
+          plural: east
+
+    - name: concepts
+      phrases:
+        - singular: star
+          plural: stars
+        - singular: planet
+          plural: planets
+        - singular: environment
+          plural: environments
+        - singular: ability
+          plural: abilities
+        - singular: secret
+          plural: secrets
+        - singular: blood
+          plural: blood
+
+    - name: tactics
+      phrases:
+        - singular: reckless attack
+          plural: reckless attack
+        - singular: evasion
+          plural: evasion
+        - singular: healing
+          plural: healing
+        - singular: particle damage
+          plural: particle damage
+        - singular: flanking
+          plural: flanking
+        - singular: kiting
+          plural: kiting
+        
