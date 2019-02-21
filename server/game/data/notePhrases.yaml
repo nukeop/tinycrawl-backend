@@ -1,0 +1,75 @@
+table: notePhrases
+data:
+  - category: creatures
+    singular: human
+    plural: humans
+  - category: creatures
+    singular: alien
+    plural: aliens
+  - category: creatures
+    singular: mutant
+    plural: mutants
+  - category: creatures
+    singular: cyborg
+    plural: cyborgs
+  - category: creatures
+    singular: robot
+    plural: robots
+  - category: creatures
+    singular: nanobot
+    plural: nanobots
+  - category: creatures
+    singular: strong hostile
+    plural: strong hostiles
+
+  - category: places
+    singular: north
+    plural: north
+  - category: places
+    singular: south
+    plural: south
+  - category: places
+    singular: west
+    plural: west
+  - category: places
+    singular: east
+    plural: east
+
+
+  - category: concepts
+    singular: star
+    plural: stars
+  - category: concepts
+    singular: planet
+    plural: planets
+  - category: concepts
+    singular: environment
+    plural: environments
+  - category: concepts
+    singular: ability
+    plural: abilities
+  - category: concepts
+    singular: secret
+    plural: secrets
+  - category: concepts
+    singular: blood
+    plural: blood
+
+  - category: tactics
+    singular: reckless attack
+    plural: reckless attack
+  - category: tactics
+    singular: evasion
+    plural: evasion
+  - category: tactics
+    singular: healing
+    plural: healing
+  - category: tactics
+    singular: particle damage
+    plural: particle damage
+  - category: tactics
+    singular: flanking
+    plural: flanking
+  - category: tactics
+    singular: kiting
+    plural: kiting

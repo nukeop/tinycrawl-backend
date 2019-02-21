@@ -7,7 +7,7 @@ var NoteSchema = mongoose.Schema({
   conjuction: [{ type: mongoose.Schema.Types.ObjectId, ref:
                  'NoteConjunction' }],
   phrases: [{ type: mongoose.Schema.Types.ObjectId, ref: 'NotePhrase'
-            }],
+  }],
   positiveRatings: { type: Number, default: 0 },
   negativeRatings: { type: Number, default: 0 }
 }, { timestamps: true });

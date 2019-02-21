@@ -1,0 +1,8 @@
+table: noteConjuctions
+data:
+  - and
+  - but
+  - or
+  - therefore
+  - eventually
+  - ', '  

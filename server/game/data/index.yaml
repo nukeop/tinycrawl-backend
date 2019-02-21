@@ -26,3 +26,15 @@ tables:
   - name: Environments
     file: ./environments.yaml
     schema: Environment
+
+  - name: NoteStructures
+    file: ./noteStructures.yaml
+    schema: NoteStructure
+
+  - name: NoteConjunctions
+    file: ./noteConjunctions.yaml
+    schema: NoteConjunction
+
+  - name: NotePhrases
+    file: ./notePhrases.yaml
+    schema: NotePhrase
