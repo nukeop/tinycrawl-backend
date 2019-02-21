@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import _ from 'lodash';
 
 import { requiredParams, requireAuthentication } from
 '../middleware/routeDecorators';
@@ -14,6 +15,17 @@ var NoteStructure = mongoose.model('NoteStructure');
 function createEndpoint(router) {
   createCRUDforResource(router, [], 'notes', Note);
 
+  router.get('/notes/strings', async (req, res) => {
+    Note.find({})
+      .then(async instances => {
+        const notes = await Promise.all(_.map(instances, instance =>
+                                              instance.construct()));
+        
+        res.status(200).json({ notes });
+      })
+      .catch(handleMongooseErrors(res));
+  });
+  
   router.post('/notes',
     requiredParams([
       'structures',

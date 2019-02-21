@@ -30,6 +30,7 @@
   "homepage": "https://github.com/nukeop/tinycrawl-backend#readme",
   "dependencies": {
     "aws-sdk": "^2.270.1",
+    "babel-polyfill": "^6.26.0",
     "basic-auth": "^2.0.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
@@ -42,6 +43,7 @@
     "mongoose-unique-validator": "^2.0.1",
     "node-pre-gyp": "^0.10.2",
     "shortid": "^2.2.10",
+    "string-template": "^1.0.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
