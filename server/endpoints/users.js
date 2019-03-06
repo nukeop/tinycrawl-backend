@@ -7,11 +7,19 @@ import {
   requiredParams,
   requiredRole
 } from '../middleware/routeDecorators';
-import { BadRequest } from '../errors';
+import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
 var User = mongoose.model('User');
+
+const sendValueAtKeyIfNotNull = (obj, key, res) => {
+  if (!obj) {
+    NotFound(res, 'Not found');
+  } else {
+    res.status(200).json({ [`${key}`]: obj[key] });
+  }
+};
 
 function createEndpoint(router) {
   router.get('/users/authenticate', [
@@ -25,10 +33,8 @@ function createEndpoint(router) {
   createCRUDforResource(router, [], 'users', User);
 
   router.get('/users/username/:username', (req, res) => {
-    User.find({username: req.params.username})
-      .then(users => {
-        const user = _.head(users);
-
+    User.findOne({username: req.params.username})
+      .then(user => {
         if (!user) {
           res.status(404).send();
         } else {
@@ -63,12 +69,21 @@ function createEndpoint(router) {
       })
       .catch(handleMongooseErrors(res));
   });
+  
+  router.get('/users/username/:username/heroes', (req, res) => {
+    User.findOne({username: req.params.username})
+      .populate('heroes')
+      .then(user => {
+        sendValueAtKeyIfNotNull(user, 'heroes', res);
+      })
+      .catch(handleMongooseErrors(res));
+  });
 
   router.get('/users/:uuid/heroes', (req, res) => {
     User.findById(req.params.uuid)
       .populate('heroes')
-      .then(() => {
-        res.status(200).send();
+      .then(user => {
+        sendValueAtKeyIfNotNull(user, 'heroes', res);
       })
       .catch(handleMongooseErrors(res));
   });

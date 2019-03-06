@@ -39,10 +39,6 @@ var UserSchema = mongoose.Schema({
   heroes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Hero'
-  }],
-  universes: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Universe'
   }]
 }, {timestamps: true});
 
