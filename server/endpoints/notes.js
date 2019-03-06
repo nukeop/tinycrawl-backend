@@ -43,19 +43,19 @@ function createEndpoint(router) {
         res.status(201).json(note.serialize());
       })
       .catch(handleMongooseErrors(res));
-              });
+    });
 
   router.get('/notesParts', async (req, res) => {
     try {
-    const noteStructures = await NoteStructure.find({});
-    const noteConjunctions = await NoteConjunction.find({});
-    const notePhrases = await NotePhrase.find({});
+      const noteStructures = await NoteStructure.find({});
+      const noteConjunctions = await NoteConjunction.find({});
+      const notePhrases = await NotePhrase.find({});
 
-    res.status(200).json({
-      structures: noteStructures,
-      conjunctions: noteConjunctions,
-      phrases: notePhrases
-    });
+      res.status(200).json({
+        structures: noteStructures,
+        conjunctions: noteConjunctions,
+        phrases: notePhrases
+      });
     } catch(err) {
       handleMongooseErrors(res)(err);
     }

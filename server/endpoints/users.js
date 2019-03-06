@@ -73,15 +73,6 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
-  router.get('/users/:uuid/universes', (req, res) => {
-    User.findById(req.params.uuid)
-      .populate('universes')
-      .then(() => {
-        res.status(200).send();
-      })
-      .catch(handleMongooseErrors(res));
-  });
-
   router.post('/users', (req, res) => {
     let user = new User();
     user.username = req.body.username;
