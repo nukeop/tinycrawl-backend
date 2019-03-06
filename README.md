@@ -93,38 +93,3 @@ Route                           | HTTP Verb  | Description
 /heroes                         | **POST**   | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the authenticated user.
 /heroes/:uuid                   | **GET**    | Get a single hero.
 /heroes/:uuid                   | **DELETE** | Delete a single hero.
-
-#### Universes
-
-Contains data about game universes (separate worlds).
-
-Route                    | HTTP Verb  | Description
--------------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------
-/universes               | **GET**    | Get a list of all universes.
-/universes               | **POST**   | Create a new universe. The universe will be created for the authenticated user.
-/universes/:uuid         | **GET**    | Get a single universe.
-/universes/:uuid         | **DELETE** | Delete a single universe.
-
-#### Star Systems
-
-Contains data about star systems, which exists within universes. A star system can exist only in one universe at a time, and contains a list of all objects within it, as well as a list of its centers (to support binary andother kinds of systems).
-
-Route              | HTTP Verb  | Description
--------------------|------------|----------------------------------------------------------------------------------------
-/starSystems  | **GET**   |  Get all star systems.
-/starSystems/:uuid | **GET**    | Get a single star system.
-/starSystems/:uuid | **DELETE** | Delete a single star system.
-/starSystems       | **POST**   | Create a new star system. Needs a `universeUuid`, `name`, `positionX`, and `positionY`.
-
-#### Celestial Bodies
-
-Contains data about celestial bodies, which are any large objects within a star system, including artificial ones. There's an enum that contains all available categories for celestial bodies.
-
-Route                             | HTTP Verb  | Description
-----------------------------------|------------|-----------------------------------------------------------------------------------
-/celestialBodies                  | **GET**    | Get all celestial bodies.
-/celestialBodies/:uuid            | **GET**    | Get a single celestial body.
-/celestialBodies/:uuid            | **DELETE** | Delete a single celestial body.
-/celestialBodies                  | **POST**   | Create a new celestial body. Needs a `starSystemId`, `name`, and `classification`.
-/celestialBodies/:uuid/satellites | **PUT**    | Updates the satellites of a celestial body.
-/celestialBodies/:uuid/areas      | **PUT**    | Updates the areas of a celestial body.
