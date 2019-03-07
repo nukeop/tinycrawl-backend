@@ -39,7 +39,8 @@ var UserSchema = mongoose.Schema({
   heroes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Hero'
-  }]
+  }],
+  inventory: { type: mongoose.Schema.Types.ObjectId }
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator);
