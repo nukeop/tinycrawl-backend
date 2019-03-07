@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { enumUserRoles } from '../models/user';
 import {
   requireAuthentication,
+  requireSameUserAuthenticated,
   requiredParams,
   requiredRole
 } from '../middleware/routeDecorators';
@@ -99,6 +100,22 @@ function createEndpoint(router) {
     user.save()
       .then(() => {
         res.status(201).json(user.serialize());
+      })
+      .catch(handleMongooseErrors(res));
+  });
+
+  router.put('/users/:uuid/displayName', [
+    requireAuthentication,
+    requireSameUserAuthenticated,
+    requiredParams(['displayName'])
+  ], (req, res) => {
+    User.findById(req.params.uuid)
+      .then(user => {
+        user.displayName = req.body.displayName;
+        return user.save();
+      })
+      .then(user => {
+        res.status(200).json(user.serialize());
       })
       .catch(handleMongooseErrors(res));
   });
