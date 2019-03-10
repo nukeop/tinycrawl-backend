@@ -1,75 +1,106 @@
 table: notePhrases
 data:
-  - category: creatures
+  - name: human
+    category: creatures
     singular: human
     plural: humans
-  - category: creatures
+  - name: alien
+    category: creatures
     singular: alien
     plural: aliens
-  - category: creatures
+  - name: mutant
+    category: creatures
     singular: mutant
     plural: mutants
-  - category: creatures
+  - name: cyborg
+    category: creatures
     singular: cyborg
     plural: cyborgs
-  - category: creatures
+  - name: robot
+    category: creatures
     singular: robot
     plural: robots
-  - category: creatures
+  - name: nanobot
+    category: creatures
     singular: nanobot
     plural: nanobots
-  - category: creatures
+  - name: stronghostile
+    category: creatures
     singular: strong hostile
     plural: strong hostiles
 
-  - category: places
+  - name: north
+    category: places
     singular: north
     plural: north
-  - category: places
+  - name: south
+    category: places
     singular: south
     plural: south
-  - category: places
+  - name: west
+    category: places
     singular: west
     plural: west
-  - category: places
+  - name: east
+    category: places
     singular: east
     plural: east
 
 
-  - category: concepts
+  - name: star
+    category: concepts
     singular: star
     plural: stars
-  - category: concepts
+  - name: planet
+    category: concepts
     singular: planet
     plural: planets
-  - category: concepts
+  - name: enironment
+    category: concepts
     singular: environment
     plural: environments
-  - category: concepts
+  - name: ability
+    category: concepts
     singular: ability
     plural: abilities
-  - category: concepts
+  - name: secret
+    category: concepts
     singular: secret
     plural: secrets
-  - category: concepts
+  - name: pip
+    category: concepts
+    singular: pip
+    plural: pips
+  - name: strangematter
+    category: concepts
+    singular: strange matter
+    plural: strange matter
+  - name: blood
+    category: concepts
     singular: blood
     plural: blood
 
-  - category: tactics
+  - name: recklessattack
+    category: tactics
     singular: reckless attack
     plural: reckless attack
-  - category: tactics
+  - name: evasion
+    category: tactics
     singular: evasion
     plural: evasion
-  - category: tactics
+  - name: healing
+    category: tactics
     singular: healing
     plural: healing
-  - category: tactics
-    singular: particle damage
-    plural: particle damage
-  - category: tactics
+  - name: kineticdamage
+    category: tactics
+    singular: kinetic damage
+    plural: kinetic damage
+  - name: flanking
+    category: tactics
     singular: flanking
     plural: flanking
-  - category: tactics
+  - name: kiting
+    category: tactics
     singular: kiting
     plural: kiting

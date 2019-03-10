@@ -1,16 +1,23 @@
 table: noteStructures
 data:
-  - structure: '{} detected'
+  - name: 'detected'
+    structure: '{} detected'
     numbers: SINGULAR
-  - structure: '{} waits ahead'
+  - name: 'waitsahead'
+    structure: '{} waits ahead'
     numbers: SINGULAR
-  - structure: '{} lurks around here'
+  - name: 'lurskaroundhere'
+    structure: '{} lurks around here'
     numbers: SINGULAR
-  - structure: 'try {}'
+  - name: 'try'
+    structure: 'try {}'
     numbers: SINGULAR
-  - structure: 'prepare {}'
+  - name: 'prepare'
+    structure: 'prepare {}'
     numbers: SINGULAR
-  - structure: 'you will require {}'
+  - name: 'youwillrequire'
+    structure: 'you will require {}'
     numbers: PLURAL
-  - structure: '{} for the {} god'
+  - name: 'forthegod'
+    structure: '{} for the {} god'
     numbers: [PLURAL, SINGULAR]

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 var NotePhraseSchema = mongoose.Schema({
+  name: { type: String },
   category: { type: String },
   singular: { type: String },
   plural: { type: String }
@@ -9,6 +10,7 @@ var NotePhraseSchema = mongoose.Schema({
 NotePhraseSchema.methods.serialize = function() {
   return {
     id: this._id,
+    name: this.name,
     category: this.category,
     singular: this.singular,
     plural: this.plural

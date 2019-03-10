@@ -1,11 +1,11 @@
 table: currencies
 data: 
-  - nameSingular: pip
+  - name: pip
     namePlural: pips
     code: PIP
     color: #f1c40f
 
-  - nameSingular: strange matter
+  - name: strange matter
     namePlural: strange matter
     code: SM
     color: #1abc9c
