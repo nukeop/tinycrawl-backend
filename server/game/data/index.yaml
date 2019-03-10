@@ -38,3 +38,7 @@ tables:
   - name: NotePhrases
     file: ./notePhrases.yaml
     schema: NotePhrase
+
+  - name: Currencies
+    file: ./currencies.yaml
+    schema: Currency

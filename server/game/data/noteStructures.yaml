@@ -1,9 +1,16 @@
 table: noteStructures
 data:
   - structure: '{} detected'
+    numbers: SINGULAR
   - structure: '{} waits ahead'
+    numbers: SINGULAR
   - structure: '{} lurks around here'
+    numbers: SINGULAR
   - structure: 'try {}'
+    numbers: SINGULAR
   - structure: 'prepare {}'
+    numbers: SINGULAR
   - structure: 'you will require {}'
+    numbers: PLURAL
   - structure: '{} for the {} god'
+    numbers: [PLURAL, SINGULAR]

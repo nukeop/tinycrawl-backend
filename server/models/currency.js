@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 var CurrencySchema = mongoose.Schema({
-  name: { type: String },
+  nameSingular: { type: String },
+  namePlural: { type: String },
   code: { type: String },
   color: { type: String }
 }, { timestamps: true });
@@ -9,7 +10,8 @@ var CurrencySchema = mongoose.Schema({
 CurrencySchema.methods.serialize = function() {
   return {
     id: this._id,
-    name: this.name,
+    nameSingular: this.nameSingular,
+    namePlural: this.namePlural,
     code: this.code,
     color: this.color
   };
