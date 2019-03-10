@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import _ from 'lodash';
+
+import { serializeAll } from '../helpers';
 
 var UserInventorySchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -12,7 +15,8 @@ UserInventorySchema.methods.serialize = function() {
     id: this._id,
     user: this.user,
     currencies: this.currencies,
-    amounts: this.amounts
+    amounts: this.amounts,
+    items: serializeAll(this.items)
   };
 };
 

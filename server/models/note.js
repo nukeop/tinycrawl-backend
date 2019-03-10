@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import format from 'string-template';
 import _ from 'lodash';
 
+import { serializeAll } from '../helpers';
+
 var NoteSchema = mongoose.Schema({
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   structures: [{ type: mongoose.Schema.Types.ObjectId, ref:
@@ -18,9 +20,9 @@ NoteSchema.methods.serialize = function() {
   return {
     id: this._id,
     author: this.author,
-    structures: this.structures,
-    conjuction: this.conjuction,
-    phrases: this.phrases,
+    structures: serializeAll(this.structures),
+    conjuction: this.conjuction.serialize(),
+    phrases: serializeAll(this.phrases),
     positiveRatings: this.positiveRatings,
     negativeRatings: this.negativeRatings
   };

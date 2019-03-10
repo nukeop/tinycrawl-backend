@@ -5,6 +5,7 @@ import { requiredParams, requireAuthentication } from
 '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
+import { serializeAll } from '../helpers';
 
 var Note = mongoose.model('Note');
 var NoteConjunction = mongoose.model('NoteConjunction');
@@ -31,7 +32,7 @@ function createEndpoint(router) {
       'structures',
       'phrases'
     ]),
-    requireAuthentication,
+     requireAuthentication,
               (req, res) => {
                 const note = new Note({
                   author: req.authorizedUser._id,
@@ -52,9 +53,9 @@ function createEndpoint(router) {
       const notePhrases = await NotePhrase.find({});
 
       res.status(200).json({
-        structures: noteStructures,
-        conjunctions: noteConjunctions,
-        phrases: notePhrases
+        structures: serializeAll(noteStructures),
+        conjunctions: serializeAll(noteConjunctions),
+        phrases: serializeAll(notePhrases)
       });
     } catch(err) {
       handleMongooseErrors(res)(err);

@@ -16,6 +16,16 @@ var InventoryItemSchema = mongoose.Schema({
   longLore: { type: String },
 });
 
+InventoryItemSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    name: this.name,
+    category: this.category,
+    shortLore: this.shortLore,
+    longLore: this.longLore
+  };
+};
+
 var InventoryItem = mongoose.model('InventoryItem', InventoryItemSchema);
 export default InventoryItem;
 export { enumItemCategories };

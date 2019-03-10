@@ -6,5 +6,14 @@ var NotePhraseSchema = mongoose.Schema({
   plural: { type: String }
 }, { timestamps: true });
 
+NotePhraseSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    category: this.category,
+    singular: this.singular,
+    plural: this.plural
+  };
+};
+
 var NotePhrase = mongoose.model('NotePhrase', NotePhraseSchema);
 export default NotePhrase;
