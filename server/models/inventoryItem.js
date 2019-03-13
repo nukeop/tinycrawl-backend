@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 const enumItemCategories = Object.freeze({
   CONSUMABLE: 'CONSUMABLE',
+  EQUIPMENT: 'EQUIPMENT',
   VANITY: 'VANITY'
 });
 

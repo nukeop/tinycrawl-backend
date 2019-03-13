@@ -8,6 +8,7 @@ const enumStructureNumber = Object.freeze({
 
 var NoteStructureSchema = mongoose.Schema({
   name: { type: String },
+  structure: { type: String },
   numbers: [{
     type: String,
     enum: _.values(enumStructureNumber)
@@ -18,6 +19,7 @@ NoteStructureSchema.methods.serialize = function() {
   return {
     id: this._id,
     name: this.name,
+    structure: this.structure,
     numbers: this.numbers
   };
 };
