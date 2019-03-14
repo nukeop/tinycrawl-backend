@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
 
-import * as Models from './models';
+import * as Models from './models'; //eslint-disable-line
+// The above has to be imported to load models
+
 import config from './config';
 import dataIndex from './game/data/index.yaml';
 
