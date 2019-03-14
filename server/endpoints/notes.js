@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import _ from 'lodash';
 
 import { requiredParams, requireAuthentication } from
-'../middleware/routeDecorators';
+  '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 import { serializeAll } from '../helpers';
@@ -20,7 +20,7 @@ function createEndpoint(router) {
     Note.find({})
       .then(async instances => {
         const notes = await Promise.all(_.map(instances, instance =>
-                                              instance.construct()));
+          instance.construct()));
         
         res.status(200).json({ notes });
       })
@@ -32,18 +32,18 @@ function createEndpoint(router) {
       'structures',
       'phrases'
     ]),
-     requireAuthentication,
-              (req, res) => {
-                const note = new Note({
-                  author: req.authorizedUser._id,
+    requireAuthentication,
+    (req, res) => {
+      const note = new Note({
+        author: req.authorizedUser._id,
         ...req.body
       });
 
       note.save()
-      .then(() => {
-        res.status(201).json(note.serialize());
-      })
-      .catch(handleMongooseErrors(res));
+        .then(() => {
+          res.status(201).json(note.serialize());
+        })
+        .catch(handleMongooseErrors(res));
     });
 
   router.get('/notesParts', async (req, res) => {

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import _ from 'lodash';
 
 import { serializeAll } from '../helpers';
 

@@ -55,7 +55,7 @@ function loadDefinitionsWithForeignKeys(model, data, foreign) {
               existing[attr] = results;
             });
         }))
-          .then(results => {
+          .then(() => {
             existing.save();
           });
       });

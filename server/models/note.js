@@ -30,9 +30,9 @@ NoteSchema.methods.serialize = function() {
 
 NoteSchema.methods.construct = async function() {
   const structuresQueries = _.map(this.structures, structure =>
-                           this.model('NoteStructure').findById(structure));
+    this.model('NoteStructure').findById(structure));
   const phrasesQueries = _.map(this.phrases, phrase =>
-                               this.model('NotePhrase').findById(phrase));
+    this.model('NotePhrase').findById(phrase));
   const conjunctionQuery = this.model('NoteConjunction').findById(this.conjunction);
 
   const structures = await Promise.all(structuresQueries);

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import nonascii from 'non-ascii';
-import _ from 'lodash';
 
 import { enumUserRoles } from '../models/user';
 import {
