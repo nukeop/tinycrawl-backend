@@ -5,11 +5,12 @@ module.exports = {
     "es6": true
   },
   "extends": "eslint:recommended",
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 8,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+    "ecmaVersion": 2018,
+    "babelOptions": {
+      "configFile": ".babelrc"
     }
   },
   "rules": {

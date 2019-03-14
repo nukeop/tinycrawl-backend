@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class NameGenerator {
   constructor(segments, rules) {
     this.segments = segments;

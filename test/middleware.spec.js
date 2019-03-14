@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 
