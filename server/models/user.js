@@ -22,7 +22,7 @@ var UserSchema = mongoose.Schema({
     type: String,
     lowercase: true,
     unique: [true, 'email must be unique'],
-    required: [true, 'username is required'],
+    required: [true, 'email is required'],
     match: [/\S+@\S+\.\S+/, 'email format is invalid'],
     index: true
   },
@@ -30,7 +30,10 @@ var UserSchema = mongoose.Schema({
     type: String,
     required: [true, 'display name is required'],
   },
-  password: String,
+  password: {
+    type: String,
+    required: [true, 'password is required']
+  },
   role: {
     type: String,
     enum: _.values(enumUserRoles),
@@ -46,10 +49,12 @@ var UserSchema = mongoose.Schema({
 UserSchema.plugin(uniqueValidator);
 
 UserSchema.methods.setPassword = function(password) {
-  bcrypt.hash(password, 10)
-    .then(hash => {
-      this.password = hash;
-    });
+  if (!_.isEmpty(password)) {
+    bcrypt.hash(password, 10)
+      .then(hash => {
+        this.password = hash;
+      });
+  }
 };
 
 UserSchema.methods.validatePassword = function(password) {

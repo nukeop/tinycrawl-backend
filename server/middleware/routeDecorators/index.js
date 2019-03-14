@@ -4,6 +4,7 @@ import requireSameUserAuthenticated from './requireSameUserAuthenticated';
 import requiredParams from './requiredParams';
 import uniqueParam from './uniqueParam';
 import requiredRole from './requiredRole';
+import conditionParam from './conditionParam';
 
 export {
   enumParam,
@@ -11,5 +12,6 @@ export {
   requireSameUserAuthenticated,
   requiredParams,
   requiredRole,
-  uniqueParam
+  uniqueParam,
+  conditionParam
 };

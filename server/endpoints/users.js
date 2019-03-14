@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import nonascii from 'non-ascii';
 import _ from 'lodash';
 
 import { enumUserRoles } from '../models/user';
@@ -6,9 +7,10 @@ import {
   requireAuthentication,
   requireSameUserAuthenticated,
   requiredParams,
-  requiredRole
+  requiredRole,
+  conditionParam
 } from '../middleware/routeDecorators';
-import { NotFound, BadRequest } from '../errors';
+import { NotFound } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
@@ -89,14 +91,25 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
-  router.post('/users', (req, res) => {
+  router.post('/users', [
+    conditionParam(
+      'username',
+      username => username.length > 0,
+      'username must not be empty'
+    ),
+    conditionParam(
+      'username',
+      username => !nonascii.test(username),
+      'username contains invalid characters'
+    )
+  ],
+  (req, res) => {
     let user = new User();
     user.username = req.body.username;
     user.displayName = req.body.username;
     user.email = req.body.email;
     user.role = enumUserRoles.USER_ROLE;
     user.setPassword(req.body.password);
-
     user.save()
       .then(() => {
         res.status(201).json(user.serialize());
