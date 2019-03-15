@@ -9,7 +9,7 @@ import {
   requiredRole,
   conditionParam
 } from '../middleware/routeDecorators';
-import { NotFound } from '../errors';
+import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
@@ -108,7 +108,9 @@ function createEndpoint(router) {
     user.displayName = req.body.username;
     user.email = req.body.email;
     user.role = enumUserRoles.USER_ROLE;
-    user.setPassword(req.body.password);
+    if(!user.setPassword(req.body.password)) {
+      BadRequest(res, 'password is too short');
+    }
     user.save()
       .then(() => {
         res.status(201).json(user.serialize());
