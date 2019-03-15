@@ -1,4 +1,4 @@
-# tinycrawl-backend [![ReadTheDocs Status for tinycrawl](https://img.shields.io/readthedocs/tinycrawl.svg?style=for-the-badge)](http://tinycrawl.readthedocs.io/en/latest/)
+# tinycrawl-backend ![Travis (.org)](https://img.shields.io/travis/nukeop/tinycrawl-backend.svg?style=for-the-badge) [![ReadTheDocs Status for tinycrawl](https://img.shields.io/readthedocs/tinycrawl.svg?style=for-the-badge)](http://tinycrawl.readthedocs.io/en/latest/)
 Backend for the tinycrawl phaser game
 
 ## Getting started
