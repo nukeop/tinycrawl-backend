@@ -102,15 +102,19 @@ function createEndpoint(router) {
       'username contains invalid characters'
     )
   ],
-  (req, res) => {
+  async (req, res) => {
     let user = new User();
     user.username = req.body.username;
     user.displayName = req.body.username;
     user.email = req.body.email;
     user.role = enumUserRoles.USER_ROLE;
-    if(!user.setPassword(req.body.password)) {
-      BadRequest(res, 'password is too short');
+    try{
+      await user.setPassword(req.body.password);
+    } catch(err) {
+      BadRequest(res, err.message);
+      return;
     }
+    
     user.save()
       .then(() => {
         res.status(201).json(user.serialize());

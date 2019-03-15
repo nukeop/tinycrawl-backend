@@ -48,16 +48,12 @@ var UserSchema = mongoose.Schema({
 
 UserSchema.plugin(uniqueValidator);
 
-UserSchema.methods.setPassword = function(password) {
-  if (password.length > 3) {
-    bcrypt.hash(password, 10)
-      .then(hash => {
-        this.password = hash;
-      });
-    return true;
-  } else {
-    return false;
-  }  
+UserSchema.methods.setPassword = async function(password) {
+  if (password.length < 3) {
+    throw new Error('Password is too short');
+  }
+  let hash = await bcrypt.hash(password, 10);
+  this.password = hash;
 };
 
 UserSchema.methods.validatePassword = function(password) {
