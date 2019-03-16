@@ -33,4 +33,6 @@ before_install:
 - git config core.sshCommand "ssh -i .travis/deploy.key"
 
 after_success:
+- tar xvf .travis/secrets.tar -C .travis
+- ls -al .travis
 - bash dokku_deploy
