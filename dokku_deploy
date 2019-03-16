@@ -1,4 +1,5 @@
 #!/bin/bash
+git config core.sshCommand "ssh -i .travis/deploy.key"
 git stash --all
 git checkout master
 cp .travis/config.js server
