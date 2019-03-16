@@ -13,7 +13,7 @@ script:
 - docker build -t nukeop/tinycrawl-backend .
 deploy:
   provider: script
-  script: bash ./deploy
+  script: bash ./docker_push
   skip_cleanup: true
   on:
     branch: master
@@ -32,5 +32,5 @@ before_install:
 - git config --global push.default simple
 - git config core.sshCommand "ssh -i .travis/deploy.key"
 
-before_deploy:
-- tar xvf .travis/secrets.tar -C .travis
+after_success:
+- bash dokku_deploy
