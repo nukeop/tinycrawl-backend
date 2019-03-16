@@ -30,3 +30,7 @@ before_install:
 - ssh-keyscan dokku.gumblert.tech >> ~/.ssh/known_hosts
 - git remote add deploy dokku@dokku.gumblert.tech:tinycrawl-backend
 - git config --global push.default simple
+- git config core.sshCommand "ssh -i .travis/deploy.key"
+
+before_deploy:
+- tar xvf .travis/secrets.tar -C .travis
