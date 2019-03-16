@@ -1,23 +1,33 @@
 sudo: required
 language: node_js
 node_js:
-  - 8
-
+- 8
 services:
-  - docker
-  
+- docker
 branches:
   only:
   - master
-
 script:
-  - npm test
-  - npm run build
-  - docker build -t nukeop/tinycrawl-backend .
-
+- npm test
+- npm run build
+- docker build -t nukeop/tinycrawl-backend .
 deploy:
   provider: script
-  script: bash docker_push
+  script: bash ./deploy
   skip_cleanup: true
   on:
     branch: master
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_6d9fda505910_key -iv $encrypted_6d9fda505910_iv
+  -in deploy.key.enc -out deploy.key -d
+- chmod +x deploy
+- chmod +x dokku_deploy
+- chmod +x docker_push
+- eval "$(ssh-agent -s)"
+
+- chmod 600 .travis/deploy.key
+- ssh-add .travis/deploy.key
+- ssh-keyscan dokku.gumblert.tech >> ~/.ssh/known_hosts
+- git remote add deploy dokku@dokku.gumblert.tech:tinycrawl-backend
+- git config --global push.default simple

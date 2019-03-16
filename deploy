@@ -1,0 +1,3 @@
+#!/bin/bash
+bash docker_push
+bash dokku_deploy
