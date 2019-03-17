@@ -105,7 +105,7 @@ function createEndpoint(router) {
   async (req, res) => {
     let user = new User();
     user.username = req.body.username;
-    user.displayName = req.body.username;
+    user.displayName = req.body.displayName;
     user.email = req.body.email;
     user.role = enumUserRoles.USER_ROLE;
     try{
