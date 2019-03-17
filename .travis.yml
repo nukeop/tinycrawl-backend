@@ -37,4 +37,4 @@ after_success:
 - cp .travis/config.js server
 - git add --all
 - git commit -m "deployment"
-- GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy.key" git push -f deploy master
+- GIT_SSH_COMMAND="ssh -i .travis/deploy.key" git push -f deploy master
