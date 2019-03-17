@@ -36,4 +36,7 @@ after_success:
 - git remote add deploy dokku@dokku.gumblert.tech:tinycrawl-backend
 - git config --global push.default simple
 - git config core.sshCommand "ssh -i .travis/deploy.key"
-- bash dokku_deploy
+- cp .travis/config.js server
+- git add --all
+- git commit -m "deployment"
+- GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy.key" git push -f deploy master

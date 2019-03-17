@@ -1,5 +1,0 @@
-#!/bin/bash
-cp .travis/config.js server
-git add --all
-git commit -m "deployment"
-git push -f deploy master
