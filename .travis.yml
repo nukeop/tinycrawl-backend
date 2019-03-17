@@ -30,7 +30,6 @@ after_success:
 - eval "$(ssh-agent -s)"
 - chmod 600 .travis/deploy.key
 - ssh-add .travis/deploy.key
-- chmod +rwx .travis/deploy.key
 - chmod +rwx .travis/config.js
 - cp .travis/config.js server
 - ssh-keyscan dokku.gumblert.tech >> ~/.ssh/known_hosts
