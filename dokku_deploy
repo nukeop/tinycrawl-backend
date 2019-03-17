@@ -1,7 +1,5 @@
 #!/bin/bash
-git stash --all
-git checkout master
 cp .travis/config.js server
-git add server/config.js
-git commit -m "update config.js"
+git add --all
+git commit -m "deployment"
 git push -f deploy master
