@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
+import { serializeAll } from '../helpers';
+
 const enumUserRoles = Object.freeze({
   ROOT_ROLE: 'ROOT_ROLE',
   ADMIN_ROLE: 'ADMIN_ROLE',
@@ -66,7 +68,9 @@ UserSchema.methods.serialize = function() {
     username: this.username,
     displayName: this.displayName,
     email: this.email,
-    role: this.role
+    role: this.role,
+    heroes: serializeAll(this.heroes),
+    inventory: this.inventory.serialize()
   };
 };
 
