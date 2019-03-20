@@ -14,6 +14,7 @@ import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
 var User = mongoose.model('User');
+var Inventory = mongoose.model('UserInventory');
 
 const sendValueAtKeyIfNotNull = (obj, key, res) => {
   if (!obj) {
@@ -108,6 +109,9 @@ function createEndpoint(router) {
     user.displayName = req.body.displayName;
     user.email = req.body.email;
     user.role = enumUserRoles.USER_ROLE;
+    user.heroes = [];
+    user.inventory = new Inventory();
+
     try{
       await user.setPassword(req.body.password);
     } catch(err) {
@@ -116,6 +120,10 @@ function createEndpoint(router) {
     }
     
     user.save()
+      .then(() => {
+        user.inventory.user = user._id;
+        return user.inventory.save();
+      })
       .then(() => {
         res.status(201).json(user.serialize());
       })
