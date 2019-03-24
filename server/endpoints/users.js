@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import nonascii from 'non-ascii';
+import jwt from 'jsonwebtoken';
 
+import config from '../config';
 import { enumUserRoles } from '../models/user';
 import {
   requireAuthentication,
@@ -28,8 +30,14 @@ function createEndpoint(router) {
   router.get('/users/authenticate', [
     requireAuthentication
   ], (req, res) => {
+    const token = jwt.sign(
+      { username: req.body.username },
+      config.jwtSecret      
+    );
+    
     res.status(200).json({
-      message: 'Success'
+      message: 'Success',
+      token
     });
   });
 
