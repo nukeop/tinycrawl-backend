@@ -12,8 +12,8 @@ import NoteConjunction from './noteConjuction';
 import NotePhrase from './notePhrase';
 import Note from './note';
 import Trait from './trait';
-import User from './user';
 import UserInventory from './userInventory';
+import User from './user';
 
 export {
   Ability,
@@ -28,11 +28,11 @@ export {
   NoteStructure,
   NoteConjunction,
   NotePhrase,
-  
-  Trait,
-  User,
 
   Currency,
   InventoryItem,
-  UserInventory
+  UserInventory,
+  
+  Trait,
+  User  
 };

@@ -11,6 +11,8 @@ const enumUserRoles = Object.freeze({
   USER_ROLE: 'USER_ROLE'
 });
 
+var Inventory = mongoose.model('UserInventory');
+
 var UserSchema = mongoose.Schema({
   username: {
     type: String,
@@ -66,14 +68,15 @@ UserSchema.methods.validatePassword = function(password) {
 };
 
 UserSchema.methods.serialize = function() {
+  console.log(this.inventory);
   return {
     id: this._id,
     username: this.username,
     displayName: this.displayName,
     email: this.email,
     role: this.role,
-    heroes: serializeAll(this.heroes),
-    inventory: this.inventory.serialize()
+    heroes: this.heroes,
+    inventory: this.inventory
   };
 };
 
