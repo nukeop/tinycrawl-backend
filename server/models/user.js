@@ -68,7 +68,6 @@ UserSchema.methods.validatePassword = function(password) {
 };
 
 UserSchema.methods.serialize = function() {
-  console.log(this.inventory);
   return {
     id: this._id,
     username: this.username,
