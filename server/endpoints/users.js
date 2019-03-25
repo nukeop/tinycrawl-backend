@@ -31,7 +31,7 @@ function createEndpoint(router) {
     requireAuthentication
   ], (req, res) => {
     const token = jwt.sign(
-      { username: req.body.username },
+      { username: req.authorizedUser.username },
       config.jwtSecret      
     );
     

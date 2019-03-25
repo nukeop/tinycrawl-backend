@@ -36,6 +36,7 @@
     "body-parser": "^1.18.3",
     "casual": "^1.5.19",
     "express": "^4.16.3",
+    "express-bearer-token": "^2.2.0",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.10",
