@@ -31,15 +31,22 @@ $ docker build -t nukeop/tinycrawl-backend-rpi -f Dockerfile_arm .
 
 ### Authentication
 
-Authentication is done by [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication).
-Use the `Authorization` header to provide your username and password. If you provide that data and it corresponds to an existing user, you're authenticated. If you don't, you're not.
+Authentication is done by JSON Web tokens, and the endpoint that issues them authenticates by [basic access authentication](https://en.wikipedia.org/wiki/Basic_access_authentication). The authentication flow is straightforward.
+First, call the `/users/authenticate` endpoint. Use the `Authorization` header to provide your username and password. If you provide that data and it corresponds to an existing user, you're authenticated. If you don't, you're not. If you are authenticated,you will be issued a token, which you can use to authenticate further requests. Should you find that your token has expired, request a new one.
 
-The header should contain:
+The `Authorization` header should contain:
 * the method (currently the only valid value is `Basic`)
 * a single space
 * base64-encoded string containing the username and the password combined with a colon (`username:password`)
 
 Example: `Basic dGVzdDI6dGVzdA==`
+
+The token can be passed in several ways:
+* Under the key access_token in the request body.
+* Under the key access_token in the request params.
+* In the value from the header Authorization: Bearer <token>.
+
+If there's more then one found, the API will respond with HTTP code 400.
 
 ## API Endpoints
 
@@ -76,11 +83,13 @@ Route                     | HTTP Verb  | Description
 --------------------------|------------|-------------------------------------------------------------------------------------
 /users                    | **POST**   | Create a new user. Returns the new User object.
 /users                    | **GET**    | Get a list of all users.
+/users/authenticate       | **GET**    | Request a JWT to be issued. For details on authentication, see the relevant section in this readme.
 /users/:uuid              | **GET**    | Get a single user.
 /users/username/:username | **GET**    | Get a single user by username.
 /users/:uuid              | **DELETE** | Delete a single user.
 /users/:uuid/heroes       | **GET**    | Get all heroes of a user.
 /users/:uuid/universes    | **GET**    | Get all universes of a user.
+/users/:uuid/displayName         | **PUT**    | Update a user's display name. Required body parameter: `displayName`. Users are only allowed to change their own display name.
 /users/:uuid/role         | **PUT**    | Update a user's role. Required body parameter: `role`, must be one of allowed roles.
 
 #### Heroes
@@ -93,3 +102,6 @@ Route                           | HTTP Verb  | Description
 /heroes                         | **POST**   | Create a new character by using the `heroDefinition` as a base. The name of the character will be set to `name`. It will be created for the authenticated user.
 /heroes/:uuid                   | **GET**    | Get a single hero.
 /heroes/:uuid                   | **DELETE** | Delete a single hero.
+
+## User model
+The users are identified by unique usernames and once set cannot be changed. For the purposes of easier customization, the users also have a non-unique display name, which can be freely changed and is intended to be the main name which is shown to other users. To prevent impersonation, users should be made aware that the display name is non-unique and be provided with a way of reliably identifying other users with the same display name (e.g. by always including a URL to the profile in the display name). 
