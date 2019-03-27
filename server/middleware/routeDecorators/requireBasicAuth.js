@@ -5,5 +5,6 @@ export default function requireBasicAuthentication(req, res, next) {
     Unauthenticated(res);
     return;
   }
+
   next();
 }

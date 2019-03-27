@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 import { enumUserRoles } from '../models/user';
 import {
-  requireAuthentication,
+  requireBasicAuth,
+  requireToken,
   requireSameUserAuthenticated,
   requiredParams,
   requiredRole,
@@ -28,7 +29,7 @@ const sendValueAtKeyIfNotNull = (obj, key, res) => {
 
 function createEndpoint(router) {
   router.get('/users/authenticate', [
-    requireAuthentication
+    requireBasicAuth
   ], (req, res) => {
     const token = jwt.sign(
       { username: req.authorizedUser.username },
@@ -68,7 +69,7 @@ function createEndpoint(router) {
   });
 
   router.delete('/users/:uuid', [
-    requireAuthentication,
+    requireToken,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE])
   ], (req, res) => {
     User.findById(req.params.uuid)
@@ -139,7 +140,7 @@ function createEndpoint(router) {
   });
 
   router.put('/users/:uuid/displayName', [
-    requireAuthentication,
+    requireToken,
     requireSameUserAuthenticated,
     requiredParams(['displayName'])
   ], (req, res) => {
@@ -155,7 +156,7 @@ function createEndpoint(router) {
   });
 
   router.put('/users/:uuid/role', [
-    requireAuthentication,
+    requireToken,
     requiredRole([enumUserRoles.ROOT_ROLE, enumUserRoles.ADMIN_ROLE]),
     requiredParams(['role'])
   ], (req, res) => {
@@ -169,8 +170,6 @@ function createEndpoint(router) {
       })
       .catch(handleMongooseErrors(res));
   });
-
-
 
   console.log('Endpoints for users created');
 }

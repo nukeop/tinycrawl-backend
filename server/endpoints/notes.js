@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
 
-import { requiredParams, requireAuthentication } from
+import { requiredParams, requireToken } from
   '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
@@ -32,7 +32,7 @@ function createEndpoint(router) {
       'structures',
       'phrases'
     ]),
-    requireAuthentication,
+    requireToken,
     (req, res) => {
       const note = new Note({
         author: req.authorizedUser._id,

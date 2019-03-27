@@ -1,7 +1,7 @@
 import { Unauthenticated } from '../../errors';
 
-export default function requireBasicAuthentication(req, res, next) {
-  if (!req.authorizedUser) {
+export default function requireToken(req, res, next) {
+  if (!req.authorizedByToken) {
     Unauthenticated(res);
     return;
   }

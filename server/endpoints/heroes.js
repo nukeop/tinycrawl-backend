@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import { BadRequest, NotFound } from '../errors';
-import { requiredParams, requireAuthentication } from '../middleware/routeDecorators';
+import { requiredParams, requireToken } from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
@@ -13,7 +13,7 @@ function createEndpoint(router) {
 
   router.post('/heroes',
     requiredParams(['name', 'heroClass']),
-    requireAuthentication,
+              requireToken,
     (req, res) => {
       HeroClass
         .findOne({name: req.body.heroClass})
@@ -72,7 +72,7 @@ function createEndpoint(router) {
   });
 
   router.delete('/heroes/:uuid',
-    requireAuthentication,
+    requireToken,
     (req, res) => {
       Hero.findById(req.params.uuid)
         .then(hero => {

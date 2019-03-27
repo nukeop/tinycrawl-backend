@@ -1,5 +1,6 @@
 import enumParam from './enumParam';
-import requireAuthentication from './requireAuthentication';
+import requireBasicAuth from './requireBasicAuth';
+import requireToken from './requireToken';
 import requireSameUserAuthenticated from './requireSameUserAuthenticated';
 import requiredParams from './requiredParams';
 import uniqueParam from './uniqueParam';
@@ -8,7 +9,8 @@ import conditionParam from './conditionParam';
 
 export {
   enumParam,
-  requireAuthentication,
+  requireBasicAuth,
+  requireToken,
   requireSameUserAuthenticated,
   requiredParams,
   requiredRole,
