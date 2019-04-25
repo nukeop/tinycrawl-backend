@@ -13,7 +13,7 @@ function createEndpoint(router) {
 
   router.post('/heroes',
     requiredParams(['name', 'heroClass']),
-              requireToken,
+    requireToken,
     (req, res) => {
       HeroClass
         .findOne({name: req.body.heroClass})
@@ -27,7 +27,7 @@ function createEndpoint(router) {
           }
 
           let hero = new Hero({
-            user: req.authorizedUser._id,
+            user: req.authorizedByToken._id,
             name: req.body.name,
             heroClass: heroClass._id,
             baseHp: heroClass.baseHp,
