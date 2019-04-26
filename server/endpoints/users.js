@@ -16,6 +16,7 @@ import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
+var Hero = mongoose.model('Hero');
 var User = mongoose.model('User');
 var Inventory = mongoose.model('UserInventory');
 
@@ -84,18 +85,19 @@ function createEndpoint(router) {
   
   router.get('/users/username/:username/heroes', (req, res) => {
     User.findOne({username: req.params.username})
-      .populate('heroes')
       .then(user => {
-        sendValueAtKeyIfNotNull(user, 'heroes', res);
+        return Hero.find({ user: user._id});
+      })
+      .then(heroes => {
+        res.status(200).json({ heroes });
       })
       .catch(handleMongooseErrors(res));
   });
 
   router.get('/users/:uuid/heroes', (req, res) => {
-    User.findById(req.params.uuid)
-      .populate('heroes')
-      .then(user => {
-        sendValueAtKeyIfNotNull(user, 'heroes', res);
+    Hero.find({ user: req.params.uuid })
+      .then(heroes => {
+        res.status(200).json({ heroes });
       })
       .catch(handleMongooseErrors(res));
   });

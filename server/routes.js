@@ -7,10 +7,6 @@ import { NotFound } from './errors';
 var router = Router();
 
 export function initRoutes() {
-  router.get('/health', (req, res) => {
-    res.status(200).send();
-  });
-
   createAllEndpoints(router);
 
   router.get('/', (req, res) => {
