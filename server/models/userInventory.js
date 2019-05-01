@@ -4,8 +4,7 @@ import { serializeAll } from '../helpers';
 
 var UserInventorySchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  currencies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Currency'}],
-  amounts: [{ type: Number, default: 0 }],
+  currencies: { type: Map, of: Number },  
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'InventoryItem' }]
 });
 

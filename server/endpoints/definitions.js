@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 let definitionTypes = {
   abilities: 'Ability',
+  currencies: 'Currency',
   environmentalfeatures: 'EnvironmentalFeature',
   environments: 'Environment',
   equipmentslots: 'EquipmentSlot',

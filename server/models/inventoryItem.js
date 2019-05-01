@@ -15,7 +15,6 @@ const enumItemRarities = Object.freeze({
   HISTORICAL: 'HISTORICAL',
   STRANGE: 'STRANGE',
   TRANSCENDENT: 'TRANSCENDENT'
-  
 });
 
 var InventoryItemSchema = mongoose.Schema({

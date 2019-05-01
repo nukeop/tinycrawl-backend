@@ -102,6 +102,21 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
+  router.get('/users/username/:username/inventory', (req, res) => {
+    User.findOne({username: req.params.username})
+      .then(user => {
+        if(!_.isNil(user)) {
+          return Inventory.findOne({ user: user._id });
+        } else {
+          NotFound(res, 'User not found');
+        }
+      })
+      .then(inventory => {
+        res.status(200).json({ inventory: inventory.serialize() });
+      })
+      .catch(handleMongooseErrors(res));
+  });
+
   router.post('/users', [
     conditionParam(
       'username',
