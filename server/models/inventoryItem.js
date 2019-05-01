@@ -3,18 +3,35 @@ import _ from 'lodash';
 
 const enumItemCategories = Object.freeze({
   CONSUMABLE: 'CONSUMABLE',
+  USABLE: 'USABLE',
   EQUIPMENT: 'EQUIPMENT',
   VANITY: 'VANITY'
 });
 
+const enumItemRarities = Object.freeze({
+  DEFECTIVE: 'DEFECTIVE',
+  STOCK: 'STOCK',
+  AFTERMARKET: 'AFTERMARKET',
+  HISTORICAL: 'HISTORICAL',
+  STRANGE: 'STRANGE',
+  TRANSCENDENT: 'TRANSCENDENT'
+  
+});
+
 var InventoryItemSchema = mongoose.Schema({
   name: { type: String },
+  charges: { type: Number, default: 0 },
   category: {
     type: String,
     enum: _.values(enumItemCategories)
   },
+  rarity: {
+    type: String,
+    enum: _.values(enumItemRarities)
+  },
   shortLore: { type: String },
   longLore: { type: String },
+  essential: { type: Boolean }
 });
 
 InventoryItemSchema.methods.serialize = function() {

@@ -15,6 +15,7 @@ var HeroSchema = mongoose.Schema({
   experience: { type: Number, default: 0},
   slots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'EquipmentSlot' }],
   traits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trait' }],
+  traitPoints: { type: Number, default: 0 },
   moves: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Move' }],
   abilities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}]
 }, {timestamps: true});
