@@ -16,6 +16,7 @@ import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
 
+var Currency = mongoose.model('Currency');
 var Hero = mongoose.model('Hero');
 var User = mongoose.model('User');
 var Inventory = mongoose.model('UserInventory');
@@ -120,14 +121,19 @@ function createEndpoint(router) {
   router.post('/users', [
     conditionParam(
       'username',
-      username => username.length > 0,
+      username => !_.isEmpty(username),
       'username must not be empty'
     ),
     conditionParam(
       'username',
       username => !nonascii.test(username),
       'username contains invalid characters'
-    )
+    ),
+    requiredParams([
+      'username',
+      'password',
+      'email',
+      'displayName'])
   ],
   async (req, res) => {
     let user = new User();
@@ -146,8 +152,11 @@ function createEndpoint(router) {
     }
     
     user.save()
-      .then(() => {
+      .then(async () => {
         user.inventory.user = user._id;
+        user.inventory.currencies = {};
+        const currencies = await Currency.find();
+        user.inventory.initializeCurrencies(currencies);
         return user.inventory.save();
       })
       .then(() => {

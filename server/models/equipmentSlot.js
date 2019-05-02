@@ -6,13 +6,15 @@ var EquipmentSlotSchema = mongoose.Schema({
     lowercase: true,
     unique: true,
     index: true
-  }
+  },
+  prettyName: { type: String }
 }, {timestamps: true});
 
 EquipmentSlotSchema.methods.serialize = function() {
   return {
     id: this._id,
-    name: this.name
+    name: this.name,
+    prettyName: this.prettyName
   };
 };
 

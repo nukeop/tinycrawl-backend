@@ -8,6 +8,15 @@ var UserInventorySchema = mongoose.Schema({
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'InventoryItem' }]
 });
 
+UserInventorySchema.methods.initializeCurrencies = function(currencies) {
+  console.log(this);
+  _.forEach(currencies, currency => {
+    if(_.isNil(_.get(this.currencies, currency._id))) {
+      this.currencies.set(currency._id.toString(), 0);
+    }
+  });
+};
+
 UserInventorySchema.methods.serialize = function() {
   return {
     id: this._id,

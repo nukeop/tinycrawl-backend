@@ -1,6 +1,11 @@
 data:
   - name: suit
+    prettyName: Suit
   - name: external_suit
+    prettyName: External suit
   - name: headgear
+    prettyName: Headgear
   - name: weapon
+    prettyName: Weapon
   - name: accessory
+    prettyName: Accessory
