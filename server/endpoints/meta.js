@@ -1,3 +1,4 @@
+import { NotFound } from '../errors';
 import { handleMongooseErrors } from '../utils';
 
 export function createCRUDforResource(router, middleware, resourceName, model) {
@@ -9,6 +10,20 @@ export function createCRUDforResource(router, middleware, resourceName, model) {
           [`${resourceName}`]: _.map(instances, instance =>
             instance.serialize())
         });
+      })
+      .catch(handleMongooseErrors(res));
+  });
+
+  router.get(`/${resourceName}/:uuid`, middleware, (req, res) => {
+    model.findById(req.params.uuid)
+      .then(instance => {
+        if (!instance) {
+          NotFound(res);
+        } else {
+          res.status(200).json({
+            [`${resourceName}`]: instance.serialize()
+          });
+        }
       })
       .catch(handleMongooseErrors(res));
   });
