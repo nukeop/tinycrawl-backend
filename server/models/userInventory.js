@@ -9,7 +9,6 @@ var UserInventorySchema = mongoose.Schema({
 });
 
 UserInventorySchema.methods.initializeCurrencies = function(currencies) {
-  console.log(this);
   _.forEach(currencies, currency => {
     if(_.isNil(_.get(this.currencies, currency._id))) {
       this.currencies.set(currency._id.toString(), 0);
@@ -23,7 +22,7 @@ UserInventorySchema.methods.serialize = function() {
     user: this.user,
     currencies: this.currencies,
     amounts: this.amounts,
-    items: serializeAll(this.items)
+    items: this.items
   };
 };
 

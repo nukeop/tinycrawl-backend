@@ -11,7 +11,7 @@ const enumUserRoles = Object.freeze({
   USER_ROLE: 'USER_ROLE'
 });
 
-var Inventory = mongoose.model('UserInventory');
+var Inventory = mongoose.model('UserInventory'); //eslint-disable-line
 
 var UserSchema = mongoose.Schema({
   username: {

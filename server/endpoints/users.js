@@ -15,6 +15,10 @@ import {
 import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
+import {
+  createInventoryItem,
+  inventoryItems
+} from '../game/items/itemCreators';
 
 var Currency = mongoose.model('Currency');
 var Hero = mongoose.model('Hero');
@@ -157,9 +161,23 @@ function createEndpoint(router) {
         user.inventory.currencies = {};
         const currencies = await Currency.find();
         user.inventory.initializeCurrencies(currencies);
-        return user.inventory.save();
-      })
-      .then(() => {
+        await user.inventory.save();
+        
+        const initialSMPod = createInventoryItem(
+          inventoryItems.STRANGE_MATTER_POD,
+          { amount: 1 }
+        );
+        
+        initialSMPod.inventory = user.inventory;
+        await initialSMPod.save();
+
+        await Inventory.findByIdAndUpdate(
+          user.inventory._id,
+          {
+            '$push': { 'items': initialSMPod._id }
+          }
+        );
+        
         res.status(201).json(user.serialize());
       })
       .catch(handleMongooseErrors(res));
