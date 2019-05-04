@@ -9,8 +9,6 @@ var Hero = mongoose.model('Hero');
 var HeroClass = mongoose.model('HeroClass');
 
 function createEndpoint(router) {
-  createCRUDforResource(router, [], 'heroes', Hero);
-
   router.post('/heroes',
     requiredParams(['name', 'heroClass']),
     requireToken,
