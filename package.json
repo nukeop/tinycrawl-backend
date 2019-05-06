@@ -47,7 +47,8 @@
     "non-ascii": "^1.0.1",
     "shortid": "^2.2.10",
     "string-template": "^1.0.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

@@ -20,10 +20,10 @@ import {
   inventoryItems
 } from '../game/items/itemCreators';
 
-var Currency = mongoose.model('Currency');
-var Hero = mongoose.model('Hero');
-var User = mongoose.model('User');
-var Inventory = mongoose.model('UserInventory');
+const Currency = mongoose.model('Currency');
+const Hero = mongoose.model('Hero');
+const User = mongoose.model('User');
+const Inventory = mongoose.model('UserInventory');
 
 const sendValueAtKeyIfNotNull = (obj, key, res) => {
   if (!obj) {
@@ -165,7 +165,7 @@ function createEndpoint(router) {
         
         const initialSMPod = createInventoryItem(
           inventoryItems.STRANGE_MATTER_POD,
-          { amount: 1 }
+          { potency: 1 }
         );
         
         initialSMPod.inventory = user.inventory;

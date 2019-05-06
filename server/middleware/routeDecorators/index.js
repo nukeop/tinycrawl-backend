@@ -6,6 +6,7 @@ import requiredParams from './requiredParams';
 import uniqueParam from './uniqueParam';
 import requiredRole from './requiredRole';
 import conditionParam from './conditionParam';
+import validateSchema from './validateSchema';
 
 export {
   enumParam,
@@ -15,5 +16,6 @@ export {
   requiredParams,
   requiredRole,
   uniqueParam,
-  conditionParam
+  conditionParam,
+  validateSchema
 };
