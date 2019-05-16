@@ -3,12 +3,8 @@ import mongoose from 'mongoose';
 import { NotFound, BadRequest } from '../errors';
 import { createCRUDforResource } from './meta';
 import {
-  requireBasicAuth,
   requireToken,
-  requireSameUserAuthenticated,
-  requiredParams,
-  requiredRole,
-  conditionParam
+  requiredRole
 } from '../middleware/routeDecorators';
 import {
   useItem
@@ -29,6 +25,11 @@ function createEndpoint(router) {
     const inventory = await Inventory.findById(item.inventory);
     const owner = await User.findById(inventory.user);
 
+    if(_.isNil(item)) {
+      BadRequest(res, 'No such item');
+      return;
+    }
+
     if (!_.isEqual(owner._id, req.authorizedByToken._id)) {
       BadRequest(res, 'Only the owner of an item can use it');
       return;
@@ -40,9 +41,12 @@ function createEndpoint(router) {
     }
 
     if(item.charges > 0) {
-      useItem(item, owner, inventory);
+      await useItem(item, owner, inventory);
       item.charges -=1;
-      await item.save();
+
+      if (item.charges > 0) {
+        await item.save();
+      }
     }
 
     if (item.charges < 1 && _.isEqual(item.category, enumItemCategories.CONSUMABLE)) {

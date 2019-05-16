@@ -16,13 +16,13 @@ const addCurrency = async (owner, inventory, amount, currencyCode) => {
   await inventory.save();
 };
 
-export const useItem = (item, owner, inventory) => {
+export const useItem = async (item, owner, inventory) => {
   switch(item.effect) {
   case itemEffects.ADD_STRANGE_MATTER:
-    addCurrency(owner, inventory, item.potency, 'SM');
+    await addCurrency(owner, inventory, item.potency, 'SM');
     break;
   case itemEffects.ADD_PIPS:
-    addCurrency(owner, inventory, item.potency, 'PIP');
+    await addCurrency(owner, inventory, item.potency, 'PIP');
     break;
   default:
     return;
