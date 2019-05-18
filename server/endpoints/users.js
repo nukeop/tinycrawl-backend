@@ -10,8 +10,10 @@ import {
   requireSameUserAuthenticated,
   requiredParams,
   requiredRole,
-  conditionParam
+  conditionParam,
+  validateSchema
 } from '../middleware/routeDecorators';
+import { putUserSchema } from '../schemas/users';
 import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 import { createCRUDforResource } from './meta';
@@ -179,6 +181,30 @@ function createEndpoint(router) {
         );
         
         res.status(201).json(user.serialize());
+      })
+      .catch(handleMongooseErrors(res));
+  });
+
+  router.put('/users/:uuid', [
+    requireToken,
+    requireSameUserAuthenticated,
+    validateSchema(putUserSchema)
+  ], (req, res) => {
+    User.findById(req.params.uuid)
+      .then(user => {
+        user.displayName = _.defaultTo(
+          req.body.displayName,
+          user.displayName
+        );
+
+        user.email = _.defaultTo(
+          req.body.email,
+          user.email
+        );
+        return user.save();
+      })
+      .then(user => {
+        res.status(200).json(user.serialize());
       })
       .catch(handleMongooseErrors(res));
   });
