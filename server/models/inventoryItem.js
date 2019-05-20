@@ -5,6 +5,7 @@ export const enumItemCategories = Object.freeze({
   CONSUMABLE: 'CONSUMABLE',
   USABLE: 'USABLE',
   EQUIPMENT: 'EQUIPMENT',
+  WEAPON_PART: 'WEAPON_PART',
   VANITY: 'VANITY'
 });
 
@@ -44,6 +45,7 @@ InventoryItemSchema.methods.serialize = function() {
     id: this._id,
     name: this.name,
     category: this.category,
+    rarity: this.rarity,
     shortLore: this.shortLore,
     longLore: this.longLore,
     charges: this.charges,

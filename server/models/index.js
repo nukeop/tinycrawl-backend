@@ -11,9 +11,15 @@ import NoteStructure from './noteStructure';
 import NoteConjunction from './noteConjuction';
 import NotePhrase from './notePhrase';
 import Note from './note';
+import RangedWeapon from './rangedWeapon';
 import Trait from './trait';
 import UserInventory from './userInventory';
 import User from './user';
+
+import {
+  RangedWeaponBodyDefinition,
+  RangedWeaponMagazineDefinition
+} from './definitions';
 
 export {
   Ability,
@@ -32,6 +38,10 @@ export {
   Currency,
   InventoryItem,
   UserInventory,
+
+  RangedWeapon,
+  RangedWeaponBodyDefinition,
+  RangedWeaponMagazineDefinition,
   
   Trait,
   User  
