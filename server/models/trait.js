@@ -9,8 +9,12 @@ var TraitSchema = mongoose.Schema({
   },
   prettyName: { type: String },
   description: { type: String },
-  flavor: { type: String }
-}, {timestamps: true});
+  flavor: { type: String },
+  categories: [{ type: String }],
+  points: { type: Number },
+  prerequisites: [{ type: String }],
+  excludes: [{ type: String }]
+}, { timestamps: true });
 
 TraitSchema.methods.serialize = function() {
   return {
@@ -18,7 +22,11 @@ TraitSchema.methods.serialize = function() {
     name: this.name,
     prettyName: this.prettyName,
     description: this.description,
-    flavor: this.flavor
+    flavor: this.flavor,
+    categories: this.categories,
+    points: this.points,
+    prerequisites: this.prerequisites,
+    excludes: this.excludes
   };
 };
 

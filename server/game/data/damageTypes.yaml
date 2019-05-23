@@ -1,0 +1,13 @@
+table: damageTypes
+data:
+  - name: kinetic
+    color: '#ecf0f1'
+
+  - name: thermal
+    color: '#e67e22'
+
+  - name: radiation
+    color: '#2ecc71'
+
+  - name: electromagnetic
+    color: '#3498db'

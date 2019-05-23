@@ -3,29 +3,118 @@ data:
   - name: light_step
     prettyName: Light Step
     description: Greatly decreased chance to trigger undetected traps.
-    flavor: null
+    categories: [ AGILE ]
+    points: 2
 
   - name: genetic_resistance
     prettyName: Resistant Genetics
     description: Greatly decreased chance of mutation.
-    flavor: null
+    categories: [ MUTATION ]
+    points: 2
+    excludes: [ genetic_dead_end ]
 
   - name: genetic_dead_end
     prettyName: Genetic Dead End
     description: Greatly increased chance of mutation.
-    flavor: null
+    categories: [ MUTATION ]
+    points: -2
+    excludes: [ genetic_resistance ]
 
   - name: hypersocial
     prettyName: Hypersocial
-    description: Increased chance of gaining allies. Decreased experience gain and technical skills.
-    flavor: null
+    description: Increased chance of gaining allies. Decreased experience gain.
+    categories: [ MENTAL ]
+    points: 1
+    excludes: [ hyperpsychopath ]
 
   - name: hyperpsychopath
     prettyName: Hyperpsycho
     description: Negates psychological damage.
-    flavor: null
+    categories: [ MENTAL ]
+    points: 1
+    excludes: [ hypersocial ]
 
   - name: horns
     prettyName: Horns
     description: Can't wear headgear. Melee attackers are attacked back.
-    flavor: null
+    categories: [ MUTATION, BEAST ]
+    points: 2
+
+  - name: anteannae
+    prettyName: Antennae
+    description: Can't wear headgear.
+    categories: [ MUTATION, INSECT ]
+    points: -1
+
+  - name: scales
+    prettyName: Scales
+    description: Reduces incoming kinetic and thermal damage.
+    categories: [ MUTATION, REPTILE ]
+    points: 3
+
+  - name: claws
+    prettyName: Claws
+    description: Can't equip weapons. Grants a weak melee attack. Can be improved.
+    categories: [ MUTATION, BEAST ]
+    points: 1
+
+  - name: retractable_claws
+    prettyName: Retractable Claws
+    description: Weapons can be equipped. Grants a moderately strong melee attack. Replaces regular claws.
+    categories: [ MUTATION, BEAST ]
+    points: 3
+    prerequisites: [ claws ]
+    excludes: [ talons ]
+
+  - name: talons
+    prettyName: Talons
+    description: Can't equip weapons. Grants a strong melee attack. Can be improved. Replaces regular claws.
+    categories: [ MUTATION, BEAST ]
+    points: 5
+    prerequisites: [ claws ]
+    excludes: [ retractable_claws ]
+
+  - name: pincers
+    prettyName: Pincers
+    description: Can't equip weapons. Grants a deadly melee attack. Replaces talons.
+    categories: [ MUTATION, INSECT ]
+    points: 8
+    prerequisites: [ talons ]
+    excludes: [ retractable_claws ]
+
+  - name: frail
+    prettyName: Frail
+    description: Reduces maximum HP.
+    points: -2
+    
+  - name: fragile
+    prettyName: Fragile
+    description: Greatly reduces maximum HP.
+    prerequisites: [ frail ]
+    points: -4
+
+  - name: fast_reload
+    prettyName: Fast Reload
+    description: Reload delay is greatly reduced for all firearms.
+    categories: [ WEAPONS ]
+    points: 3
+
+  - name: slow_reload
+    prettyName: Slow Reload
+    description: Reload delay is greatly increased for all firearms.
+    categories: [ WEAPONS ]
+    points: -2
+
+  - name: potent_metabolism
+    prettyName: Potent Metabolism
+    description: Healing from items is increased.
+    categories: [ MEDICAL ]
+    points: 3
+
+  - name: resistant_metabolism
+    prettyName: Resistant Metabolism
+    description: Healing from items is reduced, but so is damage from poisons.
+    categories: [ MEDICAL ]
+    points: 1
+
+  

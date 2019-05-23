@@ -4,6 +4,7 @@ import _ from 'lodash';
 let definitionTypes = {
   abilities: 'Ability',
   currencies: 'Currency',
+  damagetypes: 'DamageType',
   environmentalfeatures: 'EnvironmentalFeature',
   environments: 'Environment',
   equipmentslots: 'EquipmentSlot',

@@ -42,3 +42,7 @@ tables:
   - name: Currencies
     file: ./currencies.yaml
     schema: Currency
+
+  - name: DamageTypes
+    file: ./damageTypes.yaml
+    schema: DamageType

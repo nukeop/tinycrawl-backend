@@ -9,3 +9,5 @@ data:
     prettyName: Weapon
   - name: accessory
     prettyName: Accessory
+  - name: battery
+    prettyName: Battery

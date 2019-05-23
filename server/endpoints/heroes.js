@@ -36,6 +36,7 @@ function createEndpoint(router) {
             experience: 0,
             slots: heroClass.slots,
             traits: [],
+            traitPoints: 1,
             moves: heroClass.moves,
             abilities: heroClass.abilities
           });

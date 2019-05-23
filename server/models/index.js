@@ -17,6 +17,7 @@ import UserInventory from './userInventory';
 import User from './user';
 
 import {
+  DamageType,
   RangedWeaponBodyDefinition,
   RangedWeaponMagazineDefinition
 } from './definitions';
@@ -44,5 +45,7 @@ export {
   RangedWeaponMagazineDefinition,
   
   Trait,
-  User  
+  User,
+
+  DamageType
 };

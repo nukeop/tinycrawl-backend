@@ -22,7 +22,7 @@ data:
 
   - name: radiation_pulse
     prettyName: Radiation Pulse
-    description: Emits a wave of gamma radiation, applying nuclear damage over time debuff to all enemies.
+    description: Emits a wave of gamma radiation, applying radiation damage over time debuff to all enemies.
     cooldown: 2
 
   - name: nuclear_decay
@@ -42,7 +42,7 @@ data:
 
   - name: napalm
     prettyName: Napalm
-    description: Applies fire damage over time and lowers attack.
+    description: Applies thermal damage over time and lowers attack.
     cooldown: 6
 
   - name: twin_missile

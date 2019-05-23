@@ -26,16 +26,19 @@ const RangedWeaponBodyDefinitionSchema = mongoose.Schema({
     type: String,
     enum: _.values(enumRangedWeaponBodyTypes)
   },
-  firingMode: {
+  firingModes: [{
     type: String,
     enum: _.values(enumRangedWeaponFiringMode)
-  },
+  }],
+  effects: [{ type: String }],
   damage: {
     type: Number, default: 0
   },
-  inventory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserInventory'
+  bashing: {
+    type: Number, default: 0
+  },
+  recoil: {
+    type: Number, default: 0
   }
 }, { timestamps: true });
 

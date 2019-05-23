@@ -9,7 +9,7 @@ import {
   enumRangedWeaponBodyTypes
 } from '../rangedWeapon';
 
-const RangedWeaponMagazineDefinitionSchema = mongoose.Schema({
+const RangedWeaponGripDefinitionSchema = mongoose.Schema({
   name: { type: String },
   manufacturer: { type: String },
   category: {
@@ -25,17 +25,15 @@ const RangedWeaponMagazineDefinitionSchema = mongoose.Schema({
     type: String,
     enum: _.values(enumRangedWeaponBodyTypes)
   }],
-  capacity: { type: Number, default: 1 },
-  reloadDelay: { type: Number, default: 1000 },
-  effects: [{ type: String }],
-  inventory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserInventory'
+  accuracyBonus: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true });
 
-const RangedWeaponMagazineDefinition = mongoose.model(
-  'RangedWeaponMagazineDefinition',
-  RangedWeaponMagazineDefinitionSchema
+
+const RangedWeaponGripDefinition = mongoose.model(
+  'RangedWeaponGripDefinition',
+  RangedWeaponGripDefinitionSchema
 );
-export default RangedWeaponMagazineDefinition;
+export default RangedWeaponGripDefinition;
