@@ -34,6 +34,7 @@ HeroSchema.methods.serialize = function() {
     experience: this.experience,
     slots: this.slots,
     traits: this.traits,
+    traitPoints: this.traitPoints,
     moves: this.moves,
     abilities: this.abilities
   };

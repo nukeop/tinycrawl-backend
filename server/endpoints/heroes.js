@@ -1,17 +1,22 @@
 import mongoose from 'mongoose';
 
 import { BadRequest, NotFound } from '../errors';
-import { requiredParams, requireToken } from '../middleware/routeDecorators';
+import {
+  requiredParams,
+  requireToken,
+  validateSchema
+} from '../middleware/routeDecorators';
 import { handleMongooseErrors } from '../utils';
-import { createCRUDforResource } from './meta';
+import { postHeroSchema, buyTraitSchema } from '../schemas/heroes';
 
 var Hero = mongoose.model('Hero');
 var HeroClass = mongoose.model('HeroClass');
+var Trait = mongoose.model('Trait');
 
 function createEndpoint(router) {
   router.post('/heroes',
-    requiredParams(['name', 'heroClass']),
     requireToken,
+    validateSchema(postHeroSchema),
     (req, res) => {
       HeroClass
         .findOne({name: req.body.heroClass})
@@ -81,6 +86,42 @@ function createEndpoint(router) {
           res.status(204).send();
         })
         .catch(handleMongooseErrors(res));
+    });
+
+  router.post('/heroes/:uuid/buyTrait',
+    requireToken,
+    validateSchema(buyTraitSchema),
+    async (req, res) => {
+      let hero = await Hero.findById(req.params.uuid);
+      const owner = hero.user;
+      const trait = await Trait.findById(req.body.traitId);
+
+      if(!_.isEqual(owner._id, req.authorizedByToken._id)) {
+        BadRequest(res, 'Only the owner of a hero can modify it');
+        return;
+      }
+
+      if(hero.traitPoints < trait.points) {
+        BadRequest(res, 'Insufficient trait points');
+        return;
+      }
+      
+      if(_.includes(_.map(hero.traits, _.toString), req.body.traitId )) {
+        BadRequest(res, 'Trait is already present');
+        return;
+      }
+
+      hero.traitPoints -= trait.points;
+      await hero.save();
+      Hero.findByIdAndUpdate(
+        hero._id,
+        {
+          '$push': { 'traits': trait._id }
+        }
+      ).then(async () => {
+        hero = await Hero.findById(req.params.uuid);
+        res.status(200).json(hero.serialize());
+      });
     });
 
   console.log('Endpoints for heroes created');
