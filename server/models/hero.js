@@ -40,5 +40,16 @@ HeroSchema.methods.serialize = function() {
   };
 };
 
+HeroSchema.methods.hasTrait = async function(traitName) {
+  const Trait = mongoose.model('Trait');
+  const traits = _.map(this.traits, trait => {
+    return Trait.findById(trait);
+  });
+  return Promise.all(traits)
+    .then(traitObjs => {
+      return _.includes(_.map(traitObjs, t => t.name), traitName);
+    });
+};
+
 var Hero = mongoose.model('Hero', HeroSchema);
 export default Hero;
