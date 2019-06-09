@@ -1,4 +1,5 @@
 import Ability from './ability';
+import Area from './area';
 import Currency from './currency';
 import EnvironmentalFeature from './environmentalFeature';
 import Environment from './environment';
