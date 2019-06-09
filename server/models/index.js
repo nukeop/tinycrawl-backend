@@ -19,7 +19,12 @@ import User from './user';
 import {
   DamageType,
   RangedWeaponBodyDefinition,
-  RangedWeaponMagazineDefinition
+  RangedWeaponMagazineDefinition,
+  RangedWeaponAccessoryDefinition,
+  RangedWeaponBarrelDefinition,
+  RangedWeaponGripDefinition,
+  RangedWeaponSightDefinition,
+  RangedWeaponStockDefinition
 } from './definitions';
 
 export {
@@ -41,11 +46,15 @@ export {
   UserInventory,
 
   RangedWeapon,
+  DamageType,
   RangedWeaponBodyDefinition,
   RangedWeaponMagazineDefinition,
+  RangedWeaponAccessoryDefinition,
+  RangedWeaponBarrelDefinition,
+  RangedWeaponGripDefinition,
+  RangedWeaponSightDefinition,
+  RangedWeaponStockDefinition,
   
   Trait,
-  User,
-
-  DamageType
+  User
 };
