@@ -14,15 +14,23 @@ data:
 
   - name: temperature_extreme_low
     prettyName: Extremely Low Temperature
+    description: This environment is extremely cold. Protective gear is required for most lifeforms.
 
   - name: temperature_low
     prettyName: Low Temperature
+    description: This environment is cold, below the freezing point of water.
 
   - name: temperature_medium
     prettyName: Medium Temperature
+    description: The ambient temperature of this environment is close to the room temperature.
 
   - name: temperature_high
     prettyName: High Temperature
+    description: This environment is hot, but livable for many lifeforms.
+    
+  - name: temperature_extreme_high
+    prettyName: Extremely High Temperature
+    description: This environment is extremely hot, causing burns to organic lifeforms and setting unprotected objects on fire.
 
   - name: no_oxygen
     prettyName: No Oxygen
@@ -32,6 +40,22 @@ data:
     prettyName: No Atmosphere
     description: This environment has no atmosphere at all.
 
+  - name: acid_rain
+    prettyName: Acid Rain
+    description: This environment experiences rains of strong acid that dissolves organic and artificial lifeforms alike.
+
   - name: gamma_radiation
     prettyName: Gamma Radiation
     description: This environment is bathed in gamma radiation.
+
+  - name: magnetic_field
+    prettyName: Strong Magnetic Field
+    description: There is a strong magnetic field in this environment, interfering with electronics.
+    
+  - name: artificial
+    prettyName: Artificial
+    description: This is an artificial environment, such as the interior of a building.
+
+  - name: natural
+    prettyName: Natural
+    description: This environment was formed by natural processes without any interference from sentient lifeforms.

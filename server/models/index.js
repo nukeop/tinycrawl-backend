@@ -13,6 +13,7 @@ import NoteConjunction from './noteConjuction';
 import NotePhrase from './notePhrase';
 import Note from './note';
 import RangedWeapon from './rangedWeapon';
+import Sector from './sector';
 import Trait from './trait';
 import UserInventory from './userInventory';
 import User from './user';
@@ -36,7 +37,8 @@ export {
   Hero,
   HeroClass,
   Move,
-
+  Trait,
+  
   Note,
   NoteStructure,
   NoteConjunction,
@@ -55,7 +57,9 @@ export {
   RangedWeaponGripDefinition,
   RangedWeaponSightDefinition,
   RangedWeaponStockDefinition,
+
+  Area,
+  Sector,
   
-  Trait,
   User
 };

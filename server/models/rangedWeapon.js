@@ -10,6 +10,7 @@ export const enumRangedWeaponBodyTypes = Object.freeze({
   SMG: 'SMG',
   SHOTGUN: 'SHOTGUN',
   ASSAULT: 'ASSAULT',
+  BEAM: 'BEAM',
   PROJECTILE: 'PROJECTILE'
 });
 

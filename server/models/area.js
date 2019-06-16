@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 var AreaSchema = mongoose.Schema({
   name: { type: String },
+  seed: { type: String },
   environment: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Environment'
