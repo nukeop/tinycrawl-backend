@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 var AreaSchema = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   name: { type: String },
   seed: { type: String },
   environment: {
@@ -16,6 +20,7 @@ var AreaSchema = mongoose.Schema({
 AreaSchema.methods.serialize = function() {
   return {
     id: this._id,
+    user: this.user,
     name: this.name,
     environment: this.environment,
     sectors: this.sectors

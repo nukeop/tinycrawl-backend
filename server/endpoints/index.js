@@ -1,4 +1,5 @@
 import createActionsEndpoint from './actions';
+import createAreasEndpoint from './areas';
 import createDefinitionsEndpoint from './definitions';
 import createUsersEndpoint from './users';
 import createHeroesEndpoint from './heroes';
@@ -7,8 +8,9 @@ import createNotesEndpoint from './notes';
 import createServiceEndpoint from './service';
 
 function createAllEndpoints(router) {
-  createActionsEndpoint(router);
   createDefinitionsEndpoint(router);
+  createActionsEndpoint(router);
+  createAreasEndpoint(router);
   createUsersEndpoint(router);
   createHeroesEndpoint(router);
   createItemsEndpoint(router);

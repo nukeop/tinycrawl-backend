@@ -50,6 +50,8 @@ function createEndpoint(router) {
         
     res.status(200).send();
   });
+  
+  console.log('Endpoints for actions created');
 }
 
 export default createEndpoint;

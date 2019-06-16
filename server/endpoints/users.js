@@ -22,6 +22,7 @@ import {
   inventoryItems
 } from '../game/items/itemCreators';
 
+const Area = mongoose.model('Area');
 const Currency = mongoose.model('Currency');
 const Hero = mongoose.model('Hero');
 const User = mongoose.model('User');
@@ -64,7 +65,7 @@ function createEndpoint(router) {
       .catch(handleMongooseErrors(res));
   });
 
-  router.get('/users/:uuid', [], (req, res) => {
+  router.get('/users/:uuid', (req, res) => {
     User.findById(req.params.uuid)
       .then(user => {
         if (!user) {
@@ -86,6 +87,14 @@ function createEndpoint(router) {
       })
       .then(() => {
         res.status(204).send();
+      })
+      .catch(handleMongooseErrors(res));
+  });
+
+  router.get('/users/username/:username/areas', (req, res) => {
+    Area.find({ user: req.params.uuid })
+      .then(areas => {
+        res.status(200).json({ areas });
       })
       .catch(handleMongooseErrors(res));
   });
