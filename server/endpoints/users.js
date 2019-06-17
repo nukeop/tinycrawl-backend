@@ -21,6 +21,7 @@ import {
   createInventoryItem,
   inventoryItems
 } from '../game/items/itemCreators';
+import { serializeAll } from '../helpers';
 
 const Area = mongoose.model('Area');
 const Currency = mongoose.model('Currency');
@@ -92,9 +93,12 @@ function createEndpoint(router) {
   });
 
   router.get('/users/username/:username/areas', (req, res) => {
-    Area.find({ user: req.params.uuid })
+    User.findOne({ username: req.params.username })
+      .then(user => {
+        return Area.find({ user: user._id });
+      })
       .then(areas => {
-        res.status(200).json({ areas });
+        res.status(200).json({ areas: serializeAll(areas) });
       })
       .catch(handleMongooseErrors(res));
   });

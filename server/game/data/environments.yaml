@@ -29,7 +29,7 @@ data:
   - name: void
     prettyName: Void
     descriptions:
-      - The airless conditions in this area render it completely lifeless except for posible artificial organisms
+      - The airless conditions in this area render it completely lifeless except for possible artificial organisms
       - A cold, lifeless husk without any atmosphere. Hazardous if visited without a space suit or respiratory equipment
     features:
       - humidity_low

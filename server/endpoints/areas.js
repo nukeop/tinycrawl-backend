@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
 
+import {
+  requiredRole,
+  requireToken,
+  validateSchema
+} from '../middleware/routeDecorators';
+import { enumUserRoles } from '../models/user';
+import { postAreaSchema } from '../schemas/areas';
 import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
 
 const Area = mongoose.model('Area');
 const Environment = mongoose.model('Environment');
 const User = mongoose.model('User');
-
-import {
-  requireToken,
-  validateSchema
-} from '../middleware/routeDecorators';
-
-import { postAreaSchema } from '../schemas/areas';
 
 function createEndpoint(router) {
   router.get('/areas/:uuid', async(req, res) => {
@@ -24,11 +24,15 @@ function createEndpoint(router) {
           res.status(200).json(area.serialize());
         }
       })
-      .catch(handleMongooseErrors);
+      .catch(handleMongooseErrors(res));
   });
 
   router.post('/areas',
     requireToken,
+    requiredRole([
+      enumUserRoles.ROOT_ROLE,
+      enumUserRoles.ADMIN_ROLE
+    ]),
     validateSchema(postAreaSchema),
     async (req, res) => {
       const user = await User.findById(req.body.user);
@@ -49,7 +53,7 @@ function createEndpoint(router) {
         user: req.body.user,
         name: req.body.name,
         seed: req.body.seed,
-        environment: req.body.environment,
+        environment: environment._id,
         sectors: []
       });
 
@@ -57,7 +61,7 @@ function createEndpoint(router) {
         .then(() => {
           res.status(201).json(area.serialize());
         })
-        .catch(handleMongooseErrors);
+        .catch(handleMongooseErrors(res));
     });
 
   console.log('Endpoints for areas created');
