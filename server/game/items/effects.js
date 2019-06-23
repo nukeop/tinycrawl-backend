@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { modCurrencyAmount } from '../currencies';
+
 const Currency = mongoose.model('Currency');
 
 export const itemEffects = Object.freeze({
@@ -7,22 +9,17 @@ export const itemEffects = Object.freeze({
   ADD_PIPS: 'ADD_PIPS'
 });
 
-const addCurrency = async (owner, inventory, amount, currencyCode) => {
-  const currencies = await Currency.find();
-  const currencyId = _.find(currencies, { code: currencyCode })._id;
-  const currentAmount = inventory.currencies.get(currencyId.toString());
-  inventory.currencies.set(currencyId.toString(), currentAmount + amount);
-  
-  await inventory.save();
+const addCurrency = async (owner, currencyCode, amount) => {
+  await modCurrencyAmount(owner, currencyCode, amount);
 };
 
 export const useItem = async (item, owner, inventory) => {
   switch(item.effect) {
   case itemEffects.ADD_STRANGE_MATTER:
-    await addCurrency(owner, inventory, item.potency, 'SM');
+    await addCurrency(owner, 'SM', item.potency);
     break;
   case itemEffects.ADD_PIPS:
-    await addCurrency(owner, inventory, item.potency, 'PIP');
+    await addCurrency(owner, 'PIP', item.potency);
     break;
   default:
     return;

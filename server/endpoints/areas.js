@@ -9,6 +9,8 @@ import { enumUserRoles } from '../models/user';
 import { postAreaSchema } from '../schemas/areas';
 import { NotFound, BadRequest } from '../errors';
 import { handleMongooseErrors } from '../utils';
+import { modCurrencyAmount } from '../game/currencies';
+import AreaFactory from '../game/factories/areas';
 
 const Area = mongoose.model('Area');
 const Environment = mongoose.model('Environment');
@@ -62,6 +64,23 @@ function createEndpoint(router) {
           res.status(201).json(area.serialize());
         })
         .catch(handleMongooseErrors(res));
+    });
+
+  router.post('/areas/discover',
+    requireToken,
+    async (req, res) => {
+      const userId = req.authorizedByToken._id;
+      
+      try {
+        modCurrencyAmount(req.authorizedByToken, 'SM', -1);
+      } catch(error) {
+        res.status(400).json({ message: error.message });
+      }
+
+      const area = await new AreaFactory(userId).generate();
+      await area.save();
+      
+      res.status(200).json(area.serialize());
     });
 
   console.log('Endpoints for areas created');

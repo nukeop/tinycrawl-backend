@@ -45,6 +45,7 @@
     "mongoose-unique-validator": "^2.0.1",
     "node-pre-gyp": "^0.10.2",
     "non-ascii": "^1.0.1",
+    "seedrandom": "^3.0.1",
     "shortid": "^2.2.10",
     "string-template": "^1.0.0",
     "uuid": "^3.3.2",

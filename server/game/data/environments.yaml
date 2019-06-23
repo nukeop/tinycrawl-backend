@@ -5,7 +5,11 @@ data:
     descriptions:
       - An area covered in vast, grassy plains
       - A thriving area that is home to many simple lifeforms
+    recommended_levels:
+      from: 1
+      to: 3
     features:
+      - natural
       - humidity_medium
       - temperature_medium
 
@@ -13,7 +17,11 @@ data:
     prettyName: Swamp
     descriptions:
       - Wetlands area that's permanently flooded, with abundant natural life
+    recommended_levels:
+      from: 1
+      to: 3
     features:
+      - natural
       - humidity_high
       - temperature_medium
 
@@ -22,15 +30,49 @@ data:
     descriptions:
       - A dry, arid area where only the fittest will survive
       - A hot, barren wasteland, hostile to natural and artificial life
+      - A desolate landscape, covered with sand dunes
+    recommended_levels:
+      from: 1
+      to: 3
     features:
+      - natural
       - humidity_low
       - temperature_high
 
+  - name: glacier
+    prettyName: Glacier
+    descriptions:
+      - A permanently frozen area with little to none vegetation
+    recommended_levels:
+      from: 1
+      to: 3
+    features:
+      - natural
+      - humidity_low
+      - temperature_low
+
+  - name: harsh_desert
+    prettyName: Harsh Desert
+    descriptions:
+      - An area experiencing extreme differences in temperature over the day, hostile to lifeforms of all origins
+      - A desert which is also irradiated due to absent magnetic field. Extreme temperatures present here make it dangerous to explore
+    recommended_levels:
+      from: 8
+      to: 12
+    features:
+      - natural
+      - humidity_low
+      - temperature_high
+      - gamma_radiation
+      
   - name: void
     prettyName: Void
     descriptions:
       - The airless conditions in this area render it completely lifeless except for possible artificial organisms
       - A cold, lifeless husk without any atmosphere. Hazardous if visited without a space suit or respiratory equipment
+    recommended_levels:
+      from: 6
+      to: 10
     features:
       - humidity_low
       - temperature_extreme_low
@@ -41,6 +83,9 @@ data:
     descriptions:
       - Not only does this area have little or no breathable atmosphere, it also lacks a magnetic field protecting it from dangerous radiation
       - This area is bathed in gamma radiation, which causes mutations and heavy radiation damage. Artificial lifeforms are at risk of having their memory banks corrupted
+    recommended_levels:
+      from: 10
+      to: 15
     features:
       - humidity_low
       - temperature_extreme_low
