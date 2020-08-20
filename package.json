@@ -32,7 +32,7 @@
     "aws-sdk": "^2.270.1",
     "babel-polyfill": "^6.26.0",
     "basic-auth": "^2.0.0",
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "casual": "^1.5.19",
     "express": "^4.16.3",
